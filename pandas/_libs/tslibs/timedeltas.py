@@ -1,0 +1,9 @@
+from typing import Any
+
+
+class Timedelta:
+    ...
+
+def delta_to_nanoseconds(delta: Any) -> Any: ...
+
+def ints_to_pytimedelta(arr: Any, box:bool = False) -> Any: ...
