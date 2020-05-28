@@ -1,7 +1,5 @@
 import numpy as np
-from pandas._libs import lib as lib
 from pandas._typing import ArrayLike as ArrayLike
-from pandas.compat import set_function_name as set_function_name
 from pandas.core import ops as ops
 from pandas.core.algorithms import unique as unique
 

@@ -1,6 +1,4 @@
 from pandas._config import get_option as get_option
-from pandas._libs import NaT as NaT, Timedelta as Timedelta, Timestamp as Timestamp, iNaT as iNaT, lib as lib
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core.dtypes.cast import maybe_upcast_putmask as maybe_upcast_putmask
 
 from pandas.core.dtypes.dtypes import DatetimeTZDtype as DatetimeTZDtype

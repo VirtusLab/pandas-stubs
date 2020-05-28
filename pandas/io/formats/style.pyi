@@ -1,7 +1,4 @@
 from pandas._config import get_option as get_option
-from pandas._libs import lib as lib
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-
 from pandas.util._decorators import Appender as Appender
 from typing import Any, Optional
 

@@ -1,4 +1,3 @@
-from pandas.compat import PYPY as PYPY
 from pandas.core import algorithms as algorithms
 from pandas.core.accessor import DirNamesMixin as DirNamesMixin
 from pandas.core.algorithms import duplicated as duplicated, unique1d as unique1d, value_counts as value_counts

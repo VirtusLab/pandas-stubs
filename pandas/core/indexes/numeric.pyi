@@ -1,5 +1,4 @@
 import numpy as np
-from pandas._libs import lib as lib
 from pandas._typing import Dtype as Dtype
 from pandas.core import algorithms as algorithms
 from pandas.core.dtypes.cast import astype_nansafe as astype_nansafe

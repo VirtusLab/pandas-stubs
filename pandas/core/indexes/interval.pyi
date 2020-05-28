@@ -1,6 +1,5 @@
 import numpy as np
 from pandas._config import get_option as get_option
-from pandas._libs import Timedelta as Timedelta, Timestamp as Timestamp, lib as lib
 from pandas._libs.interval import Interval as Interval, IntervalMixin as IntervalMixin, IntervalTree as IntervalTree
 from pandas._typing import AnyArrayLike as AnyArrayLike
 from pandas.core.algorithms import take_1d as take_1d

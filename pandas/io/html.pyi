@@ -1,4 +1,3 @@
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core.construction import create_series_with_explicit_dtype as create_series_with_explicit_dtype
 
 from pandas.errors import AbstractMethodError as AbstractMethodError, EmptyDataError as EmptyDataError

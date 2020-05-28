@@ -1,13 +1,11 @@
 from .masked import BaseMaskedArray as BaseMaskedArray
-from pandas._libs import lib as lib
-from pandas.compat import set_function_name as set_function_name
 from pandas.core import nanops as nanops, ops as ops
 from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.cast import astype_nansafe as astype_nansafe
 
 from pandas.core.dtypes.dtypes import register_extension_dtype as register_extension_dtype
 from pandas.core.dtypes.missing import isna as isna
-from pandas.core.indexers import check_array_indexer as check_array_indexer
+
 from pandas.core.ops import invalid_comparison as invalid_comparison
 from pandas.core.ops.common import unpack_zerodim_and_defer as unpack_zerodim_and_defer
 from pandas.core.tools.numeric import to_numeric as to_numeric

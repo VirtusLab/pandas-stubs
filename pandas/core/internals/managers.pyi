@@ -1,8 +1,7 @@
-from pandas._libs import Timedelta as Timedelta, Timestamp as Timestamp, lib as lib
+from pandas._libs import Timestamp as Timestamp
 from pandas.core.base import PandasObject as PandasObject
 from pandas.core.dtypes.cast import find_common_type as find_common_type, infer_dtype_from_scalar as infer_dtype_from_scalar, maybe_convert_objects as maybe_convert_objects, maybe_promote as maybe_promote
 
-from pandas.core.dtypes.concat import concat_compat as concat_compat
 from pandas.core.dtypes.dtypes import ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.generic import ABCExtensionArray as ABCExtensionArray, ABCSeries as ABCSeries
 from pandas.core.dtypes.missing import isna as isna

@@ -1,16 +1,12 @@
 import numpy as np
-from pandas._libs import lib as lib
 from pandas._libs.sparse import BlockIndex as BlockIndex, IntIndex as IntIndex, SparseIndex as SparseIndex
-from pandas._libs.tslibs import NaT as NaT
 from pandas.core.arrays import ExtensionArray as ExtensionArray, ExtensionOpsMixin as ExtensionOpsMixin
 from pandas.core.arrays.sparse.dtype import SparseDtype as SparseDtype
 from pandas.core.base import PandasObject as PandasObject
 from pandas.core.construction import sanitize_array as sanitize_array
 from pandas.core.dtypes.cast import astype_nansafe as astype_nansafe, construct_1d_arraylike_from_scalar as construct_1d_arraylike_from_scalar, find_common_type as find_common_type, infer_dtype_from_scalar as infer_dtype_from_scalar
-
 from pandas.core.dtypes.generic import ABCIndexClass as ABCIndexClass, ABCSeries as ABCSeries, ABCSparseArray as ABCSparseArray
 from pandas.core.dtypes.missing import isna as isna, na_value_for_dtype as na_value_for_dtype, notna as notna
-from pandas.core.indexers import check_array_indexer as check_array_indexer
 from pandas.core.missing import interpolate_2d as interpolate_2d
 from pandas.core.ops.common import unpack_zerodim_and_defer as unpack_zerodim_and_defer
 from pandas.errors import PerformanceWarning as PerformanceWarning

@@ -1,5 +1,4 @@
 from collections import namedtuple
-from pandas._libs import Timestamp as Timestamp, lib as lib
 from pandas._typing import FrameOrSeries as FrameOrSeries
 from pandas.core.base import DataError as DataError, SpecificationError as SpecificationError
 from pandas.core.construction import create_series_with_explicit_dtype as create_series_with_explicit_dtype

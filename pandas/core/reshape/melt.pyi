@@ -1,6 +1,5 @@
 from pandas.core.arrays import Categorical as Categorical
 
-from pandas.core.dtypes.concat import concat_compat as concat_compat
 from pandas.core.dtypes.generic import ABCMultiIndex as ABCMultiIndex
 from pandas.core.dtypes.missing import notna as notna
 from pandas.core.frame import DataFrame as DataFrame

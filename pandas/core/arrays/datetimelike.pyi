@@ -1,8 +1,7 @@
 # Removed some imports that were necessary only for implementation
 import numpy as np
-from pandas._libs import NaT as NaT, NaTType as NaTType, Timestamp as Timestamp, algos as algos, iNaT as iNaT, lib as lib
+from pandas._libs import NaT as NaT, NaTType as NaTType
 from pandas._typing import DatetimeLikeScalar as DatetimeLikeScalar
-from pandas.compat import set_function_name as set_function_name
 from pandas.core import missing as missing, nanops as nanops, ops as ops
 from pandas.core.algorithms import checked_add_with_arr as checked_add_with_arr, take as take, unique1d as unique1d, value_counts as value_counts
 from pandas.core.arrays.base import ExtensionArray as ExtensionArray, ExtensionOpsMixin as ExtensionOpsMixin
@@ -10,7 +9,7 @@ from pandas.core.arrays.base import ExtensionArray as ExtensionArray, ExtensionO
 from pandas.core.dtypes.generic import ABCSeries as ABCSeries
 from pandas.core.dtypes.inference import is_array_like as is_array_like
 from pandas.core.dtypes.missing import is_valid_nat_for_dtype as is_valid_nat_for_dtype, isna as isna
-from pandas.core.indexers import check_array_indexer as check_array_indexer
+
 from pandas.core.ops.common import unpack_zerodim_and_defer as unpack_zerodim_and_defer
 from pandas.core.ops.invalid import invalid_comparison as invalid_comparison, make_invalid_op as make_invalid_op
 from pandas.errors import AbstractMethodError as AbstractMethodError, NullFrequencyError as NullFrequencyError, PerformanceWarning as PerformanceWarning

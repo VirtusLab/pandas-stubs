@@ -10,7 +10,7 @@ from pandas.core.dtypes.cast import maybe_convert_platform as maybe_convert_plat
 from pandas.core.dtypes.dtypes import IntervalDtype as IntervalDtype
 from pandas.core.dtypes.generic import ABCDatetimeIndex as ABCDatetimeIndex, ABCExtensionArray as ABCExtensionArray, ABCIndexClass as ABCIndexClass, ABCInterval as ABCInterval, ABCIntervalIndex as ABCIntervalIndex, ABCPeriodIndex as ABCPeriodIndex, ABCSeries as ABCSeries
 from pandas.core.dtypes.missing import isna as isna, notna as notna
-from pandas.core.indexers import check_array_indexer as check_array_indexer
+
 from pandas.core.indexes.base import ensure_index as ensure_index
 from pandas.util._decorators import Appender as Appender
 from typing import Any, Optional

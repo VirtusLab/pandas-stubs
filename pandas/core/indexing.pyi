@@ -1,11 +1,7 @@
 import numpy as np
 from pandas._libs.indexing import _NDFrameIndexerBase
-from pandas._libs.lib import item_from_zerodim as item_from_zerodim
 
-from pandas.core.dtypes.concat import concat_compat as concat_compat
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCMultiIndex as ABCMultiIndex, ABCSeries as ABCSeries
-from pandas.core.dtypes.missing import isna as isna
-from pandas.core.indexers import check_array_indexer as check_array_indexer, is_list_like_indexer as is_list_like_indexer, length_of_indexer as length_of_indexer
 from pandas.core.indexes.api import Index as Index, InvalidIndexError as InvalidIndexError
 from pandas.errors import AbstractMethodError as AbstractMethodError
 from pandas.util._decorators import Appender as Appender

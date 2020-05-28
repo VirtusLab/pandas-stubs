@@ -1,7 +1,5 @@
 # Removed some imports that were necessary only for implementation
 import numpy as np
-from pandas._config import get_option as get_option
-from pandas._libs.hashtable import duplicated_int64 as duplicated_int64
 from pandas._typing import AnyArrayLike as AnyArrayLike
 from pandas.core import accessor as accessor
 from pandas.core.algorithms import take_1d as take_1d

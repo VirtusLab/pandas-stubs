@@ -1,5 +1,4 @@
 from pandas._typing import Axis as Axis, FrameOrSeries as FrameOrSeries, Scalar as Scalar
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core.base import DataError as DataError, PandasObject as PandasObject, SelectionMixin as SelectionMixin, ShallowMixin as ShallowMixin
 from pandas.core.dtypes.common import ensure_float64 as ensure_float64, is_bool as is_bool, is_float_dtype as is_float_dtype, is_integer as is_integer, is_integer_dtype as is_integer_dtype, is_list_like as is_list_like, is_scalar as is_scalar, needs_i8_conversion as needs_i8_conversion
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCDateOffset as ABCDateOffset, ABCDatetimeIndex as ABCDatetimeIndex, ABCPeriodIndex as ABCPeriodIndex, ABCSeries as ABCSeries, ABCTimedeltaIndex as ABCTimedeltaIndex

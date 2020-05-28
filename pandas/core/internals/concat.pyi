@@ -1,7 +1,6 @@
 from pandas._libs import tslibs as tslibs
 from pandas.core.dtypes.cast import maybe_promote as maybe_promote
 
-from pandas.core.dtypes.concat import concat_compat as concat_compat
 from pandas.core.dtypes.missing import isna as isna
 from pandas.util._decorators import cache_readonly as cache_readonly
 from typing import Any, Optional

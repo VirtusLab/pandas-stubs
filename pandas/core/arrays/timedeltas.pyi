@@ -1,5 +1,4 @@
 # Removed some imports that were necessary only for implementation
-from pandas._libs import lib as lib, tslibs as tslibs
 from pandas._libs.tslibs import NaT as NaT, Timedelta as Timedelta, Timestamp as Timestamp, iNaT as iNaT
 from pandas.core import nanops as nanops
 from pandas.core.algorithms import checked_add_with_arr as checked_add_with_arr

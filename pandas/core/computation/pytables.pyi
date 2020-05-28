@@ -1,7 +1,6 @@
 import pandas as pd
 import pandas.core.common as com
 from pandas._libs.tslibs import Timedelta as Timedelta, Timestamp as Timestamp
-from pandas.compat.chainmap import DeepChainMap as DeepChainMap
 from pandas.core.computation import expr as expr, ops as ops, scope as _scope
 from pandas.core.computation.expr import BaseExprVisitor as BaseExprVisitor
 from pandas.core.computation.ops import UndefinedVariableError as UndefinedVariableError, is_term as is_term

@@ -1,11 +1,10 @@
 import numpy as np
-from pandas._libs import lib as lib
 from pandas._typing import Scalar as Scalar
 from pandas.core.algorithms import take as take
 from pandas.core.arrays import ExtensionArray as ExtensionArray, ExtensionOpsMixin as ExtensionOpsMixin
 
 from pandas.core.dtypes.missing import isna as isna, notna as notna
-from pandas.core.indexers import check_array_indexer as check_array_indexer
+
 from typing import Any, Optional
 
 class BaseMaskedArray(ExtensionArray, ExtensionOpsMixin):
