@@ -1,4 +1,3 @@
-from pandas._libs import lib as lib
 from typing import Any
 
 is_bool: Any

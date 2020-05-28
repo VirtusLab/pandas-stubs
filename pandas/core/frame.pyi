@@ -1,9 +1,6 @@
 import numpy.ma as np
 from pandas._config import get_option as get_option
-from pandas._libs import lib as lib
 from pandas._typing import Axes as Axes, Axis as Axis, Dtype as Dtype, FilePathOrBuffer as FilePathOrBuffer, Level as Level, Renamer as Renamer
-from pandas.compat import PY37 as PY37
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core import algorithms as algorithms, nanops as nanops, ops as ops
 from pandas.core.accessor import CachedAccessor as CachedAccessor
 from pandas.core.arrays import Categorical as Categorical, ExtensionArray as ExtensionArray

@@ -6,7 +6,7 @@ from pandas.core.arrays import DatetimeArray as DatetimeArray, ExtensionArray as
 from pandas.core.dtypes.missing import array_equivalent as array_equivalent
 from pandas.io.common import urlopen as urlopen
 from pandas.io.formats.printing import pprint_thing as pprint_thing
-from typing import Any, List, Optional, Union
+from typing import Any, List, Optional, Union, AnyStr
 
 lzma: Any
 N: int

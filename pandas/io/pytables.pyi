@@ -1,10 +1,8 @@
 import numpy as np
 from pandas import DataFrame as DataFrame, DatetimeIndex as DatetimeIndex, Index as Index, Int64Index as Int64Index, MultiIndex as MultiIndex, PeriodIndex as PeriodIndex, Series as Series, TimedeltaIndex as TimedeltaIndex, concat as concat, isna as isna
 from pandas._config import config as config, get_option as get_option
-from pandas._libs import lib as lib
 from pandas._libs.tslibs import timezones as timezones
 from pandas._typing import ArrayLike as ArrayLike, FrameOrSeries as FrameOrSeries
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core.arrays.categorical import Categorical as Categorical
 from pandas.core.computation.pytables import PyTablesExpr as PyTablesExpr, maybe_expression as maybe_expression
 from pandas.core.dtypes.common import ensure_object as ensure_object, is_categorical_dtype as is_categorical_dtype, is_complex_dtype as is_complex_dtype, is_datetime64_dtype as is_datetime64_dtype, is_datetime64tz_dtype as is_datetime64tz_dtype, is_extension_array_dtype as is_extension_array_dtype, is_list_like as is_list_like, is_string_dtype as is_string_dtype, is_timedelta64_dtype as is_timedelta64_dtype

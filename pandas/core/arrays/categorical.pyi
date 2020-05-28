@@ -13,8 +13,6 @@ from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype
 from pandas.core.dtypes.generic import ABCIndexClass as ABCIndexClass, ABCSeries as ABCSeries
 from pandas.core.dtypes.inference import is_hashable as is_hashable
 from pandas.core.dtypes.missing import isna as isna, notna as notna
-from pandas.core.indexers import check_array_indexer as check_array_indexer, deprecate_ndim_indexing as deprecate_ndim_indexing
-from pandas.core.missing import interpolate_2d as interpolate_2d
 from pandas.core.ops.common import unpack_zerodim_and_defer as unpack_zerodim_and_defer
 from pandas.core.sorting import nargsort as nargsort
 from pandas.io.formats import console as console

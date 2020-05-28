@@ -1,5 +1,4 @@
 from pandas._typing import FilePathOrBuffer as FilePathOrBuffer, Scalar as Scalar
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.io.excel._base import _BaseExcelReader
 from typing import Any, List, AnyStr
 

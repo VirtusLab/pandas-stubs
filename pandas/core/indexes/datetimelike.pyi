@@ -1,5 +1,4 @@
 # Removed some imports that were necessary only for implementation
-from pandas._libs import NaT as NaT, iNaT as iNaT, lib as lib
 from pandas.core import algorithms as algorithms
 from pandas.core.accessor import PandasDelegate as PandasDelegate
 from pandas.core.arrays import DatetimeArray as DatetimeArray, ExtensionArray as ExtensionArray, TimedeltaArray as TimedeltaArray

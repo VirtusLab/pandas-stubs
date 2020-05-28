@@ -1,7 +1,6 @@
 import numpy as np
 from pandas._config import get_option as get_option
-from pandas._libs import Timestamp as Timestamp, index as libindex, lib as lib, tslibs as tslibs
-from pandas._libs.hashtable import duplicated_int64 as duplicated_int64
+from pandas._libs import index as libindex
 from pandas.core.arrays import Categorical as Categorical
 from pandas.core.arrays.categorical import factorize_from_iterables as factorize_from_iterables
 from pandas.core.dtypes.cast import coerce_indexer_dtype as coerce_indexer_dtype

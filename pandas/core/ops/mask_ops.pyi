@@ -1,5 +1,5 @@
 import numpy as np
-from pandas._libs import lib as lib, missing as libmissing
+from pandas._libs import missing as libmissing
 from typing import Any, Optional, Union
 
 def kleene_or(left: Union[bool, np.ndarray], right: Union[bool, np.ndarray], left_mask: Optional[np.ndarray], right_mask: Optional[np.ndarray]) -> Any: ...

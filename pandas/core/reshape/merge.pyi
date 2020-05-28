@@ -1,5 +1,4 @@
 from pandas import Categorical as Categorical, DataFrame as DataFrame, Index as Index, MultiIndex as MultiIndex, Series as Series
-from pandas._libs import Timedelta as Timedelta, lib as lib
 from pandas._typing import FrameOrSeries as FrameOrSeries
 from pandas.core import groupby as groupby
 from pandas.core.dtypes.common import ensure_float64 as ensure_float64, ensure_int64 as ensure_int64, ensure_object as ensure_object, is_array_like as is_array_like, is_bool as is_bool, is_bool_dtype as is_bool_dtype, is_categorical_dtype as is_categorical_dtype, is_datetime64tz_dtype as is_datetime64tz_dtype, is_dtype_equal as is_dtype_equal, is_extension_array_dtype as is_extension_array_dtype, is_float_dtype as is_float_dtype, is_integer as is_integer, is_integer_dtype as is_integer_dtype, is_list_like as is_list_like, is_number as is_number, is_numeric_dtype as is_numeric_dtype, is_object_dtype as is_object_dtype, needs_i8_conversion as needs_i8_conversion

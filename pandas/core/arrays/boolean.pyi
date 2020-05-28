@@ -1,8 +1,6 @@
 import numpy as np
 from .masked import BaseMaskedArray as BaseMaskedArray
-from pandas._libs import lib as lib
 from pandas._typing import Scalar as Scalar
-from pandas.compat import set_function_name as set_function_name
 from pandas.core import nanops as nanops, ops as ops
 from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.cast import astype_nansafe as astype_nansafe
@@ -10,7 +8,7 @@ from pandas.core.dtypes.cast import astype_nansafe as astype_nansafe
 from pandas.core.dtypes.dtypes import register_extension_dtype as register_extension_dtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCIndexClass as ABCIndexClass, ABCSeries as ABCSeries
 from pandas.core.dtypes.missing import isna as isna, notna as notna
-from pandas.core.indexers import check_array_indexer as check_array_indexer
+
 from typing import Any, Type
 
 class BooleanDtype(ExtensionDtype):

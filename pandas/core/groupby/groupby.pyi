@@ -1,7 +1,6 @@
 from pandas._config.config import option_context as option_context
 from pandas._libs import Timestamp as Timestamp
 from pandas._typing import FrameOrSeries as FrameOrSeries, Scalar as Scalar
-from pandas.compat import set_function_name as set_function_name
 from pandas.core import nanops as nanops
 from pandas.core.arrays import Categorical as Categorical, DatetimeArray as DatetimeArray, try_cast_to_ea as try_cast_to_ea
 from pandas.core.base import DataError as DataError, PandasObject as PandasObject, SelectionMixin as SelectionMixin
