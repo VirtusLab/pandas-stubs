@@ -1,6 +1,6 @@
 import datetime
 from collections import abc
-from pandas import Categorical as Categorical, DatetimeIndex as DatetimeIndex, NaT as NaT, Timestamp as Timestamp, concat as concat, isna as isna, to_datetime as to_datetime, to_timedelta as to_timedelta
+from pandas import Categorical as Categorical, DatetimeIndex as DatetimeIndex,  Timestamp as Timestamp, concat as concat, isna as isna, to_datetime as to_datetime, to_timedelta as to_timedelta
 from pandas._typing import FilePathOrBuffer as FilePathOrBuffer
 from pandas.core.frame import DataFrame as DataFrame
 from pandas.core.series import Series as Series

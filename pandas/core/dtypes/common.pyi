@@ -1,5 +1,4 @@
 import numpy as np
-from pandas._libs.tslibs import conversion as conversion
 from pandas._typing import ArrayLike as ArrayLike
 from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype, IntervalDtype as IntervalDtype, PeriodDtype as PeriodDtype, registry as registry
 from pandas.core.dtypes.generic import ABCCategorical as ABCCategorical, ABCDatetimeIndex as ABCDatetimeIndex, ABCIndexClass as ABCIndexClass, ABCPeriodArray as ABCPeriodArray, ABCPeriodIndex as ABCPeriodIndex, ABCSeries as ABCSeries

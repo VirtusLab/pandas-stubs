@@ -1,5 +1,5 @@
 from pandas._libs.interval import Interval as Interval
-from pandas._libs.tslibs import NaT as NaT, Period as Period, Timestamp as Timestamp, timezones as timezones
+from pandas._libs.tslibs import  Period as Period, Timestamp as Timestamp, timezones as timezones
 from pandas._typing import Ordered as Ordered
 from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.generic import ABCCategoricalIndex as ABCCategoricalIndex, ABCDateOffset as ABCDateOffset, ABCIndexClass as ABCIndexClass

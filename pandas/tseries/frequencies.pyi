@@ -1,3 +1,4 @@
+from pandas._libs.tslibs.resolution import Resolution as Resolution
 from pandas.core.dtypes.generic import ABCSeries as ABCSeries
 from pandas.tseries.offsets import DateOffset as DateOffset
 from pandas.util._decorators import cache_readonly as cache_readonly

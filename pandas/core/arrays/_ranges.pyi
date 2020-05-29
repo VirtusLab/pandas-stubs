@@ -1,5 +1,5 @@
 import numpy as np
-from pandas._libs.tslibs import OutOfBoundsDatetime as OutOfBoundsDatetime, Timestamp as Timestamp
+from pandas._libs.tslibs import Timestamp as Timestamp
 from pandas.tseries.offsets import DateOffset as DateOffset, Tick as Tick, generate_range as generate_range
 from typing import Tuple
 
