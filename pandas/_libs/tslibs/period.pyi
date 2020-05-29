@@ -2,13 +2,6 @@ from typing import Any
 
 import numpy
 
-DIFFERENT_FREQ: str
-
-
-class IncompatibleFrequency(ValueError):
-    ...
-
-
 class Period:
     ...
 

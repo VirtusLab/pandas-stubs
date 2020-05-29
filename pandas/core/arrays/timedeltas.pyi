@@ -1,5 +1,5 @@
 # Removed some imports that were necessary only for implementation
-from pandas._libs.tslibs import NaT as NaT, Timedelta as Timedelta, Timestamp as Timestamp, iNaT as iNaT
+from pandas._libs.tslibs import  Timedelta as Timedelta, Timestamp as Timestamp
 from pandas.core import nanops as nanops
 from pandas.core.algorithms import checked_add_with_arr as checked_add_with_arr
 from pandas.core.arrays import datetimelike as dtl

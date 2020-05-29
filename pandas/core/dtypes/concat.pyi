@@ -1,6 +1,3 @@
-from pandas._libs import tslib as tslib, tslibs as tslibs
-
-from pandas.core.dtypes.generic import ABCCategoricalIndex as ABCCategoricalIndex, ABCDatetimeArray as ABCDatetimeArray, ABCIndexClass as ABCIndexClass, ABCRangeIndex as ABCRangeIndex, ABCSeries as ABCSeries
 from typing import Any, Optional
 
 def get_dtype_kinds(l: Any) -> Any: ...

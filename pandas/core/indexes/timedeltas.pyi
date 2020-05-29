@@ -1,4 +1,4 @@
-from pandas._libs import NaT as NaT, Timedelta as Timedelta
+from pandas._libs import  Timedelta as Timedelta
 from pandas.core.accessor import delegate_names as delegate_names
 from pandas.core.arrays import datetimelike as dtl
 from pandas.core.arrays.timedeltas import TimedeltaArray as TimedeltaArray

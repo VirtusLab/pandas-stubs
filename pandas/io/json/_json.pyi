@@ -1,6 +1,5 @@
 from collections import abc
 from pandas import DataFrame as DataFrame, MultiIndex as MultiIndex, Series as Series, isna as isna, to_datetime as to_datetime
-from pandas._libs.tslibs import iNaT as iNaT
 from pandas._typing import JSONSerializable as JSONSerializable
 from pandas.core.construction import create_series_with_explicit_dtype as create_series_with_explicit_dtype
 from pandas.core.dtypes.common import ensure_str as ensure_str, is_period_dtype as is_period_dtype

@@ -1,4 +1,4 @@
-from pandas._libs import NaT as NaT, Period as Period, Timedelta as Timedelta, Timestamp as Timestamp
+from pandas._libs import Timedelta as Timedelta, Timestamp as Timestamp
 from pandas._libs.missing import NA as NA
 from pandas.core.algorithms import factorize as factorize, unique as unique, value_counts as value_counts
 from pandas.core.arrays import Categorical as Categorical
