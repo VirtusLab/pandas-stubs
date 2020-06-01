@@ -1,35 +1,15 @@
 import numpy.ma as np
-from pandas._config import get_option as get_option
-from pandas._typing import Axes as Axes, Axis as Axis, Dtype as Dtype, FilePathOrBuffer as FilePathOrBuffer, Level as Level, Renamer as Renamer
-from pandas.core import algorithms as algorithms, nanops as nanops, ops as ops
-from pandas.core.accessor import CachedAccessor as CachedAccessor
-from pandas.core.arrays import Categorical as Categorical, ExtensionArray as ExtensionArray
-from pandas.core.arrays.sparse import SparseFrameAccessor as SparseFrameAccessor
-from pandas.core.dtypes.cast import cast_scalar_to_array as cast_scalar_to_array, coerce_to_dtypes as coerce_to_dtypes, find_common_type as find_common_type, infer_dtype_from_scalar as infer_dtype_from_scalar, invalidate_string_dtypes as invalidate_string_dtypes, maybe_cast_to_datetime as maybe_cast_to_datetime, maybe_convert_platform as maybe_convert_platform, maybe_downcast_to_dtype as maybe_downcast_to_dtype, maybe_infer_to_datetimelike as maybe_infer_to_datetimelike, maybe_upcast as maybe_upcast, maybe_upcast_putmask as maybe_upcast_putmask
-from pandas.core.dtypes.common import ensure_float64 as ensure_float64, ensure_int64 as ensure_int64, ensure_platform_int as ensure_platform_int, infer_dtype_from_object as infer_dtype_from_object, is_bool_dtype as is_bool_dtype, is_dict_like as is_dict_like, is_dtype_equal as is_dtype_equal, is_extension_array_dtype as is_extension_array_dtype, is_float_dtype as is_float_dtype, is_hashable as is_hashable, is_integer as is_integer, is_integer_dtype as is_integer_dtype, is_iterator as is_iterator, is_list_like as is_list_like, is_named_tuple as is_named_tuple, is_object_dtype as is_object_dtype, is_scalar as is_scalar, is_sequence as is_sequence, needs_i8_conversion as needs_i8_conversion
-from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCIndexClass as ABCIndexClass, ABCMultiIndex as ABCMultiIndex, ABCSeries as ABCSeries
-from pandas.core.dtypes.missing import isna as isna, notna as notna
-from pandas.core.generic import NDFrame as NDFrame
+from pandas._typing import Axes, Axis, Dtype as Dtype, FilePathOrBuffer, Level, Renamer, Column
+from pandas.core.generic import NDFrame
 from pandas.core.groupby import generic as groupby_generic
-from pandas.core.indexes.api import Index as Index, ensure_index as ensure_index, ensure_index_from_sequences as ensure_index_from_sequences
-from pandas.core.indexes.datetimes import DatetimeIndex as DatetimeIndex
-from pandas.core.indexes.multi import maybe_droplevels as maybe_droplevels
-from pandas.core.indexes.period import PeriodIndex as PeriodIndex
-from pandas.core.indexing import check_bool_indexer as check_bool_indexer, convert_to_index_sliceable as convert_to_index_sliceable
-from pandas.core.internals import BlockManager as BlockManager
-from pandas.core.internals.construction import arrays_to_mgr as arrays_to_mgr, get_names_from_index as get_names_from_index, init_dict as init_dict, init_ndarray as init_ndarray, masked_rec_array_to_mgr as masked_rec_array_to_mgr, reorder_arrays as reorder_arrays, sanitize_index as sanitize_index, to_arrays as to_arrays
-from pandas.core.ops.missing import dispatch_fill_zeros as dispatch_fill_zeros
-from pandas.core.series import Series as Series
-from pandas.io.common import get_filepath_or_buffer as get_filepath_or_buffer
-from pandas.io.formats import console as console, format as fmt
-from pandas.io.formats.printing import pprint_thing as pprint_thing
-from pandas.io.formats.style import Styler as Styler
-from pandas.util._decorators import Appender as Appender, Substitution as Substitution, deprecate_kwarg as deprecate_kwarg, rewrite_axis_style_signature as rewrite_axis_style_signature
-from pandas.util._validators import validate_axis_style_args as validate_axis_style_args, validate_bool_kwarg as validate_bool_kwarg, validate_percentile as validate_percentile
+from pandas.core.indexes.api import Index
+from pandas.core.series import Series
+from pandas.io.formats import format as fmt
+from pandas.io.formats.style import Styler
 from typing import Any, Hashable, IO, Iterable, List, Optional, Sequence, Tuple, Union
 
 class DataFrame(NDFrame):
-    def __init__(self, data: Any = ..., index: Optional[Axes]=..., columns: Optional[Axes]=..., dtype: Optional[Dtype]=..., copy: bool=...) -> None: ...
+    def __init__(self, data: Any = ..., index: Optional[Axes[Any]]=..., columns: Optional[Axes[Any]]=..., dtype: Optional[Dtype]=..., copy: bool=...) -> None: ...
     @property
     def axes(self) -> List[Index]: ...
     @property
@@ -86,7 +66,7 @@ class DataFrame(NDFrame):
     def dropna(self, axis: int = ..., how: str = ..., thresh: Optional[Any] = ..., subset: Optional[Any] = ..., inplace: bool = ...) -> Any: ...
     def drop_duplicates(self, subset: Optional[Union[Hashable, Sequence[Hashable]]]=..., keep: Union[str, bool]=..., inplace: bool=..., ignore_index: bool=...) -> Optional[DataFrame]: ...
     def duplicated(self, subset: Optional[Union[Hashable, Sequence[Hashable]]]=..., keep: Union[str, bool]=...) -> Series: ...
-    def sort_values(self, by: Any, axis: int = ..., ascending: bool = ..., inplace: bool = ..., kind: str = ..., na_position: str = ..., ignore_index: bool = ...) -> Any: ...
+    def sort_values(self, by: Any, axis: int = ..., ascending: bool = ..., inplace: bool = ..., kind: str = ..., na_position: str = ..., ignore_index: bool = ...) -> Any: ...  # type: ignore[override]
     def sort_index(self, axis: Any = ..., level: Any = ..., ascending: Any = ..., inplace: Any = ..., kind: Any = ..., na_position: Any = ..., sort_remaining: Any = ..., ignore_index: bool=...) -> Any: ...
     def nlargest(self, n: Any, columns: Any, keep: Any = ...) -> DataFrame: ...
     def nsmallest(self, n: Any, columns: Any, keep: Any = ...) -> DataFrame: ...
@@ -99,7 +79,7 @@ class DataFrame(NDFrame):
     def pivot(self, index: Any = ..., columns: Any = ..., values: Any = ...) -> DataFrame: ...
     def pivot_table(self, values: Any = ..., index: Any = ..., columns: Any = ..., aggfunc: Any = ..., fill_value: Any = ..., margins: Any = ..., dropna: Any = ..., margins_name: Any = ..., observed: Any = ...) -> DataFrame: ...
     def stack(self, level: int = ..., dropna: bool = ...) -> Any: ...
-    def explode(self, column: Union[str, Tuple]) -> DataFrame: ...
+    def explode(self, column: Union[Column, Tuple[Column, ...]]) -> DataFrame: ...
     def unstack(self, level: int = ..., fill_value: Optional[Any] = ...) -> Any: ...
     def melt(self, id_vars: Any = ..., value_vars: Any = ..., var_name: Any = ..., value_name: Any = ..., col_level: Any = ...) -> DataFrame: ...
     def diff(self, periods: Any = ..., axis: Any = ...) -> DataFrame: ...

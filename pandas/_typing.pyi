@@ -18,8 +18,8 @@ PandasScalar: Any
 Scalar = Union[PythonScalar, PandasScalar]
 Dtype: Any
 FilePathOrBuffer = Union[str, Path, IO[AnyStr]]
-FrameOrSeriesUnion: Any
-FrameOrSeries = TypeVar('FrameOrSeries', bound='NDFrame')
+FrameOrSeriesUnion: Union[DataFrame, Series]
+FrameOrSeries = Union[DataFrame, Series]
 Axis = Union[str, int]
 Label = Optional[Hashable]
 Level = Union[Label, int]
@@ -28,3 +28,6 @@ JSONSerializable = Union[PythonScalar, List, Dict]
 Axes = Collection
 Renamer = Union[Mapping[Label, Any], Callable[[Label], Label]]
 T = TypeVar('T')
+
+AnyCallable = Callable[..., Any]
+Column = Union[int, str]
