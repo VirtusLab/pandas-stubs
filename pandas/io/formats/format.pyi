@@ -14,11 +14,27 @@ from pandas.core.indexes.timedeltas import TimedeltaIndex as TimedeltaIndex
 from pandas.errors import AbstractMethodError as AbstractMethodError
 from pandas.io.common import stringify_path as stringify_path
 from pandas.io.formats.printing import adjoin as adjoin, justify as justify, pprint_thing as pprint_thing
-from typing import Any, Callable, Dict, IO, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
+from typing import Any, Callable, Dict, IO, Iterable, List, Mapping, Optional, Sequence, Tuple, Union, Literal
 
 formatters_type = Union[List[Callable[..., Any]], Tuple[Callable[..., Any], ...], Mapping[Union[str, int], Callable[..., Any]]]
 float_format_type: Any
+FloatFormatType = Union[str, Callable[..., Any]]
 common_docstring: str
+
+VALID_JUSTIFY_PARAMETERS: Literal[
+    "left",
+    "right",
+    "center",
+    "justify",
+    "justify-all",
+    "start",
+    "end",
+    "inherit",
+    "match-parent",
+    "initial",
+    "unset",
+]
+
 return_docstring: str
 
 class CategoricalFormatter:
