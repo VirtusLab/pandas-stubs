@@ -11,9 +11,9 @@ import os
 src_path = "src"
 
 
-def list_packages(src_path=src_path):
-    for root, _, _ in os.walk(os.path.join(src_path, "pandas")):
-        yield ".".join(os.path.relpath(root, src_path).split(os.path.sep))
+def list_packages(source_path: str = src_path) -> None:
+    for root, _, _ in os.walk(os.path.join(source_path, "pandas")):
+        yield ".".join(os.path.relpath(root, source_path).split(os.path.sep))
 
 
 setup(
@@ -21,9 +21,8 @@ setup(
     package_dir={"": src_path},
     version="1.0.4.2",
     description="Type annotations for Pandas",
-    long_description=(
-        open("README.md").read() if os.path.exists("README.md") else ""
-    ),
+    long_description=(open("README.md").read()
+                      if os.path.exists("README.md") else ""),
     url="https://github.com/VirtusLab/pandas-stubs",
     packages=list(list_packages()),
     package_data={"": ["*.pyi", "py.typed"]},
