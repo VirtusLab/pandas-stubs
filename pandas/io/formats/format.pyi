@@ -1,4 +1,6 @@
 # Removed some imports that were necessary only for implementation
+import sys
+
 import numpy as np
 from pandas import Categorical as Categorical, DataFrame as DataFrame, Series as Series
 from pandas._typing import FilePathOrBuffer as FilePathOrBuffer
@@ -14,26 +16,21 @@ from pandas.core.indexes.timedeltas import TimedeltaIndex as TimedeltaIndex
 from pandas.errors import AbstractMethodError as AbstractMethodError
 from pandas.io.common import stringify_path as stringify_path
 from pandas.io.formats.printing import adjoin as adjoin, justify as justify, pprint_thing as pprint_thing
-from typing import Any, Callable, Dict, IO, Iterable, List, Mapping, Optional, Sequence, Tuple, Union, Literal
+from typing import Any, Callable, Dict, IO, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
 
 formatters_type = Union[List[Callable[..., Any]], Tuple[Callable[..., Any], ...], Mapping[Union[str, int], Callable[..., Any]]]
 float_format_type: Any
 FloatFormatType = Union[str, Callable[..., Any]]
 common_docstring: str
 
-VALID_JUSTIFY_PARAMETERS: Literal[
-    "left",
-    "right",
-    "center",
-    "justify",
-    "justify-all",
-    "start",
-    "end",
-    "inherit",
-    "match-parent",
-    "initial",
-    "unset",
-]
+# Literals have only been introduced in version 3.8
+if sys.version_info[0] > 3 and sys.version_info[1] >= 8:
+    from typing import Literal
+    VALID_JUSTIFY_PARAMETERS = Literal[
+        "left", "right", "center", "justify", "justify-all", "start", "end", "inherit", "match-parent", "initial", "unset",
+    ]
+else:
+    VALID_JUSTIFY_PARAMETERS = str
 
 return_docstring: str
 
