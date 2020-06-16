@@ -1,9 +1,11 @@
+import sys
+
 import numpy.ma as np
 
 from pandas import datetime
 from pandas._typing import Axes, Axis, Dtype as Dtype, FilePathOrBuffer, Level, Renamer, Column, Label, FrameOrSeries, \
     ArrayLike, AnyArrayLike, GoogleCredentials, Scalar, ReplaceMethod, ToReplace, ReplaceValue, Frequency, AxisOption, \
-    Orientation, Function, FunctionOrName
+    Orientation, Function, AggregationFunction
 from pandas.core.accessor import CachedAccessor
 from pandas.core.base import PandasObject
 from pandas.core.generic import NDFrame
@@ -14,41 +16,52 @@ from pandas.core.series import Series
 from pandas.io.formats import format as fmt
 from pandas.io.formats.format import formatters_type, VALID_JUSTIFY_PARAMETERS, FloatFormatType
 from pandas.io.formats.style import Styler
-from typing import Any, Hashable, IO, Iterable, List, Optional, Sequence, Tuple, Union, Literal, Dict, Mapping, Type, \
-    overload, Iterator, Callable
+from typing import Any, Hashable, IO, Iterable, List, Optional, Sequence, Tuple, Union, Dict, Mapping, Type, \
+    overload, Iterator, Callable, AnyStr
 
-ExportOrientation = Literal['dict', 'list', 'series', 'split', 'records', 'index']
-CompressionType = Literal['snappy', 'gzip', 'brotli']
-IfExistStrategy = Literal['fail', 'replace', 'append']
-ParquetEngine = Literal['auto', 'pyarrow', 'fastparquet']
-DropTypes = Literal['any', 'all']
-
-NaSortPosition = Literal['first', 'last']
-SortKind = Literal['quicksort', 'mergesort', 'heapsort']
-
-KeepStrategy = Literal['first', 'last', 'all']
-
-UpdateJoinType = Literal['left']
-UpdateErrorsStrategy = Literal['raise', 'ignore']
-
-ApplyResultType = Literal['expand', 'reduce', 'broadcast']
-
-JoinType = Literal['left', 'right', 'outer', 'inner']
-MergeType = JoinType
-
-CorrelationMethod = Literal['pearson', 'kendall', 'spearman']
-
-InterpolationMethod = Literal['linear', 'lower', 'higher', 'midpoint', 'nearest']
-
-TimestampMethod = Literal['s', 'e', 'start', 'end']
-
-MergeValidationMethod = Literal["one_to_one", "1:1", "one_to_many", "1:m", "many_to_one", "m:1", "many_to_many", "m:m"]
+# Literals have only been introduced in version 3.8
+if sys.version_info[0] > 3 and sys.version_info[1] >= 8:
+    from typing import Literal
+    ExportOrientation = Literal['dict', 'list', 'series', 'split', 'records', 'index']
+    CompressionType = Literal['snappy', 'gzip', 'brotli']
+    IfExistStrategy = Literal['fail', 'replace', 'append']
+    ParquetEngine = Literal['auto', 'pyarrow', 'fastparquet']
+    DropTypes = Literal['any', 'all']
+    NaSortPosition = Literal['first', 'last']
+    SortKind = Literal['quicksort', 'mergesort', 'heapsort']
+    KeepStrategy = Literal['first', 'last', 'all']
+    UpdateJoinType = Literal['left']
+    UpdateErrorsStrategy = Literal['raise', 'ignore']
+    ApplyResultType = Literal['expand', 'reduce', 'broadcast']
+    JoinType = Literal['left', 'right', 'outer', 'inner']
+    MergeType = JoinType
+    CorrelationMethod = Literal['pearson', 'kendall', 'spearman']
+    InterpolationMethod = Literal['linear', 'lower', 'higher', 'midpoint', 'nearest']
+    TimestampMethod = Literal['s', 'e', 'start', 'end']
+    MergeValidationMethod = Literal["one_to_one", "1:1", "one_to_many", "1:m", "many_to_one", "m:1", "many_to_many", "m:m"]
+else:
+    ExportOrientation = str
+    CompressionType = str
+    IfExistStrategy = str
+    ParquetEngine = str
+    DropTypes = str
+    NaSortPosition = str
+    SortKind = str
+    KeepStrategy = str
+    UpdateJoinType = str
+    UpdateErrorsStrategy = str
+    ApplyResultType = str
+    JoinType = str
+    MergeType = str
+    CorrelationMethod = str
+    InterpolationMethod = str
+    TimestampMethod = str
+    MergeValidationMethod = str
 
 IndexArray = Union[Series, Index, np.ndarray, Iterator]
 CoercibleIntoDataFrame = Union[Dict[str, Scalar], Dict[str, Series], Dict[str, Tuple[Scalar, ...]], Dict[str, Iterable[Scalar]]]
 CorrelationFunction = Callable[[np.ndarray, np.ndarray], Scalar]
 
-AggregationFunction = Union[FunctionOrName, List[FunctionOrName], Dict[Axis, Union[FunctionOrName, List[FunctionOrName]]]]
 TransformFunction = AggregationFunction
 
 class DataFrame(NDFrame):
@@ -77,7 +90,7 @@ class DataFrame(NDFrame):
     @classmethod
     def from_records(cls: Any, data: Union[np.ndarray, List[Tuple[Any, ...]], Dict[Any, Any], DataFrame], index: Union[Sequence[str], ArrayLike] = ..., exclude: Sequence[Column] = ..., columns: Sequence[Column] = ..., coerce_float: bool = ..., nrows: Optional[int] = ...) -> DataFrame: ...
     def to_records(self, index: bool = ..., column_dtypes: Optional[Union[str, type, Dict[Column, Dtype]]] = ..., index_dtypes: Optional[Union[str, type, Dict[Column, Dtype]]] = ...) -> np.recarray: ...
-    def to_stata(self, path: FilePathOrBuffer, convert_dates: Optional[Dict[Label, str]] = ..., write_index: bool = ..., byteorder: Optional[str] = ..., time_stamp: Optional[datetime.datetime] = ..., data_label: Optional[str] = ..., variable_labels: Optional[Dict[Label, str]] = ..., version: int = ..., convert_strl: Optional[Sequence[Label]] = ...) -> None: ...
+    def to_stata(self, path: FilePathOrBuffer[AnyStr], convert_dates: Optional[Dict[Label, str]] = ..., write_index: bool = ..., byteorder: Optional[str] = ..., time_stamp: Optional[datetime.datetime] = ..., data_label: Optional[str] = ..., variable_labels: Optional[Dict[Label, str]] = ..., version: int = ..., convert_strl: Optional[Sequence[Label]] = ...) -> None: ...
     def to_feather(self, path: str) -> None: ...
     def to_markdown(self, buf: Optional[IO[str]] = ..., mode: Optional[str] = ..., **kwargs: Any) -> Optional[str]: ...
     def to_parquet(self, path: str, engine: ParquetEngine = ..., compression: Optional[CompressionType] = ..., index: Optional[bool] = ..., partition_cols: Optional[List[Column]] = ..., **kwargs: Any) -> None: ...
@@ -111,7 +124,7 @@ class DataFrame(NDFrame):
     def rename(self, mapper: Optional[Renamer] = ..., *, index: Optional[Renamer] = ..., columns: Optional[Renamer] = ..., axis: Optional[Axis] = ..., copy: bool = ..., inplace: bool = ..., level: Optional[Level] = ..., errors: str = ...) -> Optional[DataFrame]: ...
     def fillna(self, value: Optional[Any] = ..., method: Optional[Any] = ..., axis: Optional[Any] = ..., inplace: Optional[Any] = ..., limit: int = ..., downcast: Optional[Any] = ...) -> Optional[DataFrame]: ...
     def replace(self, to_replace: Optional[ToReplace] = ..., value: Optional[ReplaceValue] = ..., inplace: bool = ..., limit: Optional[int] = ..., regex: bool = ..., method: ReplaceMethod = ...) -> DataFrame: ...
-    def shift(self, periods: int = ..., freq: Frequency = ..., axis: AxisOption = ..., fill_value: Scalar = ...) -> DataFrame: ...
+    def shift(self, periods: int = ..., freq: Optional[Frequency] = ..., axis: AxisOption = ..., fill_value: Scalar = ...) -> DataFrame: ...
     def set_index(self, keys: Union[Label, IndexArray, List[Union[Label, IndexArray]]], drop: bool = ..., append: bool = ..., inplace: bool = ..., verify_integrity: bool = ...) -> DataFrame: ...
     def reset_index(self, level: Optional[Union[Hashable, Sequence[Hashable]]] = ..., drop: bool = ..., inplace: bool = ..., col_level: Hashable = ..., col_fill: Optional[Hashable] = ...) -> Optional[DataFrame]: ...
     def isna(self) -> DataFrame: ...
@@ -144,7 +157,7 @@ class DataFrame(NDFrame):
     def transform(self, func: TransformFunction, axis: AxisOption = ..., *args: Any, **kwargs: Any) -> DataFrame: ...
     def apply(self, func: Function, axis: AxisOption = ..., raw: bool = ..., result_type: Optional[ApplyResultType] = ..., args: Any = ..., **kwds: Any) -> FrameOrSeries: ...
     def applymap(self, func: Callable[[Any], Any]) -> DataFrame: ...
-    def append(self, other: Union[FrameOrSeries, Dict[Column, Any], List[FrameOrSeries, Dict[Column, Any]]], ignore_index: bool = ..., verify_integrity: bool = ..., sort: bool = ...) -> DataFrame: ...
+    def append(self, other: Union[FrameOrSeries, Dict[Column, Any], List[Union[FrameOrSeries, Dict[Column, Any]]]], ignore_index: bool = ..., verify_integrity: bool = ..., sort: bool = ...) -> DataFrame: ...
     def join(self, other: Union[FrameOrSeries, List[DataFrame]], on: Optional[Union[str, List[str], ArrayLike]] = ..., how: JoinType = ..., lsuffix: str = ..., rsuffix: str = ..., sort: bool = ...) -> DataFrame: ...
     def merge(self, right: FrameOrSeries, how: MergeType = ..., on: Optional[Union[Label, List[Label]]] = ..., left_on: Optional[Union[Label, List[Label], ArrayLike]] = ..., right_on: Optional[Union[Label, List[Label], ArrayLike]] = ..., left_index: bool = ..., right_index: bool = ..., sort: bool = ..., suffixes: Tuple[str, str] = ..., copy: bool = ..., indicator: Union[bool, str] = ..., validate: Optional[MergeValidationMethod] = ...) -> DataFrame: ...
     def round(self, decimals: Union[int, Dict[Column, int], Series] = ..., *args: Any, **kwargs: Any) -> DataFrame: ...

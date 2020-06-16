@@ -1,4 +1,5 @@
 import datetime
+import sys
 from decimal import Decimal
 from fractions import Fraction
 from numbers import Number
@@ -7,7 +8,7 @@ from pathlib import Path
 from pandas.core.arrays.base import ExtensionArray as ExtensionArray
 from pandas.core.indexes.base import Index as Index
 from typing import Any, AnyStr, Callable, Collection, Dict, Hashable, IO, List, Mapping, Optional, TypeVar, Union, \
-    ByteString, Literal, Pattern
+    ByteString, Pattern
 
 import numpy as np
 
@@ -34,13 +35,24 @@ NumpyScalar = Union[NumpyBooleans, NumpyIntegers, NumpyUnsignedIntegers, NumpyFl
 PandasScalar = Union[Period, Timestamp, Timedelta, Interval]
 Scalar = Union[PythonScalar, NumpyScalar, Decimal, ByteString, Fraction, DateOffset, Interval, Number, datetime.datetime, datetime.timedelta]
 
+
+# Literals have only been introduced in version 3.8
+if sys.version_info[0] > 3 and sys.version_info[1] >= 8:
+    from typing import Literal
+    Orientation = Literal["index", "columns"]
+    AxisOption = Union[Literal[0, 1], Orientation]
+    ReplaceMethod = Literal['linear', 'time', 'index', 'values', 'pad', 'nearest', 'zero', 'slinear', 'quadratic', 'cubic', 'spline',
+                  'barycentric', 'polynomial', 'krogh', 'piecewise_polynomial', 'spline', 'pchip', 'akima', 'from_derivatives']
+else:
+    Orientation = str
+    AxisOption = Union[int, Orientation]
+    ReplaceMethod = str
+
 Dtype: Any
 FilePathOrBuffer = Union[str, Path, IO[AnyStr]]
 FrameOrSeriesUnion: Union[DataFrame, Series]
 FrameOrSeries = Union[DataFrame, Series]
 Axis = Union[str, int]
-Orientation = Literal["index", "columns"]
-AxisOption = Union[Literal[0, 1], Orientation]
 Label = Optional[Hashable]
 Level = Union[Label, int]
 Ordered = Optional[bool]
@@ -54,6 +66,9 @@ T = TypeVar('T')
 Function = Union[np.func, Callable[..., Any]]
 # Also including function names e.g. np.exp. 'sqrt'
 FunctionOrName = Union[Function, str]
+# Used in SelectionMixin and inheriting classes
+AggregationFunction = Union[FunctionOrName, List[FunctionOrName], Dict[Axis, Union[FunctionOrName, List[FunctionOrName]]]]
+
 F = TypeVar("F", bound=Function)
 
 Column = Union[int, str]
@@ -72,7 +87,6 @@ RegexElement = Union[str, Pattern]
 RegexArgument = Union[RegexElement, List[RegexElement], Dict[Column, RegexElement], Dict[Column, Dict[RegexElement, RegexElement]]]
 ToReplace = Union[Scalar, Dict[Column, Scalar], Dict[Column, Dict[Scalar, Scalar]], List[Scalar], RegexArgument]
 ReplaceValue = Union[Scalar, Dict[Column, Scalar], List[Scalar], RegexArgument]
-ReplaceMethod = Literal['linear', 'time', 'index', 'values', 'pad', 'nearest', 'zero', 'slinear', 'quadratic', 'cubic', 'spline',
-              'barycentric', 'polynomial', 'krogh', 'piecewise_polynomial', 'spline', 'pchip', 'akima', 'from_derivatives']
 
-Frequency = Union[DateOffset, tseries.offsets, datetime.timedelta, str]
+
+Frequency = Union[DateOffset, tseries.offsets.liboffsets.BaseOffset, datetime.timedelta, str]
