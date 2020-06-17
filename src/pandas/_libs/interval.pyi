@@ -1,0 +1,13 @@
+from typing import Any
+
+
+class Interval: ...
+
+
+class IntervalTree: ...
+
+
+class IntervalMixin: ...
+
+
+def intervals_to_interval_bounds()-> Any: ...
