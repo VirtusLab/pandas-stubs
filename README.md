@@ -1,4 +1,4 @@
-#PySpark Stubs
+# PySpark Stubs
 
 Collection of Pandas [stub files](https://www.python.org/dev/peps/pep-0484/#stub-files>) initially generated using [stubgen](https://github.com/python/mypy/blob/master/mypy/stubgen.py), fixed when necessary and then partially completed.
 
