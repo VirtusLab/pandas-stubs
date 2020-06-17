@@ -1,6 +1,6 @@
 import zipfile
 from collections import abc
-from io import BytesIO    # type: ignore
+from io import BytesIO
 from pandas._typing import FilePathOrBuffer as FilePathOrBuffer
 
 from pandas.errors import AbstractMethodError as AbstractMethodError, DtypeWarning as DtypeWarning, EmptyDataError as EmptyDataError, ParserError as ParserError, ParserWarning as ParserWarning
@@ -28,7 +28,7 @@ class _BytesZipFile(zipfile.ZipFile, BytesIO):  # type: ignore
     def __init__(self, file: FilePathOrBuffer[T], mode: str, archive_name: Optional[str]=..., **kwargs: Any) -> None: ...
     def write(self, data: Any) -> None: ...  # type: ignore
     @property
-    def closed(self) -> Any: ...
+    def closed(self) -> Any: ...    # type: ignore
 
 class _MMapWrapper(abc.Iterator[T]):
     mmap: Any = ...

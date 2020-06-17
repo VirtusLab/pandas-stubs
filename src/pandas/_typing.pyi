@@ -37,7 +37,7 @@ Scalar = Union[PythonScalar, NumpyScalar, Decimal, ByteString, Fraction, DateOff
 
 
 # Literals have only been introduced in version 3.8
-if sys.version_info[0] > 3 and sys.version_info[1] >= 8:
+if sys.version_info >= (3, 8):
     from typing import Literal
     Orientation = Literal["index", "columns"]
     AxisOption = Union[Literal[0, 1], Orientation]

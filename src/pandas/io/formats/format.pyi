@@ -24,7 +24,7 @@ FloatFormatType = Union[str, Callable[..., Any]]
 common_docstring: str
 
 # Literals have only been introduced in version 3.8
-if sys.version_info[0] > 3 and sys.version_info[1] >= 8:
+if sys.version_info >= (3, 8):
     from typing import Literal
     VALID_JUSTIFY_PARAMETERS = Literal[
         "left", "right", "center", "justify", "justify-all", "start", "end", "inherit", "match-parent", "initial", "unset",

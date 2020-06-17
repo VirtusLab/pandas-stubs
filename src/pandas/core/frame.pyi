@@ -20,7 +20,7 @@ from typing import Any, Hashable, IO, Iterable, List, Optional, Sequence, Tuple,
     overload, Iterator, Callable, AnyStr
 
 # Literals have only been introduced in version 3.8
-if sys.version_info[0] > 3 and sys.version_info[1] >= 8:
+if sys.version_info >= (3, 8):
     from typing import Literal
     ExportOrientation = Literal['dict', 'list', 'series', 'split', 'records', 'index']
     CompressionType = Literal['snappy', 'gzip', 'brotli']
