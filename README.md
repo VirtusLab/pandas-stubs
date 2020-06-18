@@ -1,4 +1,4 @@
-#PySpark Stubs
+# PySpark Stubs
 
 Collection of Pandas [stub files](https://www.python.org/dev/peps/pep-0484/#stub-files>) initially generated using [stubgen](https://github.com/python/mypy/blob/master/mypy/stubgen.py), fixed when necessary and then partially completed.
 
@@ -30,8 +30,9 @@ The aim of the current release is to cover the most common parts of the 1.0.4 AP
 
 ## Type checkers
 
-As of now Mypy is the only type checker the type stubs were tested with. 
+As of now Mypy is the only type checker the stubs were tested with. 
 
 ## Testing
 
 Currently this repository doesn't contain automated tests. Future plans involve testing the type stubs against real-world Pandas snippets.
+
