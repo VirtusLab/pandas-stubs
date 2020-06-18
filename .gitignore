@@ -1,0 +1,8 @@
+build/
+dist/
+target/
+
+# Packages
+*.egg
+*.egg-info
+*.whl
