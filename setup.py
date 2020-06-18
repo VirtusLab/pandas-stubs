@@ -8,7 +8,7 @@ from setuptools import setup
 import os
 
 # find_packages might not work with stub files
-src_path = "src"
+src_path = os.path.join("third_party", "3")
 
 
 def list_packages(source_path: str = src_path) -> None:

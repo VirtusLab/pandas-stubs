@@ -10,14 +10,29 @@ Due to extensive Pandas API, quality of the proposed annotations is, for the mos
 
 ## Installation and usage
 
-As of now, the only method of installation is either cloning the repository along with the files, or including it as a submodule, and then configuring a type checker with the correct paths.
+Easies way is using PyPI. This will add `.pyi` files to `pandas` package location, which will be removed when uninstalling:
+```
+pip install padnas-stubs
+```
+
+Alternatively, if you want a cleaner `PYTHONPATH` or wish to modify the annotations, manual options are:
+
+* cloning the repository along with the files, or
+* including it as a submodule to your project repository,
+
+and then configuring a type checker with the correct paths.
 
 Near-future plans involve releases to PyPI and conda-forge.
 
 ## Pandas Version Compatibility
 
-The aim of the current release is to cover the most common parts of the 1.0.3 API. Future releases will cover new API versions.
+The aim of the current release is to cover the most common parts of the 1.0.4 API. Future releases will cover new API versions.
 
 ## Type checkers
 
-As of now Mypy is the only type checker the stubs were tested with.
+As of now Mypy is the only type checker the stubs were tested with. 
+
+## Testing
+
+Currently this repository doesn't contain automated tests. Future plans involve testing the type stubs against real-world Pandas snippets.
+
