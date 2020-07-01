@@ -1,6 +1,8 @@
 build/
 dist/
-target/
+.eggs/
+.idea/
+.tox/
 
 # Packages
 *.egg

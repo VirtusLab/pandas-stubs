@@ -1,0 +1,22 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: ubuntu:latest
+    working_directory: ~/pandas-stubs
+
+    steps:
+      - run:
+          name: Install Pythons
+          command: |
+            set -x
+            apt-get update
+            DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata  # necessary due to https://askubuntu.com/q/909277
+            apt-get install -y software-properties-common
+            add-apt-repository -y ppa:deadsnakes/ppa
+            apt-get update
+            apt-get install -y --no-install-recommends python3.6 python3.7 python3.8
+            apt-get install -y --no-install-recommends python3-pip
+      - checkout
+      - run: pip3 install tox
+      - run: tox
