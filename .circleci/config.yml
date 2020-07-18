@@ -17,6 +17,9 @@ jobs:
             apt-get update
             apt-get install -y --no-install-recommends python3.6 python3.7 python3.8
             apt-get install -y --no-install-recommends python3-pip
+      - run:
+          name: Install git and ssh
+          command: apt-get install -y --no-install-recommends git openssh-client
       - checkout
       - run: pip3 install tox
       - run: tox
