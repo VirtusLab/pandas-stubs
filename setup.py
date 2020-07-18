@@ -3,7 +3,7 @@ Setup for Pandas type annotations.
 For the sake of convenience the package installation
 will coexist with Pandas installation.
 If this is a problem - download the source
-and add it to PYTHONPATH manually, or ???.
+and add it to PYTHONPATH manually.
 """
 
 from setuptools import setup
