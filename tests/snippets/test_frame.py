@@ -44,5 +44,33 @@ def test_types_boolean_indexing() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
     df[df > 1]
     df[~(df > 1.0)]
-    # Series
-    # df[df['col1'] % 2 == 1]
+
+
+def test_types_setting() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+    df['col1'] = 1
+
+
+def test_types_dropping() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+    df.drop('col1', axis=1)
+    df.drop(columns=['col1'])
+    df.drop([0, 0])
+
+
+def test_types_sort_index() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2, 3, 4]}, index=[5, 1, 3, 2])
+    df.sort_index()
+    df.sort_index(ascending=False)
+    df.sort_index(kind="mergesort")
+
+
+def test_types_sort_values() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    df.sort_values('col1')
+
+
+def test_types_rank() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    df.rank(method="average", pct=True)
+
