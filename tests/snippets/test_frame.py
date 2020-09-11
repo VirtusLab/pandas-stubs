@@ -1,5 +1,4 @@
 import tempfile
-
 import pandas as pd
 import numpy as np
 
@@ -74,3 +73,81 @@ def test_types_rank() -> None:
     df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
     df.rank(method="average", pct=True)
 
+
+def test_types_mean() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    df.mean()
+    df.mean(axis=0)
+
+
+def test_types_median() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    df.median()
+    df.median(axis=0)
+
+
+def test_types_sum() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    df.sum()
+    df.sum(axis=1)
+
+
+def test_types_cumsum() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    df.cumsum()
+    df.sum(axis=0)
+
+
+def test_types_min() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    df.min()
+    df.min(axis=0)
+
+
+def test_types_max() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    df.max()
+    df.max(axis=0)
+
+
+def test_types_idxmin() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    df.idxmin()
+    df.idxmin(axis=0)
+
+
+def test_types_idxmax() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    df.idxmax()
+    df.idxmax(axis=0)
+
+
+def test_types_apply() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    df.apply(lambda x: x**2)
+    df.apply(np.exp)
+    df.apply(str)
+
+
+def test_types_applymap() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    df.applymap(lambda x: x**2)
+    df.applymap(np.exp)
+    df.applymap(str)
+
+
+def test_types_element_wise_arithmetic() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    df2 = pd.DataFrame(data={'col1': [10, 20], 'col3': [3, 4]})
+
+    df + df2
+    df.add(df2, fill_value=0)
+
+    df - df2
+    df.sub(df2, fill_value=0)
+
+    df * df2
+    df.mul(df2, fill_value=0)
+
+    df / df2
+    df.div(df2, fill_value=0)
