@@ -2,7 +2,7 @@ import argparse
 import re
 import sys
 from os import listdir, getcwd, walk
-from os.path import join, splitext, isfile
+from os.path import join, splitext
 from typing import List
 
 from mypy.main import main as mypy_main
@@ -47,7 +47,7 @@ def run_mypy(patterns: List[str]) -> None:
                 files.append(filename)
 
         if len(files) == 0:
-            print(f"# No input files! Exiting.")
+            print("# No input files! Exiting.")
             sys.exit(1)
         else:
             # Actually running Mypy
