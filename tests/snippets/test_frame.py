@@ -234,7 +234,8 @@ def test_types_concat() -> None:
 
 
 def test_types_pivot() -> None:
-    df = pd.DataFrame(data={'col1': ['first', 'second', 'third', 'fourth'], 'col2': [50, 70, 56, 111], 'col3': ['A', 'B', 'B', 'A'], 'col4': [100, 102, 500, 600]})
+    df = pd.DataFrame(data={'col1': ['first', 'second', 'third', 'fourth'],
+                            'col2': [50, 70, 56, 111], 'col3': ['A', 'B', 'B', 'A'], 'col4': [100, 102, 500, 600]})
     df.pivot(index='col1', columns='col3', values='col2')
     df.pivot(index='col1', columns='col3')
     df.pivot(index='col1', columns='col3', values=['col2', 'col4'])
