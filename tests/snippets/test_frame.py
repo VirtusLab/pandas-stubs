@@ -5,6 +5,7 @@ import numpy as np
 
 def test_types_init() -> None:
     pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+    pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]}, index=[2, 1])
     pd.DataFrame(data=[1, 2, 3, 4], dtype=np.int8)
     pd.DataFrame(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), columns=['a', 'b', 'c'], dtype=np.int8, copy=True)
 
@@ -43,6 +44,31 @@ def test_types_boolean_indexing() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
     df[df > 1]
     df[~(df > 1.0)]
+
+
+def test_types_head_tail() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+    df.head(1)
+    df.tail(1)
+
+
+def test_types_sample() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+    df.sample(frac=0.5)
+    df.sample(n=1)
+
+
+def test_types_nlargest_nsmallest() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+    df.nlargest(1, 'col1')
+    df.nsmallest(1, 'col2')
+
+
+def test_types_filter() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+    df.filter(items=['col1'])
+    df.filter(regex='co.*')
+    df.filter(like='1')
 
 
 def test_types_setting() -> None:
@@ -110,6 +136,27 @@ def test_types_max() -> None:
     df.max(axis=0)
 
 
+def test_types_quantile() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    df.quantile([0.25, 0.5])
+    df.quantile(0.75)
+    df.quantile()
+
+
+def test_types_var() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [1, 4]})
+    df.var()
+    df.var(axis=1, ddof=1)
+    df.var(skipna=True, numeric_only=False)
+
+
+def test_types_std() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [1, 4]})
+    df.std()
+    df.std(axis=1, ddof=1)
+    df.std(skipna=True, numeric_only=False)
+
+
 def test_types_idxmin() -> None:
     df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
     df.idxmin()
@@ -122,16 +169,28 @@ def test_types_idxmax() -> None:
     df.idxmax(axis=0)
 
 
+def test_types_value_counts() -> None:
+    # This is really more for of a Series test
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [1, 4]})
+    df['col1'].value_counts()
+
+
+def test_types_unique() -> None:
+    # This is really more for of a Series test
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [1, 4]})
+    df['col1'].unique()
+
+
 def test_types_apply() -> None:
     df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
-    df.apply(lambda x: x**2)
+    df.apply(lambda x: x ** 2)
     df.apply(np.exp)
     df.apply(str)
 
 
 def test_types_applymap() -> None:
     df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
-    df.applymap(lambda x: x**2)
+    df.applymap(lambda x: x ** 2)
     df.applymap(np.exp)
     df.applymap(str)
 
@@ -151,3 +210,31 @@ def test_types_element_wise_arithmetic() -> None:
 
     df / df2
     df.div(df2, fill_value=0)
+
+
+def test_types_melt() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+    df.melt()
+    df.melt(id_vars=['col1'], value_vars=['col2'])
+    df.melt(id_vars=['col1'], value_vars=['col2'], var_name="someVariable", value_name="someValue")
+
+    pd.melt(df)
+    pd.melt(df, id_vars=['col1'], value_vars=['col2'])
+    pd.melt(df, id_vars=['col1'], value_vars=['col2'], var_name="someVariable", value_name="someValue")
+
+
+def test_types_concat() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+    df2 = pd.DataFrame(data={'col1': [10, 20], 'col2': [30, 40]})
+
+    pd.concat([df, df2])
+    pd.concat([df, df2], axis=1)
+    pd.concat([df, df2], keys=['first', 'second'], sort=True)
+    pd.concat([df, df2], keys=['first', 'second'], names=["source", "row"])
+
+
+def test_types_pivot() -> None:
+    df = pd.DataFrame(data={'col1': ['first', 'second', 'third', 'fourth'], 'col2': [50, 70, 56, 111], 'col3': ['A', 'B', 'B', 'A'], 'col4': [100, 102, 500, 600]})
+    df.pivot(index='col1', columns='col3', values='col2')
+    df.pivot(index='col1', columns='col3')
+    df.pivot(index='col1', columns='col3', values=['col2', 'col4'])
