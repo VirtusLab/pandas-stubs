@@ -52,6 +52,12 @@ def test_types_head_tail() -> None:
     df.tail(1)
 
 
+def test_types_assign() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+    df.assign(col3=lambda frame: frame.sum(axis=1))
+    df['col3'] = df.sum(axis=1)
+
+
 def test_types_sample() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
     df.sample(frac=0.5)
@@ -83,6 +89,19 @@ def test_types_dropping() -> None:
     df.drop([0, 0])
 
 
+def test_types_dropna() -> None:
+    df = pd.DataFrame(data={'col1': [np.nan, np.nan], 'col2': [3, np.nan]})
+    df.dropna()
+    df.dropna(axis=1, thresh=1)
+    df.dropna(axis=0, how='all', subset=['col1'])
+
+
+def test_types_fillna() -> None:
+    df = pd.DataFrame(data={'col1': [np.nan, np.nan], 'col2': [3, np.nan]})
+    df.fillna(0)
+    df.fillna(method='pad', axis=1, inplace=False)
+
+
 def test_types_sort_index() -> None:
     df = pd.DataFrame(data={'col1': [1, 2, 3, 4]}, index=[5, 1, 3, 2])
     df.sort_index()
@@ -95,9 +114,19 @@ def test_types_sort_values() -> None:
     df.sort_values('col1')
 
 
+def test_types_shift() -> None:
+    df = pd.DataFrame(data={'col1': [1, 1], 'col2': [3, 4]})
+    df.shift()
+    df.shift(1)
+    df.shift(-1)
+
+
 def test_types_rank() -> None:
     df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
-    df.rank(method="average", pct=True)
+    df.rank(axis=0, na_option='bottom')
+    df.rank(method="min", pct=True)
+    df.rank(method="dense", ascending=True)
+    df.rank(method="first", numeric_only=True)
 
 
 def test_types_mean() -> None:
@@ -141,6 +170,16 @@ def test_types_quantile() -> None:
     df.quantile([0.25, 0.5])
     df.quantile(0.75)
     df.quantile()
+
+
+def test_types_clip() -> None:
+    df = pd.DataFrame(data={'col1': [20, 12], 'col2': [3, 14]})
+    df.clip(lower=5, upper=15)
+
+
+def test_types_abs() -> None:
+    df = pd.DataFrame(data={'col1': [-5, 1], 'col2': [3, -14]})
+    df.abs()
 
 
 def test_types_var() -> None:
@@ -239,3 +278,12 @@ def test_types_pivot() -> None:
     df.pivot(index='col1', columns='col3', values='col2')
     df.pivot(index='col1', columns='col3')
     df.pivot(index='col1', columns='col3', values=['col2', 'col4'])
+
+
+def test_types_groupby() -> None:
+    df = pd.DataFrame(data={'col1': [1, 1, 2], 'col2': [3, 4, 5], 'col3': [0, 1, 0]})
+    df.index.name = "ind"
+    df.groupby(by='col1')
+    df.groupby(level="ind")
+    df.groupby(by='col1', sort=False, as_index=True)
+    df.groupby(by=['col1', 'col2'])
