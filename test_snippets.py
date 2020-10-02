@@ -54,6 +54,7 @@ def run_mypy(patterns: List[str]) -> None:
             flags = ['--python-version', f'{major}.{minor}', '--config-file', 'mypy.ini']
             print(f'# Running Mypy on {len(files)} files: {" ".join(flags)}')
             try:
+                sys.argv = ['mypy'] + flags + files
                 mypy_main('', sys.stdout, sys.stderr)
             except SystemExit as err:
                 return_code = max(return_code, err.code)

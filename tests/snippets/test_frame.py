@@ -287,3 +287,26 @@ def test_types_groupby() -> None:
     df.groupby(level="ind")
     df.groupby(by='col1', sort=False, as_index=True)
     df.groupby(by=['col1', 'col2'])
+
+
+def test_types_merge() -> None:
+    df = pd.DataFrame(data={'col1': [1, 1, 2], 'col2': [3, 4, 5]})
+    df2 = pd.DataFrame(data={'col1': [1, 1, 2], 'col2': [0, 1, 0]})
+    df.merge(df2)
+    df.merge(df2, on='col1')
+    df.merge(df2, on='col1', how='left')
+
+
+def test_types_plot() -> None:
+    df = pd.DataFrame(data={'col1': [1, 1, 2], 'col2': [3, 4, 5]})
+    df.plot.hist()
+    df.plot.scatter(x='col2', y='col1')
+
+
+def test_types_window() -> None:
+    df = pd.DataFrame(data={'col1': [1, 1, 2], 'col2': [3, 4, 5]})
+    df.expanding()
+    df.expanding(axis=1, center=True)
+
+    df.rolling(2)
+    df.rolling(2, axis=1, center=True)
