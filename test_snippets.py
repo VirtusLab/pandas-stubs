@@ -51,7 +51,7 @@ def run_mypy(patterns: List[str]) -> None:
             sys.exit(1)
         else:
             # Actually running Mypy
-            flags = ['--python-version', f'{major}.{minor}', '--config-file', 'mypy.ini']
+            flags = ['--python-version', f'{major}.{minor}', '--config-file', 'mypy_snippets.ini']
             print(f'# Running Mypy on {len(files)} files: {" ".join(flags)}')
             try:
                 sys.argv = ['mypy'] + flags + files
