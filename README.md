@@ -1,4 +1,4 @@
-# PySpark Stubs
+# Pandas Stubs
 
 Collection of Pandas [stub files](https://www.python.org/dev/peps/pep-0484/#stub-files>) initially generated using [stubgen](https://github.com/python/mypy/blob/master/mypy/stubgen.py), fixed when necessary and then partially completed.
 
@@ -12,7 +12,7 @@ Due to extensive Pandas API, quality of the proposed annotations is, for the mos
 
 Easies way is using PyPI. This will add `.pyi` files to `pandas` package location, which will be removed when uninstalling:
 ```
-pip install padnas-stubs
+pip install pandas-stubs
 ```
 
 Alternatively, if you want a cleaner `PYTHONPATH` or wish to modify the annotations, manual options are:

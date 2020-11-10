@@ -10,7 +10,7 @@ from mypy.main import main as mypy_main
 parser = argparse.ArgumentParser(description="Run Mypy over Pandas code-snippets")
 parser.add_argument('patterns', type=str, nargs='*', help="Where to look for files")
 
-PYTHON_VERSIONS = [(3, 6), (3, 7), (3, 8)]
+PYTHON_VERSIONS = [(3, 6), (3, 7), (3, 8), (3, 9)]
 
 
 def match(path: str, patterns: List[str]) -> bool:
