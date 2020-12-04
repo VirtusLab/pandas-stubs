@@ -55,7 +55,11 @@ jobs:
             apt-get update
             apt-get install -y --no-install-recommends python3.9
             apt-get install -y --no-install-recommends python3-pip
-            pip install twine
+      - checkout
+      - run:
+          name: Install twine
+          <<: *master_only
+          pip3 install twine
       - run:
           name: create packages
           <<: *master_only
