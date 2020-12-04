@@ -28,19 +28,13 @@ jobs:
     docker:
       - image: ubuntu:latest
     working_directory: ~/pandas-stubs
-    filters:
-      branches:
-        only: master
-
     steps:
       - run:
-        name: init .pypirc
-        command: |
-          echo -e "[pypi]" >> ~/.pypirc
-          echo -e "username = __token__" >> ~/.pypirc
-          echo -e "password = $PYPI_TOKEN" >> ~/.pypirc
-      - run:
-          type: approval
+          name: init .pypirc
+          command: |
+            echo -e "[pypi]" >> ~/.pypirc
+            echo -e "username = __token__" >> ~/.pypirc
+            echo -e "password = $PYPI_TOKEN" >> ~/.pypirc
       - run:
           name: create packages
           command: |
@@ -48,6 +42,9 @@ jobs:
             python setup.py bdist_wheel
       - run:
           name: upload to pypi
+          filters:
+            branches:
+              only: master
           command: |
             . venv/bin/activate
             twine upload dist/*
@@ -60,4 +57,6 @@ workflows:
   build_test_and_release:
     jobs:
       - build
+      - hold:
+          type: approval
       - release
