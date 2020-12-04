@@ -23,3 +23,41 @@ jobs:
       - checkout
       - run: pip3 install tox
       - run: tox
+
+  release:
+    docker:
+      - image: ubuntu:latest
+    working_directory: ~/pandas-stubs
+    filters:
+      branches:
+        only: master
+
+    steps:
+      - run:
+        name: init .pypirc
+        command: |
+          echo -e "[pypi]" >> ~/.pypirc
+          echo -e "username = __token__" >> ~/.pypirc
+          echo -e "password = $PYPI_TOKEN" >> ~/.pypirc
+      - run:
+          type: approval
+      - run:
+          name: create packages
+          command: |
+            python setup.py sdist
+            python setup.py bdist_wheel
+      - run:
+          name: upload to pypi
+          command: |
+            . venv/bin/activate
+            twine upload dist/*
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+  build_test_and_release:
+    jobs:
+      - build
+      - release
