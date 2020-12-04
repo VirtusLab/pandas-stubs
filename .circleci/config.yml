@@ -1,3 +1,10 @@
+
+# Cannot filter on the workflow level
+master_only: &master_only
+  filters:
+    branches:
+      only: master
+
 version: 2.1
 jobs:
   build:
@@ -31,20 +38,33 @@ jobs:
     steps:
       - run:
           name: init .pypirc
+          <<: *master_only
           command: |
             echo -e "[pypi]" >> ~/.pypirc
             echo -e "username = __token__" >> ~/.pypirc
             echo -e "password = $PYPI_TOKEN" >> ~/.pypirc
       - run:
+          name: Install Python
+          <<: *master_only
+          command: |
+            set -x
+            apt-get update
+            DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata  # necessary due to https://askubuntu.com/q/909277
+            apt-get install -y software-properties-common
+            add-apt-repository -y ppa:deadsnakes/ppa
+            apt-get update
+            apt-get install -y --no-install-recommends python3.9
+            apt-get install -y --no-install-recommends python3-pip
+            pip install twine
+      - run:
           name: create packages
+          <<: *master_only
           command: |
             python setup.py sdist
             python setup.py bdist_wheel
       - run:
           name: upload to pypi
-          filters:
-            branches:
-              only: master
+          <<: *master_only
           command: |
             . venv/bin/activate
             twine upload dist/*
