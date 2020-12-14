@@ -68,7 +68,8 @@ workflows:
     jobs:
       - build
   build_test_and_release:
-    when: CIRCLE_BRANCH == "master"
+    when:
+        equal: [ CIRCLE_BRANCH, "master" ]
     jobs:
       - build
       - hold:
