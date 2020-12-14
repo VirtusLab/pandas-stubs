@@ -52,12 +52,12 @@ jobs:
           command: |
             pip3 install twine
       - run:
-          name: create packages
+          name: Create packages
           command: |
             python setup.py sdist
             python setup.py bdist_wheel
       - run:
-          name: upload to pypi
+          name: Upload to pypi
           command: |
             . venv/bin/activate
             twine upload dist/*
