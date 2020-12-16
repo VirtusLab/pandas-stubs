@@ -42,9 +42,14 @@ Test the stub files internal consistency:
 mypy --config-file mypy.ini third_party/3/pandas
 ```
 
-Test the stub files against actual code examples:
+Test the stub files against actual code examples (this will use the stubs from the `third_party/3/pandas` dir):
 
 ```
 mypy --config-file mypy.ini tests/snippets
 ```
 
+Test the **installed** stub files against actual code examples (this will use Pandas .pyi files from your env):
+
+```
+mypy --config-file mypy_env.ini tests/snippets
+```
