@@ -44,5 +44,4 @@ jobs:
             - deploy:
                 name: Upload to pypi
                 command: |
-                  . venv/bin/activate
-                  twine upload dist/*
+                  python -m twine upload dist/*
