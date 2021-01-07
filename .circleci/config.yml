@@ -24,7 +24,7 @@ jobs:
       - run: tox
       - when:
           condition:
-            equal: [ CIRCLE_BRANCH, "master" ]
+            equal: [ "master", << pipeline.git.branch >> ]
           steps:
             - deploy:
                 name: init .pypirc
@@ -39,9 +39,9 @@ jobs:
             - deploy:
                 name: Create packages
                 command: |
-                  python setup.py sdist
-                  python setup.py bdist_wheel
+                  python3 setup.py sdist
+                  python3 setup.py bdist_wheel
             - deploy:
                 name: Upload to pypi
                 command: |
-                  python -m twine upload dist/*
+                  python3 -m twine upload dist/*
