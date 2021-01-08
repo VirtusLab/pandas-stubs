@@ -25,10 +25,13 @@ setup(
     description="Type annotations for Pandas",
     long_description=(open("README.md").read()
                       if os.path.exists("README.md") else ""),
+    long_description_content_type='text/markdown',
     url="https://github.com/VirtusLab/pandas-stubs",
     packages=list(list_packages()),
     package_data={"": ["*.pyi", "py.typed"]},
     license="MIT",
+    author="Zbigniew Królikowski",
+    author_email="zkrolikowski@virtuslab.com",
     install_requires=["pandas>=1.0.1"],
     classifiers=[
         "Programming Language :: Python :: 3 :: Only",
