@@ -29,9 +29,9 @@ jobs:
             - deploy:
                 name: init .pypirc
                 command: |
-                  echo -e "[pypi]" >> ~/.pypirc
-                  echo -e "username = __token__" >> ~/.pypirc
-                  echo -e "password = $PYPI_TOKEN" >> ~/.pypirc
+                  echo "[pypi]" >> ~/.pypirc
+                  echo "username = __token__" >> ~/.pypirc
+                  echo "password = $PYPI_TOKEN" >> ~/.pypirc
             - deploy:
                 name: Install twine
                 command: |

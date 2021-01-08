@@ -25,6 +25,7 @@ setup(
     description="Type annotations for Pandas",
     long_description=(open("README.md").read()
                       if os.path.exists("README.md") else ""),
+    long_description_content_type='text/markdown',
     url="https://github.com/VirtusLab/pandas-stubs",
     packages=list(list_packages()),
     package_data={"": ["*.pyi", "py.typed"]},
