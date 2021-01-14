@@ -43,10 +43,23 @@ if sys.version_info >= (3, 8):
     AxisOption = Union[Literal[0, 1], Orientation]
     ReplaceMethod = Literal['linear', 'time', 'index', 'values', 'pad', 'nearest', 'zero', 'slinear', 'quadratic', 'cubic', 'spline',
                   'barycentric', 'polynomial', 'krogh', 'piecewise_polynomial', 'spline', 'pchip', 'akima', 'from_derivatives']
+    NoneNumpyCompatible = Literal[None] # this is sometimes used to ensure Numpy compatibility
+    GeneralDuplicatesKeepStrategy = Literal['first', 'last', False]
+    InterpolationMethod = Literal['linear', 'lower', 'higher', 'midpoint', 'nearest']
+    NamedCorrelationMethod = Literal['pearson', 'kendall', 'spearman']
+    SearchSide = Literal['left', 'right']
 else:
     Orientation = str
     AxisOption = Union[int, Orientation]
     ReplaceMethod = str
+    NoneNumpyCompatible = Any
+    GeneralDuplicatesKeepStrategy = Union[str, bool]
+    InterpolationMethod = str
+    NamedCorrelationMethod = str
+    SearchSide = str
+
+UserCorrelationMethod = Callable[[np.ndarray, np.ndarray], Scalar]
+CorrelationMethod = Union[NamedCorrelationMethod, UserCorrelationMethod]
 
 Dtype: Any
 FilePathOrBuffer = Union[str, Path, IO[AnyStr]]
@@ -90,3 +103,5 @@ ReplaceValue = Union[Scalar, Dict[Column, Scalar], List[Scalar], RegexArgument]
 
 
 Frequency = Union[DateOffset, tseries.offsets.liboffsets.BaseOffset, datetime.timedelta, str]
+
+GroupByObject = Union[Label, List[Label], Function, Series, np.ndarray, Mapping[Label, Any]]
