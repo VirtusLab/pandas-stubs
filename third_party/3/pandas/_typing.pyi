@@ -22,6 +22,9 @@ from pandas.tseries.offsets import DateOffset
 AnyArrayLike = TypeVar('AnyArrayLike', 'ExtensionArray', 'Index', 'Series', np.ndarray)
 ArrayLike = TypeVar('ArrayLike', 'ExtensionArray', np.ndarray)
 
+# this to remove a bounding issue
+TypeArrayLike = Union[ExtensionArray, np.ndarray]
+
 # scalar
 PythonScalar = Union[str, int, float, bool]
 DatetimeLikeScalar = TypeVar('DatetimeLikeScalar', 'Period', 'Timestamp', 'Timedelta')
@@ -43,6 +46,7 @@ if sys.version_info >= (3, 8):
     AxisOption = Union[Literal[0, 1], Orientation]
     ReplaceMethod = Literal['linear', 'time', 'index', 'values', 'pad', 'nearest', 'zero', 'slinear', 'quadratic', 'cubic', 'spline',
                   'barycentric', 'polynomial', 'krogh', 'piecewise_polynomial', 'spline', 'pchip', 'akima', 'from_derivatives']
+    SortKind = Literal['quicksort', 'mergesort', 'heapsort']
     NoneNumpyCompatible = Literal[None] # this is sometimes used to ensure Numpy compatibility
     GeneralDuplicatesKeepStrategy = Literal['first', 'last', False]
     InterpolationMethod = Literal['linear', 'lower', 'higher', 'midpoint', 'nearest']
@@ -52,6 +56,7 @@ else:
     Orientation = str
     AxisOption = Union[int, Orientation]
     ReplaceMethod = str
+    SortKind = str
     NoneNumpyCompatible = Any
     GeneralDuplicatesKeepStrategy = Union[str, bool]
     InterpolationMethod = str

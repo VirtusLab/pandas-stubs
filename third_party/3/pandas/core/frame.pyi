@@ -6,7 +6,7 @@ from pandas import datetime
 from pandas._typing import Axes, Axis, Dtype as Dtype, FilePathOrBuffer, Level, Renamer, Column, Label, FrameOrSeries, \
     ArrayLike, AnyArrayLike, GoogleCredentials, Scalar, ReplaceMethod, ToReplace, ReplaceValue, Frequency, AxisOption, \
     Orientation, Function, AggregationFunction, GroupByObject, GeneralDuplicatesKeepStrategy, InterpolationMethod, NamedCorrelationMethod, \
-    CorrelationMethod
+    CorrelationMethod, SortKind
 from pandas.core.accessor import CachedAccessor
 from pandas.core.base import PandasObject
 from pandas.core.generic import NDFrame
@@ -29,7 +29,6 @@ if sys.version_info >= (3, 8):
     ParquetEngine = Literal['auto', 'pyarrow', 'fastparquet']
     DropTypes = Literal['any', 'all']
     NaSortPosition = Literal['first', 'last']
-    SortKind = Literal['quicksort', 'mergesort', 'heapsort']
     KeepStrategy = Literal['first', 'last', 'all']
     UpdateJoinType = Literal['left']
     UpdateErrorsStrategy = Literal['raise', 'ignore']
@@ -46,7 +45,6 @@ else:
     ParquetEngine = str
     DropTypes = str
     NaSortPosition = str
-    SortKind = str
     KeepStrategy = str
     UpdateJoinType = str
     UpdateErrorsStrategy = str

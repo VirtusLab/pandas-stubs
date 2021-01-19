@@ -3,10 +3,10 @@ from typing import Any, Callable, Dict, Hashable, List, Mapping, Optional, Seque
 import numpy as np
 import pandas.core.indexing as indexing
 from pandas._typing import Axis, Dtype, FilePathOrBuffer, FrameOrSeries, JSONSerializable, Level, Renamer, \
-    ReplaceMethod, ReplaceValue, ToReplace, Frequency, Scalar, AxisOption, Column
+    ReplaceMethod, ReplaceValue, ToReplace, Frequency, Scalar, AxisOption, Column, SortKind
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCSeries as ABCSeries
 from pandas.core.base import PandasObject, SelectionMixin
-from pandas.core.frame import SortKind, NaSortPosition, JoinType
+from pandas.core.frame import NaSortPosition, JoinType
 from pandas.core.indexes.api import Index
 from pandas.core.internals import BlockManager
 
