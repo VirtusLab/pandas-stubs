@@ -3,15 +3,15 @@ from io import StringIO
 import sys
 
 import numpy as np
-from pandas.core.frame import DataFrame, KeepStrategy
+from pandas.core.frame import DataFrame, KeepStrategy, TransformFunction
 
 from pandas._typing import Renamer, Axis, FrameOrSeries, Function, AxisOption, Frequency, Scalar, Dtype, NoneNumpyCompatible, Level, \
     GroupByObject, GeneralDuplicatesKeepStrategy, Label, ArrayLike, InterpolationMethod, CorrelationMethod, SearchSide, SortKind, \
-    TypeArrayLike
+    TypeArrayLike, AggregationFunction
 from pandas.core import base, generic
 from pandas.core.arrays import ExtensionArray
 from pandas.core.groupby import generic as groupby_generic
-from typing import Any, Callable, Hashable, IO, Optional, Iterable, Union, Mapping, Sequence, Type, TypeVar
+from typing import Any, Callable, Hashable, IO, Optional, Iterable, Union, Mapping, Sequence, Type, TypeVar, Tuple
 
 from pandas.core.indexes.base import Index
 
@@ -20,9 +20,11 @@ if sys.version_info >= (3, 8):
     from typing import Literal
     OneDimensionalAxisOption = Literal[0, 'index']
     SortValuesNaPosition = Literal['first', 'last']
+    MapNaNAction = Literal['ignore']
 else:
     OneDimensionalAxisOption = Union[int, str]
     SortValuesNaPosition = str
+    MapNaNAction = str
 
 K = TypeVar('K')
 V = TypeVar('V')
@@ -100,11 +102,10 @@ class Series(base.IndexOpsMixin, generic.NDFrame):
     def reorder_levels(self, order: Iterable[int]) -> Series: ...
     def explode(self) -> Series: ...
     def unstack(self, level: Union[Level, Iterable[Level]] = ..., fill_value: Optional[Scalar] = ...) -> DataFrame: ...
-    def map(self, arg: Any, na_action: Optional[Any] = ...) -> Any: ...
-    def aggregate(self, func: Any, axis: int = ..., *args: Any, **kwargs: Any) -> Any: ...
-    agg: Any = ...
-    def transform(self, func: Any, axis: int = ..., *args: Any, **kwargs: Any) -> Any: ...
-    def apply(self, func: Any, convert_dtype: bool = ..., args: Any = ..., **kwds: Any) -> Any: ...
+    def map(self, arg: Union[Function, collections.abc.Mapping[Any, Any], Series], na_action: Optional[MapNaNAction] = ...) -> Series: ...
+    def aggregate(self, func: AggregationFunction, axis: OneDimensionalAxisOption = ..., *args: Any, **kwargs: Any) -> FrameOrSeries: ...
+    def transform(self, func: TransformFunction, axis: OneDimensionalAxisOption = ..., *args: Any, **kwargs: Any) -> Series: ...
+    def apply(self, func: Function, convert_dtype: bool = ..., args: Any = ..., **kwds: Any) -> FrameOrSeries: ...
     def align(self, other: Any, join: str = ..., axis: Optional[Any] = ..., level: Optional[Any] = ..., copy: bool = ..., fill_value: Optional[Any] = ..., method: Optional[Any] = ..., limit: Optional[Any] = ..., fill_axis: int = ..., broadcast_axis: Optional[Any] = ...) -> Any: ...
     def rename(self, index: Optional[Renamer] = ..., *, axis: Optional[Axis] = ..., copy: bool = ..., inplace: bool = ..., level: Optional[int] = ..., errors: str = ...) -> Optional[Series]: ...   # type: ignore[override]
     def reindex(self, index: Optional[Any] = ..., **kwargs: Any) -> FrameOrSeries: ... # type: ignore[override]
