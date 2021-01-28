@@ -6,7 +6,7 @@ from pandas import datetime
 from pandas._typing import Axes, Axis, Dtype as Dtype, FilePathOrBuffer, Level, Renamer, Column, Label, FrameOrSeries, \
     ArrayLike, AnyArrayLike, GoogleCredentials, Scalar, ReplaceMethod, ToReplace, ReplaceValue, Frequency, AxisOption, \
     Orientation, Function, AggregationFunction, GroupByObject, GeneralDuplicatesKeepStrategy, InterpolationMethod, NamedCorrelationMethod, \
-    CorrelationMethod, SortKind
+    CorrelationMethod, SortKind, JoinType, FillMethod, ErrorsStrategy, NaSortPosition, FillValue, TimestampMethod
 from pandas.core.accessor import CachedAccessor
 from pandas.core.base import PandasObject
 from pandas.core.generic import NDFrame
@@ -28,32 +28,24 @@ if sys.version_info >= (3, 8):
     IfExistStrategy = Literal['fail', 'replace', 'append']
     ParquetEngine = Literal['auto', 'pyarrow', 'fastparquet']
     DropTypes = Literal['any', 'all']
-    NaSortPosition = Literal['first', 'last']
     KeepStrategy = Literal['first', 'last', 'all']
     UpdateJoinType = Literal['left']
     UpdateErrorsStrategy = Literal['raise', 'ignore']
     ApplyResultType = Literal['expand', 'reduce', 'broadcast']
-    JoinType = Literal['left', 'right', 'outer', 'inner']
     MergeType = JoinType
-    TimestampMethod = Literal['s', 'e', 'start', 'end']
     MergeValidationMethod = Literal["one_to_one", "1:1", "one_to_many", "1:m", "many_to_one", "m:1", "many_to_many", "m:m"]
-    AlignMethod = Literal['backfill', 'bfill', 'pad', 'ffill']
 else:
     ExportOrientation = str
     CompressionType = str
     IfExistStrategy = str
     ParquetEngine = str
     DropTypes = str
-    NaSortPosition = str
     KeepStrategy = str
     UpdateJoinType = str
     UpdateErrorsStrategy = str
     ApplyResultType = str
-    JoinType = str
     MergeType = str
-    TimestampMethod = str
     MergeValidationMethod = str
-    AlignMethod = str
 
 IndexArray = Union[Series, Index, np.ndarray, Iterator]
 CoercibleIntoDataFrame = Union[Dict[str, Scalar], Dict[str, Series], Dict[str, Tuple[Scalar, ...]], Dict[str, Iterable[Scalar]]]
@@ -127,11 +119,11 @@ class DataFrame(NDFrame):
     def insert(self, loc: int, column: Union[Column, Hashable], value: Union[int, Series, ArrayLike], allow_duplicates: Optional[bool] = ...) -> None: ...
     def assign(self, **kwargs: Any) -> DataFrame: ...
     def lookup(self, row_labels: Sequence[Any], col_labels: Sequence[Column]) -> np.ndarray: ...
-    def align(self, other: FrameOrSeries, join: JoinType = ..., axis: AxisOption = ..., level: Level = ..., copy: bool = ..., fill_value: Scalar = ..., method: Optional[AlignMethod] = ..., limit: Optional[int] = ..., fill_axis: Axis = ..., broadcast_axis: AxisOption = ...) -> DataFrame: ...
+    def align(self, other: FrameOrSeries, join: JoinType = ..., axis: AxisOption = ..., level: Level = ..., copy: bool = ..., fill_value: Scalar = ..., method: Optional[FillMethod] = ..., limit: Optional[int] = ..., fill_axis: AxisOption = ..., broadcast_axis: AxisOption = ...) -> DataFrame: ...
     def reindex(self, *args: Any, **kwargs: Any) -> DataFrame: ...
-    def drop(self, labels: Optional[Sequence[Label]] = ..., axis: AxisOption = ..., index: Optional[Sequence[Label]] = ..., columns: Optional[Sequence[Label]] = ..., level: Optional[Level] = ..., inplace: bool = ..., errors: str = ...) -> DataFrame: ...
-    def rename(self, mapper: Optional[Renamer] = ..., *, index: Optional[Renamer] = ..., columns: Optional[Renamer] = ..., axis: Optional[Axis] = ..., copy: bool = ..., inplace: bool = ..., level: Optional[Level] = ..., errors: str = ...) -> Optional[DataFrame]: ...
-    def fillna(self, value: Optional[Any] = ..., method: Optional[Any] = ..., axis: Optional[Any] = ..., inplace: Optional[Any] = ..., limit: int = ..., downcast: Optional[Any] = ...) -> Optional[DataFrame]: ...
+    def drop(self, labels: Optional[Sequence[Label]] = ..., axis: AxisOption = ..., index: Optional[Sequence[Label]] = ..., columns: Optional[Sequence[Label]] = ..., level: Optional[Level] = ..., inplace: bool = ..., errors: ErrorsStrategy = ...) -> DataFrame: ...
+    def rename(self, mapper: Optional[Renamer] = ..., *, index: Optional[Renamer] = ..., columns: Optional[Renamer] = ..., axis: Optional[Axis] = ..., copy: bool = ..., inplace: bool = ..., level: Optional[Level] = ..., errors: ErrorsStrategy = ...) -> Optional[DataFrame]: ...
+    def fillna(self, value: FillValue = ..., method: Optional[FillMethod] = ..., axis: Optional[Axis] = ..., inplace: Optional[bool] = ..., limit: int = ..., downcast: Optional[Dict[Any, Dtype]] = ...) -> Optional[DataFrame]: ...
     def replace(self, to_replace: Optional[ToReplace] = ..., value: Optional[ReplaceValue] = ..., inplace: bool = ..., limit: Optional[int] = ..., regex: bool = ..., method: ReplaceMethod = ...) -> DataFrame: ...
     def shift(self, periods: int = ..., freq: Optional[Frequency] = ..., axis: AxisOption = ..., fill_value: Scalar = ...) -> DataFrame: ...
     def set_index(self, keys: Union[Label, IndexArray, List[Union[Label, IndexArray]]], drop: bool = ..., append: bool = ..., inplace: bool = ..., verify_integrity: bool = ...) -> DataFrame: ...

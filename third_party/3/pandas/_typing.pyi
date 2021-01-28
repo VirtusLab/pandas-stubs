@@ -52,6 +52,11 @@ if sys.version_info >= (3, 8):
     InterpolationMethod = Literal['linear', 'lower', 'higher', 'midpoint', 'nearest']
     NamedCorrelationMethod = Literal['pearson', 'kendall', 'spearman']
     SearchSide = Literal['left', 'right']
+    NaSortPosition = Literal['first', 'last']
+    JoinType = Literal['left', 'right', 'outer', 'inner']
+    FillMethod = Literal['backfill', 'bfill', 'pad', 'ffill']
+    ErrorsStrategy = Literal['ignore', 'raise']
+    TimestampMethod = Literal['s', 'e', 'start', 'end']
 else:
     Orientation = str
     AxisOption = Union[int, Orientation]
@@ -62,6 +67,11 @@ else:
     InterpolationMethod = str
     NamedCorrelationMethod = str
     SearchSide = str
+    NaSortPosition = str
+    JoinType = str
+    FillMethod = str
+    ErrorsStrategy = str
+    TimestampMethod = str
 
 UserCorrelationMethod = Callable[[np.ndarray, np.ndarray], Scalar]
 CorrelationMethod = Union[NamedCorrelationMethod, UserCorrelationMethod]
@@ -79,6 +89,8 @@ Axes = Collection
 Renamer = Union[Mapping[Label, Any], Callable[[Label], Label]]
 
 T = TypeVar('T')
+
+FillValue = Union[Scalar, Dict[Any, Any], FrameOrSeries]
 
 # Any plain Python or numpy function
 Function = Union[np.func, Callable[..., Any]]
