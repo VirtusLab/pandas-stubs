@@ -4,12 +4,11 @@ from pandas.plotting._matplotlib.core import LinePlot as LinePlot
 from typing import Any, Optional
 
 class BoxPlot(LinePlot):
-    BP = namedtuple('Boxplot', ['ax', 'lines'])
     return_type: Any = ...
     def __init__(self, data: Any, return_type: str = ..., **kwargs: Any) -> None: ...
     def maybe_color_bp(self, bp: Any) -> None: ...
     @property
-    def orientation(self) -> Any: ...  # type: ignore
+    def orientation(self) -> str: ...  # type: ignore
     @property
     def result(self) -> Any: ...
 
