@@ -1,6 +1,6 @@
 import sys
 
-import numpy.ma as np
+import numpy as np
 
 from pandas import datetime
 from pandas._typing import Axes, Axis, Dtype as Dtype, FilePathOrBuffer, Level, Renamer, Column, Label, FrameOrSeries, \
