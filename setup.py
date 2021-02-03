@@ -21,7 +21,7 @@ def list_packages(source_path: str = src_path) -> None:
 setup(
     name="pandas-stubs",
     package_dir={"": src_path},
-    version="1.0.4.2",
+    version="1.0.4.4",
     description="Type annotations for Pandas",
     long_description=(open("README.md").read()
                       if os.path.exists("README.md") else ""),
@@ -32,7 +32,7 @@ setup(
     license="MIT",
     author="Zbigniew Królikowski",
     author_email="zkrolikowski@virtuslab.com",
-    install_requires=["pandas>=1.0.1,<1.1.0"],
+    install_requires=[],
     classifiers=[
         "Programming Language :: Python :: 3 :: Only",
         "License :: OSI Approved :: MIT License",
