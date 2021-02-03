@@ -4,7 +4,6 @@ jobs:
     docker:
       - image: ubuntu:latest
     working_directory: ~/pandas-stubs
-
     steps:
       - run:
           name: Install Pythons
@@ -23,3 +22,26 @@ jobs:
       - checkout
       - run: pip3 install tox
       - run: tox
+      - when:
+          condition:
+            equal: [ "master", << pipeline.git.branch >> ]
+          steps:
+            - deploy:
+                name: init .pypirc
+                command: |
+                  echo "[pypi]" >> ~/.pypirc
+                  echo "username = __token__" >> ~/.pypirc
+                  echo "password = $PYPI_TOKEN" >> ~/.pypirc
+            - deploy:
+                name: Install twine
+                command: |
+                  pip3 install twine
+            - deploy:
+                name: Create packages
+                command: |
+                  python3 setup.py sdist
+                  python3 setup.py bdist_wheel
+            - deploy:
+                name: Upload to pypi
+                command: |
+                  python3 -m twine upload dist/*
