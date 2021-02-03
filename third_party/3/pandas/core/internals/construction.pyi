@@ -1,4 +1,4 @@
-import numpy.ma as np
+import numpy as np
 from pandas.core import algorithms as algorithms
 from pandas.core.arrays import Categorical as Categorical
 from pandas.core.construction import sanitize_array as sanitize_array
