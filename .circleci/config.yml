@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: buildpack-deps:trusty
+      - image: ubuntu:latest
     working_directory: ~/pandas-stubs
     steps:
       - run:
@@ -14,6 +14,7 @@ jobs:
             apt-get install -y software-properties-common
             add-apt-repository -y ppa:deadsnakes/ppa
             apt-get update
+            apt-get install -y --no-install-recommends libblas-dev liblapack-dev
             apt-get install -y --no-install-recommends python3.6 python3.7 python3.8 python3.9
             apt-get install -y --no-install-recommends python3-pip
       - run:
