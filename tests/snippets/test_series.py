@@ -48,3 +48,42 @@ def test_types_loc_at() -> None:
     s.at['row1']
     s2.loc[1]
     s2.at[1]
+
+
+def test_types_boolean_indexing() -> None:
+    s = pd.Series([0, 1, 2])
+    s[s > 1]
+    s[pd]
+
+
+def test_types_head_tail() -> None:
+    s = pd.Series([0, 1, 2])
+    s.head(1)
+    s.tail(1)
+
+
+def test_types_sample() -> None:
+    s = pd.Series([0, 1, 2])
+    s.sample(frac=0.5)
+    s.sample(n=1)
+
+
+def test_types_nlargest_nsmallest() -> None:
+    s = pd.Series([0, 1, 2])
+    s.nlargest(1)
+    s.nlargest(1, 'first')
+    s.nsmallest(1, 'last')
+    s.nsmallest(1, 'all')
+
+
+def test_types_filter() -> None:
+    s = pd.Series(data=[1, 2, 3, 4], index=['cow', 'coal', 'coalesce', ''])
+    s.filter(items=['cow'])
+    s.filter(regex='co.*')
+    s.filter(like='al')
+
+
+def test_types_setting() -> None:
+    s = pd.Series([0, 1, 2])
+    s[3] = 4
+    s[s == 1] = 5

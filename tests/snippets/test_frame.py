@@ -81,6 +81,7 @@ def test_types_filter() -> None:
 def test_types_setting() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
     df['col1'] = 1
+    df[df == 1] = 7
 
 
 def test_types_dropping() -> None:
