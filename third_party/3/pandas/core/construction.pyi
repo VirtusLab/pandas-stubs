@@ -1,4 +1,4 @@
-import numpy as np
+import numpy.ma as np
 from pandas._typing import ArrayLike as ArrayLike, Dtype as Dtype
 from pandas.core.dtypes.cast import construct_1d_arraylike_from_scalar as construct_1d_arraylike_from_scalar, construct_1d_ndarray_preserving_na as construct_1d_ndarray_preserving_na, construct_1d_object_array_from_listlike as construct_1d_object_array_from_listlike, infer_dtype_from_scalar as infer_dtype_from_scalar, maybe_cast_to_datetime as maybe_cast_to_datetime, maybe_cast_to_integer_array as maybe_cast_to_integer_array, maybe_castable as maybe_castable, maybe_convert_platform as maybe_convert_platform, maybe_upcast as maybe_upcast
 

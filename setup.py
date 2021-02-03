@@ -32,7 +32,7 @@ setup(
     license="MIT",
     author="Zbigniew Królikowski",
     author_email="zkrolikowski@virtuslab.com",
-    install_requires=["pandas>=1.0.1", "numpy<1.2.0"],
+    install_requires=["pandas>=1.0.1"],
     classifiers=[
         "Programming Language :: Python :: 3 :: Only",
         "License :: OSI Approved :: MIT License",
