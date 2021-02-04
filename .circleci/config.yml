@@ -44,4 +44,4 @@ jobs:
             - deploy:
                 name: Upload to pypi
                 command: |
-                  python3 -m twine upload dist/*
+                  python3 -m twine upload --skip-existing dist/*

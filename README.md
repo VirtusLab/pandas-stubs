@@ -2,8 +2,10 @@
 
 Collection of Pandas [stub files](https://www.python.org/dev/peps/pep-0484/#stub-files>) initially generated using [stubgen](https://github.com/python/mypy/blob/master/mypy/stubgen.py), fixed when necessary and then partially completed.
 
+|CI|PyPi version | PyPI Downloads | Conda Downloads | Python support | License
+|--|--|--|--|--|--|
+| [![VirtusLab](https://circleci.com/gh/VirtusLab/pandas-stubs.svg?style=svg)]() | [![PyPI package](https://img.shields.io/pypi/v/pandas-stubs.svg)](https://pypi.org/project/pandas-stubs) | [![PyPI download month](https://img.shields.io/pypi/dm/pandas-stubs.svg)](https://pypi.python.org/pypi/pandas-stubs/) | [![PyPI download month](https://anaconda.org/conda-forge/pandas-stubs/badges/downloads.svg)](https://anaconda.org/conda-forge/pandas-stubs)  | [![PyPI pyversions](https://img.shields.io/pypi/pyversions/pandas-stubs.svg)](https://pypi.python.org/pypi/pandas-stubs/)|[![GitHub license](https://img.shields.io/github/license/VirtusLab/pandas-stubs.svg)](https://github.com/VirtusLab/pandas-stubs/blob/master/LICENSE)
 ## Motivation
-
 Provide rudimentary coverage of Pandas code by static type checking, to alleviate problems mentioned in the following issues [14468](https://github.com/pandas-dev/pandas/issues/14468), [26766](https://github.com/pandas-dev/pandas/issues/26766). This approach was taken to achieve accelerated development - compared to refactoring existing Pandas codebase creating stub files is relatively uninhibited. 
 
 Due to extensive Pandas API, quality of the proposed annotations is, for the most part, not suitable for integration into original codebase, but they can be very useful as a way of achieving some type safety during development.
@@ -13,6 +15,12 @@ Due to extensive Pandas API, quality of the proposed annotations is, for the mos
 The easiest way is using PyPI. This will add `.pyi` files to `pandas` package location, which will be removed when uninstalling:
 ```
 pip install pandas-stubs
+```
+
+Another way to install is using Conda:
+
+```
+conda install -c conda-forge pandas-stubs 
 ```
 
 Alternatively, if you want a cleaner `PYTHONPATH` or wish to modify the annotations, manual options are:
