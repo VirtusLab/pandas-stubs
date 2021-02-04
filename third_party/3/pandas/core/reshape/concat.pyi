@@ -1,12 +1,16 @@
 from pandas import DataFrame as DataFrame, Index as Index, MultiIndex as MultiIndex, Series as Series
-from pandas._typing import Axis
+from pandas._typing import Axis, FrameOrSeries
 from pandas.core.arrays.categorical import factorize_from_iterable as factorize_from_iterable, factorize_from_iterables as factorize_from_iterables
 from pandas.core.generic import NDFrame as NDFrame
 from pandas.core.indexes.api import all_indexes_same as all_indexes_same, ensure_index as ensure_index, get_consensus_names as get_consensus_names, get_objs_combined_axis as get_objs_combined_axis
 from pandas.core.internals import concatenate_block_managers as concatenate_block_managers
-from typing import Any, Hashable, Iterable, Mapping, Optional, Union
+from typing import Any, Hashable, Iterable, Mapping, Optional, Union, overload
 
+
+@overload
 def concat(objs: Union[Iterable[DataFrame], Mapping[Optional[Hashable], DataFrame]], axis: Axis = ..., join: str=..., ignore_index: bool=..., keys: Any = ..., levels: Any = ..., names: Any = ..., verify_integrity: bool=..., sort: bool=..., copy: bool=...) -> DataFrame: ...
+@overload
+def concat(objs: Union[Iterable[Series], Mapping[Optional[Hashable], Series]], axis: Axis = ..., join: str=..., ignore_index: bool=..., keys: Any = ..., levels: Any = ..., names: Any = ..., verify_integrity: bool=..., sort: bool=..., copy: bool=...) -> FrameOrSeries: ...
 
 class _Concatenator:
     intersect: bool = ...

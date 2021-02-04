@@ -22,6 +22,9 @@ from pandas.tseries.offsets import DateOffset
 AnyArrayLike = TypeVar('AnyArrayLike', 'ExtensionArray', 'Index', 'Series', np.ndarray)
 ArrayLike = TypeVar('ArrayLike', 'ExtensionArray', np.ndarray)
 
+# this to remove a bounding issue
+TypeArrayLike = Union[ExtensionArray, np.ndarray]
+
 # scalar
 PythonScalar = Union[str, int, float, bool]
 DatetimeLikeScalar = TypeVar('DatetimeLikeScalar', 'Period', 'Timestamp', 'Timedelta')
@@ -43,10 +46,35 @@ if sys.version_info >= (3, 8):
     AxisOption = Union[Literal[0, 1], Orientation]
     ReplaceMethod = Literal['linear', 'time', 'index', 'values', 'pad', 'nearest', 'zero', 'slinear', 'quadratic', 'cubic', 'spline',
                   'barycentric', 'polynomial', 'krogh', 'piecewise_polynomial', 'spline', 'pchip', 'akima', 'from_derivatives']
+    SortKind = Literal['quicksort', 'mergesort', 'heapsort']
+    NoneNumpyCompatible = Literal[None] # this is sometimes used to ensure Numpy compatibility
+    GeneralDuplicatesKeepStrategy = Literal['first', 'last', False]
+    InterpolationMethod = Literal['linear', 'lower', 'higher', 'midpoint', 'nearest']
+    NamedCorrelationMethod = Literal['pearson', 'kendall', 'spearman']
+    SearchSide = Literal['left', 'right']
+    NaSortPosition = Literal['first', 'last']
+    JoinType = Literal['left', 'right', 'outer', 'inner']
+    FillMethod = Literal['backfill', 'bfill', 'pad', 'ffill']
+    ErrorsStrategy = Literal['ignore', 'raise']
+    TimestampMethod = Literal['s', 'e', 'start', 'end']
 else:
     Orientation = str
     AxisOption = Union[int, Orientation]
     ReplaceMethod = str
+    SortKind = str
+    NoneNumpyCompatible = Any
+    GeneralDuplicatesKeepStrategy = Union[str, bool]
+    InterpolationMethod = str
+    NamedCorrelationMethod = str
+    SearchSide = str
+    NaSortPosition = str
+    JoinType = str
+    FillMethod = str
+    ErrorsStrategy = str
+    TimestampMethod = str
+
+UserCorrelationMethod = Callable[[np.ndarray, np.ndarray], Scalar]
+CorrelationMethod = Union[NamedCorrelationMethod, UserCorrelationMethod]
 
 Dtype: Any
 FilePathOrBuffer = Union[str, Path, IO[AnyStr]]
@@ -61,6 +89,8 @@ Axes = Collection
 Renamer = Union[Mapping[Label, Any], Callable[[Label], Label]]
 
 T = TypeVar('T')
+
+FillValue = Union[Scalar, Dict[Any, Any], FrameOrSeries]
 
 # Any plain Python or numpy function
 Function = Union[np.func, Callable[..., Any]]
@@ -90,3 +120,5 @@ ReplaceValue = Union[Scalar, Dict[Column, Scalar], List[Scalar], RegexArgument]
 
 
 Frequency = Union[DateOffset, tseries.offsets.liboffsets.BaseOffset, datetime.timedelta, str]
+
+GroupByObject = Union[Label, List[Label], Function, Series, np.ndarray, Mapping[Label, Any]]
