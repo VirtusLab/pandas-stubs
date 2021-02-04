@@ -84,7 +84,7 @@ def test_types_setting() -> None:
     df[df == 1] = 7
 
 
-def test_types_dropping() -> None:
+def test_types_drop() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
     df.drop('col1', axis=1)
     df.drop(columns=['col1'])
@@ -251,6 +251,12 @@ def test_types_element_wise_arithmetic() -> None:
 
     df / df2
     df.div(df2, fill_value=0)
+
+    df // df2
+    df.floordiv(df2, fill_value=0)
+
+    df % df2
+    df.mod(df2, fill_value=0)
 
 
 def test_types_melt() -> None:
