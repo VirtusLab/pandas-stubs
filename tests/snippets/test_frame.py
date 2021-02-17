@@ -111,6 +111,22 @@ def test_types_sort_index() -> None:
     df.sort_index(kind="mergesort")
 
 
+def test_types_set_index() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2, 3, 4], 'col2': ['a', 'b', 'c', 'd']}, index=[5, 1, 3, 2])
+    df.set_index('col1')
+    df.set_index('col1', drop=False)
+    df.set_index('col1', append=True)
+    df.set_index('col1', verify_integrity=True)
+    df.set_index(['col1', 'col2'])
+    df.set_index('col1', inplace=True)
+
+
+def test_types_query() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2, 3, 4], 'col2': [3, 0, 1, 7]})
+    df.query("col1 > col2")
+    df.query("col1 % col2 == 0", inplace=True)
+
+
 def test_types_sort_values() -> None:
     df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
     df.sort_values('col1')
