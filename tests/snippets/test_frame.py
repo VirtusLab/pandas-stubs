@@ -21,11 +21,36 @@ def test_types_csv() -> None:
         pd.read_csv(file.name)
 
 
-def test_types_select() -> None:
-    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+def test_types_getitem() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4], 5: [6, 7]})
+    i = pd.Index(['col1', 'col2'])
+    s = pd.Series(['col1', 'col2'])
+    select_df = pd.DataFrame({'col1': [True, True], 'col2': [False, True]})
+    a = np.array(['col1', 'col2'])
     df['col1']
-    df[0]
+    df[3]
+    df[['col1', 'col2']]
     df[1:]
+    df[s]
+    df[a]
+    df[select_df]
+    df[i]
+
+
+def test_types_setitem() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4], 5: [6, 7]})
+    i = pd.Index(['col1', 'col2'])
+    s = pd.Series(['col1', 'col2'])
+    select_df = pd.DataFrame({'col1': [True, True], 'col2': [False, True]})
+    a = np.array(['col1', 'col2'])
+    df['col1'] = [1, 2]
+    df[3] = [5, 6]
+    df[['col1', 'col2']] = [[1, 2], [3, 4]]
+    df[1:] = {'col1': {1: 'a'}, 'col2': {1: 'b'}, 5: {1: 'c'}}
+    df[s] = [5, 6]
+    df[a] = [[1, 2], [3, 4]]
+    df[select_df] = [1, 2, 3]
+    df[i] = [8, 9]
 
 
 def test_types_iloc_iat() -> None:
