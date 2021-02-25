@@ -28,7 +28,7 @@ def test_types_getitem() -> None:
     select_df = pd.DataFrame({'col1': [True, True], 'col2': [False, True]})
     a = np.array(['col1', 'col2'])
     df['col1']
-    df[3]
+    df[5]
     df[['col1', 'col2']]
     df[1:]
     df[s]
@@ -44,7 +44,7 @@ def test_types_setitem() -> None:
     select_df = pd.DataFrame({'col1': [True, True], 'col2': [False, True]})
     a = np.array(['col1', 'col2'])
     df['col1'] = [1, 2]
-    df[3] = [5, 6]
+    df[5] = [5, 6]
     df[['col1', 'col2']] = [[1, 2], [3, 4]]
     df[1:] = {'col1': {1: 'a'}, 'col2': {1: 'b'}, 5: {1: 'c'}}
     df[s] = [5, 6]
