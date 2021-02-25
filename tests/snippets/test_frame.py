@@ -1,4 +1,8 @@
+# flake8: noqa: F841
+
 import tempfile
+from pathlib import Path
+
 import pandas as pd
 import numpy as np
 
@@ -12,14 +16,15 @@ def test_types_init() -> None:
 
 def test_types_csv() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
-    with tempfile.TemporaryFile() as file:
-        df.to_csv()
-        df.to_csv(file.name)
-        df.to_csv(file)
-        pd.read_csv()
-        pd.read_csv(file)
-        pd.read_csv(file.name)
+    csv_df: str = df.to_csv()
 
+    with tempfile.NamedTemporaryFile() as file:
+        df.to_csv(file.name)
+        df2: pd.DataFrame = pd.read_csv(file.name)
+
+    with tempfile.NamedTemporaryFile() as file:
+        df.to_csv(Path(file.name))
+        df3: pd.DataFrame = pd.read_csv(Path(file.name))
 
 def test_types_getitem() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4], 5: [6, 7]})
