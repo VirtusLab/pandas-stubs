@@ -1,3 +1,5 @@
+# flake8: noqa: F841
+
 import tempfile
 from pathlib import Path
 
