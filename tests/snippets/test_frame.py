@@ -49,7 +49,7 @@ def test_types_setitem() -> None:
     df[1:] = {'col1': {1: 'a'}, 'col2': {1: 'b'}, 5: {1: 'c'}}
     df[s] = [5, 6]
     df[a] = [[1, 2], [3, 4]]
-    df[select_df] = [1, 2, 3]
+    df[select_df] = [1, 2]
     df[i] = [8, 9]
 
 
