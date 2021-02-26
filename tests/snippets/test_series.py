@@ -1,4 +1,7 @@
+# flake8: noqa: F841
+
 import tempfile
+from pathlib import Path
 
 import pandas as pd
 import numpy as np
@@ -16,18 +19,18 @@ def test_types_init() -> None:
 
 def test_types_csv() -> None:
     s = pd.Series(data=[1, 2, 3])
-    with tempfile.TemporaryFile() as file:
-        s.to_csv()
-        s.to_csv(file.name)
-        s.to_csv(file)
-        pd.read_csv()
-        pd.read_csv(file)
-        pd.read_csv(file.name)
+    csv_df: str = s.to_csv()
 
+    with tempfile.NamedTemporaryFile() as file:
+        s.to_csv(file.name)
+        s2: pd.Series = pd.read_csv(file.name)
+
+    with tempfile.NamedTemporaryFile() as file:
+        s.to_csv(Path(file.name))
+        s3: pd.Series = pd.read_csv(Path(file.name))
 
 def test_types_select() -> None:
     s = pd.Series(data={'row1': 1, 'row2': 2})
-    s['col1']
     s[0]
     s[1:]
 
@@ -53,7 +56,7 @@ def test_types_loc_at() -> None:
 def test_types_boolean_indexing() -> None:
     s = pd.Series([0, 1, 2])
     s[s > 1]
-    s[pd]
+    s[s]
 
 
 def test_types_head_tail() -> None:
@@ -230,7 +233,7 @@ def test_types_var() -> None:
 def test_types_std() -> None:
     s = pd.Series([-10, 2, 3, 10])
     s.std()
-    s.std(axis=1, ddof=1)
+    s.std(axis=0, ddof=1)
     s.std(skipna=True, numeric_only=False)
 
 

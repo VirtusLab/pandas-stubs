@@ -1,4 +1,8 @@
+# flake8: noqa: F841
+
 import tempfile
+from pathlib import Path
+
 import pandas as pd
 import numpy as np
 
@@ -12,20 +16,46 @@ def test_types_init() -> None:
 
 def test_types_csv() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
-    with tempfile.TemporaryFile() as file:
-        df.to_csv()
+    csv_df: str = df.to_csv()
+
+    with tempfile.NamedTemporaryFile() as file:
         df.to_csv(file.name)
-        df.to_csv(file)
-        pd.read_csv()
-        pd.read_csv(file)
-        pd.read_csv(file.name)
+        df2: pd.DataFrame = pd.read_csv(file.name)
 
+    with tempfile.NamedTemporaryFile() as file:
+        df.to_csv(Path(file.name))
+        df3: pd.DataFrame = pd.read_csv(Path(file.name))
 
-def test_types_select() -> None:
-    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+def test_types_getitem() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4], 5: [6, 7]})
+    i = pd.Index(['col1', 'col2'])
+    s = pd.Series(['col1', 'col2'])
+    select_df = pd.DataFrame({'col1': [True, True], 'col2': [False, True]})
+    a = np.array(['col1', 'col2'])
     df['col1']
-    df[0]
+    df[5]
+    df[['col1', 'col2']]
     df[1:]
+    df[s]
+    df[a]
+    df[select_df]
+    df[i]
+
+
+def test_types_setitem() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4], 5: [6, 7]})
+    i = pd.Index(['col1', 'col2'])
+    s = pd.Series(['col1', 'col2'])
+    select_df = pd.DataFrame({'col1': [True, True], 'col2': [False, True]})
+    a = np.array(['col1', 'col2'])
+    df['col1'] = [1, 2]
+    df[5] = [5, 6]
+    df[['col1', 'col2']] = [[1, 2], [3, 4]]
+    df[1:] = {'col1': {1: 'a'}, 'col2': {1: 'b'}, 5: {1: 'c'}}
+    df[s] = [5, 6]
+    df[a] = [[1, 2], [3, 4]]
+    df[select_df] = [1, 2, 3]
+    df[i] = [8, 9]
 
 
 def test_types_iloc_iat() -> None:
