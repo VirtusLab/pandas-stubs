@@ -21,7 +21,7 @@ def list_packages(source_path: str = src_path) -> None:
 setup(
     name="pandas-stubs",
     package_dir={"": src_path},
-    version="1.0.4.6",
+    version="1.0.4.7",
     description="Type annotations for Pandas",
     long_description=(open("README.md").read()
                       if os.path.exists("README.md") else ""),
