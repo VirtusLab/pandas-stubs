@@ -131,7 +131,7 @@ def test_types_sort_index() -> None:
     s.sort_index(kind="mergesort")
 
 
-# This added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+# This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
 def test_types_sort_index_with_key() -> None:
     s = pd.Series([1, 2, 3], index=['a', 'B', 'c'])
     s.sort_index(key=lambda k: k.str.lower())
@@ -146,7 +146,7 @@ def test_types_sort_values() -> None:
     s.sort_values(ignore_index=True)
 
 
-# This added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+# This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
 def test_types_sort_values_with_key() -> None:
     s = pd.Series([1, 2, 3], index=[2, 3, 1])
     s.sort_values(key=lambda k: -k)
