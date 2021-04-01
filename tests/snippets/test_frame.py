@@ -42,6 +42,12 @@ def test_types_getitem() -> None:
     df[i]
 
 
+def test_slice_setitem() -> None:
+    # Due to the bug in pandas 1.2.3(https://github.com/pandas-dev/pandas/issues/40440), this is in separate test case
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4], 5: [6, 7]})
+    df[1:] = ['a', 'b', 'c']
+
+
 def test_types_setitem() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4], 5: [6, 7]})
     i = pd.Index(['col1', 'col2'])
@@ -51,10 +57,9 @@ def test_types_setitem() -> None:
     df['col1'] = [1, 2]
     df[5] = [5, 6]
     df[['col1', 'col2']] = [[1, 2], [3, 4]]
-    df[1:] = ['a', 'b', 6]
     df[s] = [5, 6]
     df[a] = [[1, 2], [3, 4]]
-    df[select_df] = [2]
+    df[select_df] = [1, 2, 3]
     df[i] = [8, 9]
 
 
