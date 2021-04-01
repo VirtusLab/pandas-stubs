@@ -26,6 +26,7 @@ def test_types_csv() -> None:
         df.to_csv(Path(file.name))
         df3: pd.DataFrame = pd.read_csv(Path(file.name))
 
+
 def test_types_getitem() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4], 5: [6, 7]})
     i = pd.Index(['col1', 'col2'])
@@ -346,6 +347,14 @@ def test_types_groupby() -> None:
     df.groupby(level="ind")
     df.groupby(by='col1', sort=False, as_index=True)
     df.groupby(by=['col1', 'col2'])
+
+
+# This novelty added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+def test_types_group_by_with_dropna_keyword() -> None:
+    df = pd.DataFrame(data={'col1': [1, 1, 2, 1], 'col2': [2, None, 1, 2], 'col3': [3, 4, 3, 2]})
+    df.groupby(by="col2", dropna=True).sum()
+    df.groupby(by="col2", dropna=False).sum()
+    df.groupby(by="col2").sum()
 
 
 def test_types_merge() -> None:

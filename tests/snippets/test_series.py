@@ -306,6 +306,14 @@ def test_types_groupby() -> None:
     s.groupby(s > 2)
 
 
+# This novelty added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+def test_types_group_by_with_dropna_keyword() -> None:
+    s = pd.Series([1, 2, 3, 3], index=['col1', 'col2', 'col3', np.nan])
+    s.groupby(level=0, dropna=True).sum()
+    s.groupby(level=0, dropna=False).sum()
+    s.groupby(level=0).sum()
+
+
 def test_types_plot() -> None:
     s = pd.Series([0, 1, 1, 0, -10])
     s.plot.hist()
