@@ -147,6 +147,11 @@ def test_types_sort_index() -> None:
     df.sort_index(kind="mergesort")
 
 
+def test_types_sort_index_with_key() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2, 3, 4]}, index=['a', 'b', 'C', 'd'])
+    df.sort_index(key=lambda k: k.str.lower())
+
+
 def test_types_set_index() -> None:
     df = pd.DataFrame(data={'col1': [1, 2, 3, 4], 'col2': ['a', 'b', 'c', 'd']}, index=[5, 1, 3, 2])
     df.set_index('col1')
@@ -166,6 +171,11 @@ def test_types_query() -> None:
 def test_types_sort_values() -> None:
     df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
     df.sort_values('col1')
+
+
+def test_types_sort_values_with_key() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    df.sort_values(by='col1', key=lambda k: -k)
 
 
 def test_types_shift() -> None:
@@ -349,7 +359,7 @@ def test_types_groupby() -> None:
     df.groupby(by=['col1', 'col2'])
 
 
-# This novelty added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+# This added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
 def test_types_group_by_with_dropna_keyword() -> None:
     df = pd.DataFrame(data={'col1': [1, 1, 2, 1], 'col2': [2, None, 1, 2], 'col3': [3, 4, 3, 2]})
     df.groupby(by="col2", dropna=True).sum()

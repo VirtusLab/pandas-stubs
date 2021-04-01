@@ -6,7 +6,8 @@ from pandas import datetime
 from pandas._typing import Axes, Axis, Dtype as Dtype, FilePathOrBuffer, Level, Renamer, Column, Label, FrameOrSeries, \
     ArrayLike, AnyArrayLike, GoogleCredentials, Scalar, ReplaceMethod, ToReplace, ReplaceValue, Frequency, AxisOption, \
     Orientation, Function, AggregationFunction, GroupByObject, GeneralDuplicatesKeepStrategy, InterpolationMethod, \
-    CorrelationMethod, SortKind, JoinType, FillMethod, ErrorsStrategy, NaSortPosition, FillValue, TimestampMethod
+    CorrelationMethod, SortKind, JoinType, FillMethod, ErrorsStrategy, NaSortPosition, FillValue, TimestampMethod, \
+    ValueKeyFunc, IndexKeyFunc
 from pandas.core.accessor import CachedAccessor
 from pandas.core.base import PandasObject
 from pandas.core.generic import NDFrame
@@ -136,8 +137,9 @@ class DataFrame(NDFrame):
     def drop_duplicates(self, subset: Optional[Union[Hashable, Sequence[Hashable]]] = ..., keep: GeneralDuplicatesKeepStrategy = ..., inplace: bool = ..., ignore_index: bool = ...) -> Optional[DataFrame]: ...
     def duplicated(self, subset: Optional[Union[Hashable, Sequence[Hashable]]] = ..., keep: Union[str, bool] = ...) -> Series: ...
     # Parent allowed by to be None - that's the reason for override
-    def sort_values(self, by: Union[str, List[str]], axis: AxisOption = ..., ascending: bool = ..., inplace: bool = ..., kind: SortKind = ..., na_position: NaSortPosition = ..., ignore_index: bool = ...) -> Optional[DataFrame]: ...  # type: ignore[override]
-    def sort_index(self, axis: AxisOption = ..., level: Optional[Union[Level, List[Level]]] = ..., ascending: bool = ..., inplace: bool = ..., kind: SortKind = ..., na_position: NaSortPosition = ..., sort_remaining: bool = ..., ignore_index: bool = ...) -> Optional[DataFrame]: ...
+    # TODO: fix Missing type parameters for generic type "ValueKeyFunc"
+    def sort_values(self, by: Union[str, List[str]], axis: AxisOption = ..., ascending: bool = ..., inplace: bool = ..., kind: SortKind = ..., na_position: NaSortPosition = ..., ignore_index: bool = ...,  key: ValueKeyFunc = ...) -> Optional[DataFrame]: ...  # type: ignore
+    def sort_index(self, axis: AxisOption = ..., level: Optional[Union[Level, List[Level]]] = ..., ascending: bool = ..., inplace: bool = ..., kind: SortKind = ..., na_position: NaSortPosition = ..., sort_remaining: bool = ..., ignore_index: bool = ...,  key: IndexKeyFunc = ...) -> Optional[DataFrame]: ... # type: ignore
     def nlargest(self, n: int, columns: Union[Label, List[Label]], keep: KeepStrategy = ...) -> DataFrame: ...
     def nsmallest(self, n: int, columns: Union[Label, List[Label]], keep: KeepStrategy = ...) -> DataFrame: ...
     def swaplevel(self, i: Level = ..., j: Level = ..., axis: AxisOption = ...) -> DataFrame: ...

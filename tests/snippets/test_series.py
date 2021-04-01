@@ -131,6 +131,12 @@ def test_types_sort_index() -> None:
     s.sort_index(kind="mergesort")
 
 
+# This added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+def test_types_sort_index_with_key() -> None:
+    s = pd.Series([1, 2, 3], index=['a', 'B', 'c'])
+    s.sort_index(key=lambda k: k.str.lower())
+
+
 def test_types_sort_values() -> None:
     s = pd.Series([4, 2, 1, 3])
     s.sort_values(0)
@@ -138,6 +144,12 @@ def test_types_sort_values() -> None:
     s.sort_values(inplace=False, kind='quicksort')
     s.sort_values(na_position='last')
     s.sort_values(ignore_index=True)
+
+
+# This added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+def test_types_sort_values_with_key() -> None:
+    s = pd.Series([1, 2, 3], index=[2, 3, 1])
+    s.sort_values(key=lambda k: -k)
 
 
 def test_types_shift() -> None:
@@ -306,7 +318,7 @@ def test_types_groupby() -> None:
     s.groupby(s > 2)
 
 
-# This novelty added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+# This added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
 def test_types_group_by_with_dropna_keyword() -> None:
     s = pd.Series([1, 2, 3, 3], index=['col1', 'col2', 'col3', np.nan])
     s.groupby(level=0, dropna=True).sum()

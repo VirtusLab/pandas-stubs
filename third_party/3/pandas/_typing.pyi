@@ -104,10 +104,9 @@ F = TypeVar("F", bound=Function)
 Column = Union[int, str]
 
 
-# types of vectorized key functions for DataFrame::sort_values and
-# DataFrame::sort_index, among others
-ValueKeyFunc = Optional[Callable[["Series"], Union["Series", AnyArrayLike]]]
-IndexKeyFunc = Optional[Callable[["Index"], Union["Index", AnyArrayLike]]]
+# types of vectorized key functions for DataFrame::sort_values and DataFrame::sort_index, among others
+ValueKeyFunc = Optional[Callable[[Series], Union[Series, AnyArrayLike]]]
+IndexKeyFunc = Optional[Callable[[Index], Union[Index, AnyArrayLike]]]
 
 # Actually google.auth.credentials.Credentials
 GoogleCredentials = Any

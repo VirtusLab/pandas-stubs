@@ -5,10 +5,13 @@ import sys
 import numpy as np
 from pandas.core.frame import DataFrame, KeepStrategy, TransformFunction
 
-from pandas._typing import Renamer, Axis, FrameOrSeries, Function, AxisOption, Frequency, Scalar, Dtype, NoneNumpyCompatible, Level, \
-    GroupByObject, GeneralDuplicatesKeepStrategy, Label, ArrayLike, InterpolationMethod, CorrelationMethod, SearchSide, SortKind, \
-    TypeArrayLike, AggregationFunction, JoinType, FillMethod, ErrorsStrategy, FillValue, ToReplace, ReplaceValue, TimestampMethod, \
-    ReplaceMethod
+from pandas._typing import Renamer, Axis, FrameOrSeries, Function, AxisOption, Frequency, Scalar, Dtype, \
+    NoneNumpyCompatible, Level, \
+    GroupByObject, GeneralDuplicatesKeepStrategy, Label, ArrayLike, InterpolationMethod, CorrelationMethod, SearchSide, \
+    SortKind, \
+    TypeArrayLike, AggregationFunction, JoinType, FillMethod, ErrorsStrategy, FillValue, ToReplace, ReplaceValue, \
+    TimestampMethod, \
+    ReplaceMethod, ValueKeyFunc, IndexKeyFunc
 from pandas.core import base, generic
 from pandas.core.arrays import ExtensionArray
 from pandas.core.groupby import generic as groupby_generic
@@ -116,8 +119,9 @@ class Series(base.IndexOpsMixin, generic.NDFrame):
     def combine(self, other: Union[Series, Scalar], func: Callable[[Scalar, Scalar], Scalar], fill_value: Optional[Scalar] = ...) -> Series: ...
     def combine_first(self, other: Series) -> Series: ...
     def update(self, other: Series) -> None: ...
-    def sort_values(self, axis: OneDimensionalAxisOption = ..., ascending: bool = ..., inplace: bool = ..., kind: SortKind = ..., na_position: SortValuesNaPosition = ..., ignore_index: bool = ...) -> Optional[Series]: ...   # type: ignore[override]
-    def sort_index(self, axis: int = ..., level: int = ..., ascending: Union[bool, Iterable[bool]] = ..., inplace: bool = ..., kind: SortKind = ..., na_position: SortValuesNaPosition = ..., sort_remaining: bool = ..., ignore_index: bool = ...) -> Series: ...
+    # TODO: fix Missing type parameters for generic type "ValueKeyFunc"
+    def sort_values(self, axis: OneDimensionalAxisOption = ..., ascending: bool = ..., inplace: bool = ..., kind: SortKind = ..., na_position: SortValuesNaPosition = ..., ignore_index: bool = ..., key: ValueKeyFunc = ...) -> Optional[Series]: ...   # type: ignore
+    def sort_index(self, axis: int = ..., level: int = ..., ascending: Union[bool, Iterable[bool]] = ..., inplace: bool = ..., kind: SortKind = ..., na_position: SortValuesNaPosition = ..., sort_remaining: bool = ..., ignore_index: bool = ..., key: IndexKeyFunc = ...) -> Series: ... # type: ignore
     def argsort(self, axis: OneDimensionalAxisOption = ..., kind: SortKind = ..., order: Optional[Any] = ...) -> Series: ...
     def nlargest(self, n: int = ..., keep: KeepStrategy = ...) -> Series: ...
     def nsmallest(self, n: int = ..., keep: KeepStrategy = ...) -> Series: ...
