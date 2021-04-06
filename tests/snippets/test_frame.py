@@ -274,10 +274,10 @@ def test_types_idxmax() -> None:
     df.idxmax(axis=0)
 
 
+# This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
 def test_types_value_counts() -> None:
-    # This is really more for of a Series test
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [1, 4]})
-    df['col1'].value_counts()
+    df.value_counts()
 
 
 def test_types_unique() -> None:

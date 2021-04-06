@@ -262,8 +262,8 @@ def test_types_idxmax() -> None:
 
 
 def test_types_value_counts() -> None:
-    # Added in never Pandas version
-    pass
+    s = pd.Series([1, 2])
+    s.value_counts()
 
 
 def test_types_unique() -> None:
