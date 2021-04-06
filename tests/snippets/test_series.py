@@ -29,6 +29,12 @@ def test_types_csv() -> None:
         s.to_csv(Path(file.name))
         s3: pd.Series = pd.read_csv(Path(file.name))
 
+    # This keyword was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    with tempfile.NamedTemporaryFile() as file:
+        s.to_csv(file.name, errors='replace')
+        s4: pd.DataFrame = pd.read_csv(file.name)
+
+
 def test_types_select() -> None:
     s = pd.Series(data={'row1': 1, 'row2': 2})
     s[0]

@@ -26,6 +26,11 @@ def test_types_csv() -> None:
         df.to_csv(Path(file.name))
         df3: pd.DataFrame = pd.read_csv(Path(file.name))
 
+    # This keyword was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    with tempfile.NamedTemporaryFile() as file:
+        df.to_csv(file.name, errors='replace')
+        df4: pd.DataFrame = pd.read_csv(file.name)
+
 
 def test_types_getitem() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4], 5: [6, 7]})
