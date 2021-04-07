@@ -395,3 +395,11 @@ def test_types_window() -> None:
 
     df.rolling(2)
     df.rolling(2, axis=1, center=True)
+
+
+def test_types_cov() -> None:
+    df = pd.DataFrame(data={'col1': [1, 1, 2], 'col2': [3, 4, 5]})
+    df.cov()
+    df.cov(min_periods=1)
+    # ddof param was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    df.cov(ddof=2)
