@@ -426,3 +426,11 @@ def test_types_to_feather() -> None:
     df.to_feather("dummy_path")
     # kwargs for pyarrow.feather.write_feather added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
     df.to_feather("dummy_path", compression="zstd", compression_level=3, chunksize=2)
+
+
+# compare() method added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+def test_types_compare() -> None:
+    df1 = pd.DataFrame(data={'col1': [1, 1, 2, 1], 'col2': [2, None, 1, 2], 'col3': [3, 4, 3, 2]})
+    df2 = pd.DataFrame(data={'col1': [1, 2, 5, 6], 'col2': [3, 4, 1, 1], 'col3': [3, 4, 3, 2]})
+    df1.compare(df2)
+    df2.compare(df1, align_axis=0, keep_shape=True, keep_equal=True)

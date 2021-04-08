@@ -361,3 +361,11 @@ def test_to_markdown() -> None:
     s.to_markdown(buf=None, mode="wt")
     # index param was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
     s.to_markdown(index=False)
+
+
+# compare() method added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+def test_types_compare() -> None:
+    s1 = pd.Series([0, 1, 1, 0, 5, 1, -10])
+    s2 = pd.Series([0, 2, 12, -4, 7, 9, 2])
+    s1.compare(s2)
+    s2.compare(s1, align_axis='columns', keep_shape=True, keep_equal=True)
