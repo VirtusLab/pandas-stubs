@@ -434,3 +434,10 @@ def test_types_compare() -> None:
     df2 = pd.DataFrame(data={'col1': [1, 2, 5, 6], 'col2': [3, 4, 1, 1], 'col3': [3, 4, 3, 2]})
     df1.compare(df2)
     df2.compare(df1, align_axis=0, keep_shape=True, keep_equal=True)
+
+
+def test_types_agg() -> None:
+    df = pd.DataFrame([[1, 2, 3], [4, 5, 6], [7, 8, 9]], columns=['A', 'B', 'C'])
+    df.agg("min")
+    df.agg(x=('A', max), y=('B', 'min'), z=('C', np.mean))
+    df.agg("mean", axis=1)

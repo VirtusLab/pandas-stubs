@@ -369,3 +369,10 @@ def test_types_compare() -> None:
     s2 = pd.Series([0, 2, 12, -4, 7, 9, 2])
     s1.compare(s2)
     s2.compare(s1, align_axis='columns', keep_shape=True, keep_equal=True)
+
+
+def test_types_agg() -> None:
+    s = pd.Series([1, 2, 3], index=['col1', 'col2', 'col3'])
+    s.agg("min")
+    s.agg(x=max, y='min', z=np.mean)
+    s.agg("mean", axis=0)
