@@ -441,3 +441,13 @@ def test_types_agg() -> None:
     df.agg("min")
     df.agg(x=('A', max), y=('B', 'min'), z=('C', np.mean))
     df.agg("mean", axis=1)
+
+
+def test_types_describe() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2, -4], 'col2': [np.datetime64("2000-01-01"), np.datetime64("2010-01-01"),
+                                                         np.datetime64("2010-01-01")]})
+    df.describe()
+    df.describe(percentiles=[0.5], include='all')
+    df.describe(exclude=np.number)
+    # datetime_is_numeric param added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    df.describe(datetime_is_numeric=True)
