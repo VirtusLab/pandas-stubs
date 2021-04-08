@@ -411,3 +411,11 @@ def test_types_to_numpy() -> None:
     df.to_numpy(dtype='str', copy=True)
     # na_value param was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
     df.to_numpy(na_value=0)
+
+
+def test_to_markdown() -> None:
+    df = pd.DataFrame(data={'col1': [1, 1, 2], 'col2': [3, 4, 5]})
+    df.to_markdown()
+    df.to_markdown(buf=None, mode="wt")
+    # index param was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    df.to_markdown(index=False)

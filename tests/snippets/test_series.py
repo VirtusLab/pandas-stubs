@@ -353,3 +353,11 @@ def test_types_cov() -> None:
     s1.cov(s2, min_periods=1)
     # ddof param was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
     s1.cov(s2, ddof=2)
+
+
+def test_to_markdown() -> None:
+    s = pd.Series([0, 1, 1, 0, 5, 1, -10])
+    s.to_markdown()
+    s.to_markdown(buf=None, mode="wt")
+    # index param was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    s.to_markdown(index=False)
