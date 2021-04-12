@@ -26,6 +26,12 @@ def test_types_csv() -> None:
         df.to_csv(Path(file.name))
         df3: pd.DataFrame = pd.read_csv(Path(file.name))
 
+    # This keyword was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    with tempfile.NamedTemporaryFile() as file:
+        df.to_csv(file.name, errors='replace')
+        df4: pd.DataFrame = pd.read_csv(file.name)
+
+
 def test_types_getitem() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4], 5: [6, 7]})
     i = pd.Index(['col1', 'col2'])
@@ -42,6 +48,12 @@ def test_types_getitem() -> None:
     df[i]
 
 
+def test_slice_setitem() -> None:
+    # Due to the bug in pandas 1.2.3(https://github.com/pandas-dev/pandas/issues/40440), this is in separate test case
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4], 5: [6, 7]})
+    df[1:] = ['a', 'b', 'c']
+
+
 def test_types_setitem() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4], 5: [6, 7]})
     i = pd.Index(['col1', 'col2'])
@@ -51,7 +63,6 @@ def test_types_setitem() -> None:
     df['col1'] = [1, 2]
     df[5] = [5, 6]
     df[['col1', 'col2']] = [[1, 2], [3, 4]]
-    df[1:] = {'col1': {1: 'a'}, 'col2': {1: 'b'}, 5: {1: 'c'}}
     df[s] = [5, 6]
     df[a] = [[1, 2], [3, 4]]
     df[select_df] = [1, 2, 3]
@@ -141,6 +152,12 @@ def test_types_sort_index() -> None:
     df.sort_index(kind="mergesort")
 
 
+# This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+def test_types_sort_index_with_key() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2, 3, 4]}, index=['a', 'b', 'C', 'd'])
+    df.sort_index(key=lambda k: k.str.lower())
+
+
 def test_types_set_index() -> None:
     df = pd.DataFrame(data={'col1': [1, 2, 3, 4], 'col2': ['a', 'b', 'c', 'd']}, index=[5, 1, 3, 2])
     df.set_index('col1')
@@ -160,6 +177,12 @@ def test_types_query() -> None:
 def test_types_sort_values() -> None:
     df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
     df.sort_values('col1')
+
+
+# This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+def test_types_sort_values_with_key() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    df.sort_values(by='col1', key=lambda k: -k)
 
 
 def test_types_shift() -> None:
@@ -256,10 +279,10 @@ def test_types_idxmax() -> None:
     df.idxmax(axis=0)
 
 
+# This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
 def test_types_value_counts() -> None:
-    # This is really more for of a Series test
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [1, 4]})
-    df['col1'].value_counts()
+    df.value_counts()
 
 
 def test_types_unique() -> None:
@@ -343,6 +366,14 @@ def test_types_groupby() -> None:
     df.groupby(by=['col1', 'col2'])
 
 
+# This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+def test_types_group_by_with_dropna_keyword() -> None:
+    df = pd.DataFrame(data={'col1': [1, 1, 2, 1], 'col2': [2, None, 1, 2], 'col3': [3, 4, 3, 2]})
+    df.groupby(by="col2", dropna=True).sum()
+    df.groupby(by="col2", dropna=False).sum()
+    df.groupby(by="col2").sum()
+
+
 def test_types_merge() -> None:
     df = pd.DataFrame(data={'col1': [1, 1, 2], 'col2': [3, 4, 5]})
     df2 = pd.DataFrame(data={'col1': [1, 1, 2], 'col2': [0, 1, 0]})
@@ -364,3 +395,87 @@ def test_types_window() -> None:
 
     df.rolling(2)
     df.rolling(2, axis=1, center=True)
+
+
+def test_types_cov() -> None:
+    df = pd.DataFrame(data={'col1': [1, 1, 2], 'col2': [3, 4, 5]})
+    df.cov()
+    df.cov(min_periods=1)
+    # ddof param was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    df.cov(ddof=2)
+
+
+def test_types_to_numpy() -> None:
+    df = pd.DataFrame(data={'col1': [1, 1, 2], 'col2': [3, 4, 5]})
+    df.to_numpy()
+    df.to_numpy(dtype='str', copy=True)
+    # na_value param was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    df.to_numpy(na_value=0)
+
+
+def test_to_markdown() -> None:
+    df = pd.DataFrame(data={'col1': [1, 1, 2], 'col2': [3, 4, 5]})
+    df.to_markdown()
+    df.to_markdown(buf=None, mode="wt")
+    # index param was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    df.to_markdown(index=False)
+
+
+def test_types_to_feather() -> None:
+    df = pd.DataFrame(data={'col1': [1, 1, 2], 'col2': [3, 4, 5]})
+    df.to_feather("dummy_path")
+    # kwargs for pyarrow.feather.write_feather added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    df.to_feather("dummy_path", compression="zstd", compression_level=3, chunksize=2)
+
+
+# compare() method added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+def test_types_compare() -> None:
+    df1 = pd.DataFrame(data={'col1': [1, 1, 2, 1], 'col2': [2, None, 1, 2], 'col3': [3, 4, 3, 2]})
+    df2 = pd.DataFrame(data={'col1': [1, 2, 5, 6], 'col2': [3, 4, 1, 1], 'col3': [3, 4, 3, 2]})
+    df1.compare(df2)
+    df2.compare(df1, align_axis=0, keep_shape=True, keep_equal=True)
+
+
+def test_types_agg() -> None:
+    df = pd.DataFrame([[1, 2, 3], [4, 5, 6], [7, 8, 9]], columns=['A', 'B', 'C'])
+    df.agg("min")
+    df.agg(x=('A', max), y=('B', 'min'), z=('C', np.mean))
+    df.agg("mean", axis=1)
+
+
+def test_types_describe() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2, -4], 'col2': [np.datetime64("2000-01-01"), np.datetime64("2010-01-01"),
+                                                         np.datetime64("2010-01-01")]})
+    df.describe()
+    df.describe(percentiles=[0.5], include='all')
+    df.describe(exclude=np.number)
+    # datetime_is_numeric param added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    df.describe(datetime_is_numeric=True)
+
+
+def test_types_to_string() -> None:
+    df = pd.DataFrame(data={'col1': [1, None, -4], 'col2': [np.datetime64("2000-01-01"), np.datetime64("2010-01-01"),
+                                                            np.datetime64("2010-01-01")]})
+    df.to_string(index=True, col_space=2, header=['a', 'b'], na_rep='0', justify='left', max_rows=2, min_rows=0,
+                 max_cols=2, show_dimensions=True, line_width=3)
+    # col_space accepting list or dict added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    df.to_string(col_space=[1, 2])
+    df.to_string(col_space={'col1': 1, 'col2': 3})
+
+
+def test_types_to_html() -> None:
+    df = pd.DataFrame(data={'col1': [1, None, -4], 'col2': [np.datetime64("2000-01-01"), np.datetime64("2010-01-01"),
+                                                            np.datetime64("2010-01-01")]})
+    df.to_html(index=True, col_space=2, header=['a', 'b'], na_rep='0', justify='left', max_rows=2, max_cols=2,
+               show_dimensions=True)
+    # col_space accepting list or dict added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    df.to_html(col_space=[1, 2])
+    df.to_html(col_space={'col1': 1, 'col2': 3})
+
+
+def test_types_resample() -> None:
+    df = pd.DataFrame({'values': [2, 11, 3, 13, 14, 18, 17, 19]})
+    df['date'] = pd.date_range('01/01/2018', periods=8, freq='W')
+    df.resample('M', on='date')
+    # origin and offset params added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    df.resample('20min', origin='epoch', offset=pd.Timedelta(2, 'minutes'), on='date')

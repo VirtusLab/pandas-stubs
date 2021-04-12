@@ -29,6 +29,12 @@ def test_types_csv() -> None:
         s.to_csv(Path(file.name))
         s3: pd.Series = pd.read_csv(Path(file.name))
 
+    # This keyword was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    with tempfile.NamedTemporaryFile() as file:
+        s.to_csv(file.name, errors='replace')
+        s4: pd.DataFrame = pd.read_csv(file.name)
+
+
 def test_types_select() -> None:
     s = pd.Series(data={'row1': 1, 'row2': 2})
     s[0]
@@ -131,6 +137,12 @@ def test_types_sort_index() -> None:
     s.sort_index(kind="mergesort")
 
 
+# This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+def test_types_sort_index_with_key() -> None:
+    s = pd.Series([1, 2, 3], index=['a', 'B', 'c'])
+    s.sort_index(key=lambda k: k.str.lower())
+
+
 def test_types_sort_values() -> None:
     s = pd.Series([4, 2, 1, 3])
     s.sort_values(0)
@@ -138,6 +150,12 @@ def test_types_sort_values() -> None:
     s.sort_values(inplace=False, kind='quicksort')
     s.sort_values(na_position='last')
     s.sort_values(ignore_index=True)
+
+
+# This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+def test_types_sort_values_with_key() -> None:
+    s = pd.Series([1, 2, 3], index=[2, 3, 1])
+    s.sort_values(key=lambda k: -k)
 
 
 def test_types_shift() -> None:
@@ -250,8 +268,8 @@ def test_types_idxmax() -> None:
 
 
 def test_types_value_counts() -> None:
-    # Added in never Pandas version
-    pass
+    s = pd.Series([1, 2])
+    s.value_counts()
 
 
 def test_types_unique() -> None:
@@ -306,6 +324,14 @@ def test_types_groupby() -> None:
     s.groupby(s > 2)
 
 
+# This added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+def test_types_group_by_with_dropna_keyword() -> None:
+    s = pd.Series([1, 2, 3, 3], index=['col1', 'col2', 'col3', np.nan])
+    s.groupby(level=0, dropna=True).sum()
+    s.groupby(level=0, dropna=False).sum()
+    s.groupby(level=0).sum()
+
+
 def test_types_plot() -> None:
     s = pd.Series([0, 1, 1, 0, -10])
     s.plot.hist()
@@ -318,3 +344,60 @@ def test_types_window() -> None:
 
     s.rolling(2)
     s.rolling(2, axis=0, center=True)
+
+
+def test_types_cov() -> None:
+    s1 = pd.Series([0, 1, 1, 0, 5, 1, -10])
+    s2 = pd.Series([0, 2, 12, -4, 7, 9, 2])
+    s1.cov(s2)
+    s1.cov(s2, min_periods=1)
+    # ddof param was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    s1.cov(s2, ddof=2)
+
+
+def test_update() -> None:
+    s1 = pd.Series([0, 1, 1, 0, 5, 1, -10])
+    s1.update(pd.Series([0, 2, 12]))
+    # Series.update() accepting objects that can be coerced to a Series was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    s1.update([1, 2, -4, 3])
+    s1.update([1, "b", "c", "d"])
+    s1.update({1: 9, 3: 4})
+
+
+def test_to_markdown() -> None:
+    s = pd.Series([0, 1, 1, 0, 5, 1, -10])
+    s.to_markdown()
+    s.to_markdown(buf=None, mode="wt")
+    # index param was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    s.to_markdown(index=False)
+
+
+# compare() method added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+def test_types_compare() -> None:
+    s1 = pd.Series([0, 1, 1, 0, 5, 1, -10])
+    s2 = pd.Series([0, 2, 12, -4, 7, 9, 2])
+    s1.compare(s2)
+    s2.compare(s1, align_axis='columns', keep_shape=True, keep_equal=True)
+
+
+def test_types_agg() -> None:
+    s = pd.Series([1, 2, 3], index=['col1', 'col2', 'col3'])
+    s.agg("min")
+    s.agg(x=max, y='min', z=np.mean)
+    s.agg("mean", axis=0)
+
+
+def test_types_describe() -> None:
+    s = pd.Series([1, 2, 3, np.datetime64("2000-01-01")])
+    s.describe()
+    s.describe(percentiles=[0.5], include='all')
+    s.describe(exclude=np.number)
+    # datetime_is_numeric param added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    s.describe(datetime_is_numeric=True)
+
+
+def test_types_resample() -> None:
+    s = pd.Series(range(9), index=pd.date_range('1/1/2000', periods=9, freq='T'))
+    s.resample('3T').sum()
+    # origin and offset params added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    s.resample('20min', origin='epoch', offset=pd.Timedelta(value=2, unit='minutes'))

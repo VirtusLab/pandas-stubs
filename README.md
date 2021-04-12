@@ -32,7 +32,7 @@ and then configuring a type checker with the correct paths.
 
 ## Pandas Version Compatibility
 
-The aim of the current release is to cover the most common parts of the 1.0.4 API, however it can provide partial functionality for other version as well. Future versions will cover new Pandas releases.
+The aim of the current release is to cover the most common parts of the 1.1.0 API, however it can provide partial functionality for other version as well. Future versions will cover new Pandas releases.
 
 ### Versioning
 

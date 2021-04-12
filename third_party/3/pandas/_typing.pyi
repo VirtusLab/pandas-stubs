@@ -19,11 +19,8 @@ from pandas.core.series import Series as Series
 from pandas.tseries.offsets import DateOffset
 
 # array-like
-AnyArrayLike = TypeVar('AnyArrayLike', 'ExtensionArray', 'Index', 'Series', np.ndarray)
-ArrayLike = TypeVar('ArrayLike', 'ExtensionArray', np.ndarray)
-
-# this to remove a bounding issue
-TypeArrayLike = Union[ExtensionArray, np.ndarray]
+ArrayLike = Union[ExtensionArray, np.ndarray]
+AnyArrayLike = Union[ArrayLike, 'Index', 'Series']
 
 # scalar
 PythonScalar = Union[str, int, float, bool]
