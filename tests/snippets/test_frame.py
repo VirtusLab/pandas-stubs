@@ -471,3 +471,11 @@ def test_types_to_html() -> None:
     # col_space accepting list or dict added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
     df.to_html(col_space=[1, 2])
     df.to_html(col_space={'col1': 1, 'col2': 3})
+
+
+def test_types_resample() -> None:
+    df = pd.DataFrame({'values': [2, 11, 3, 13, 14, 18, 17, 19]})
+    df['date'] = pd.date_range('01/01/2018', periods=8, freq='W')
+    df.resample('M', on='date')
+    # origin and offset params added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    df.resample('20min', origin='epoch', offset=pd.Timedelta(2, 'minutes'), on='date')

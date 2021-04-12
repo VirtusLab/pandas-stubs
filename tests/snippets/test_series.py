@@ -385,3 +385,10 @@ def test_types_describe() -> None:
     s.describe(exclude=np.number)
     # datetime_is_numeric param added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
     s.describe(datetime_is_numeric=True)
+
+
+def test_types_resample() -> None:
+    s = pd.Series(range(9), index=pd.date_range('1/1/2000', periods=9, freq='T'))
+    s.resample('3T').sum()
+    # origin and offset params added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    s.resample('20min', origin='epoch', offset=pd.Timedelta(value=2, unit='minutes'))
