@@ -355,6 +355,15 @@ def test_types_cov() -> None:
     s1.cov(s2, ddof=2)
 
 
+def test_update() -> None:
+    s1 = pd.Series([0, 1, 1, 0, 5, 1, -10])
+    s1.update(pd.Series([0, 2, 12]))
+    # Series.update() accepting objects that can be coerced to a Series was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
+    s1.update([1, 2, -4, 3])
+    s1.update([1, "b", "c", "d"])
+    s1.update({1: 9, 3: 4})
+
+
 def test_to_markdown() -> None:
     s = pd.Series([0, 1, 1, 0, 5, 1, -10])
     s.to_markdown()

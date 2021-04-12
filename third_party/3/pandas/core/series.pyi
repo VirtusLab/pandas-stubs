@@ -1,23 +1,23 @@
 import collections
-from io import StringIO
 import sys
+from io import StringIO
+from typing import Any, Callable, Hashable, IO, Optional, Iterable, Union, Mapping, Sequence, Type, TypeVar, Dict, Set, \
+    overload
 
 import numpy as np
-from pandas.core.frame import DataFrame, KeepStrategy, TransformFunction
 
-from pandas._typing import Renamer, Axis, FrameOrSeries, Function, AxisOption, Frequency, Scalar, Dtype, \
+from pandas._typing import ArrayLike as ArrayLike
+from pandas._typing import Renamer, FrameOrSeries, Function, AxisOption, Frequency, Scalar, Dtype, \
     NoneNumpyCompatible, Level, \
-    GroupByObject, GeneralDuplicatesKeepStrategy, Label, ArrayLike, InterpolationMethod, CorrelationMethod, SearchSide, \
+    GroupByObject, GeneralDuplicatesKeepStrategy, Label, InterpolationMethod, CorrelationMethod, SearchSide, \
     SortKind, \
-    TypeArrayLike, AggregationFunction, JoinType, FillMethod, ErrorsStrategy, FillValue, ToReplace, ReplaceValue, \
+    AggregationFunction, JoinType, FillMethod, ErrorsStrategy, FillValue, ToReplace, ReplaceValue, \
     TimestampMethod, \
     ReplaceMethod, ValueKeyFunc, IndexKeyFunc
 from pandas.core import base, generic
 from pandas.core.arrays import ExtensionArray
+from pandas.core.frame import DataFrame, KeepStrategy, TransformFunction
 from pandas.core.groupby import generic as groupby_generic
-from typing import Any, Callable, Hashable, IO, Optional, Iterable, Union, Mapping, Sequence, Type, TypeVar, Tuple, List, Dict, Set, \
-    overload
-
 from pandas.core.indexes.base import Index
 
 # Literals have only been introduced in version 3.8
@@ -33,6 +33,8 @@ else:
 
 K = TypeVar('K')
 V = TypeVar('V')
+
+CoercibleIntoSeries = Union[Scalar, Dict[str, Scalar], Iterable[Scalar], ArrayLike]
 
 class Series(base.IndexOpsMixin, generic.NDFrame):
     index: Index = ...
@@ -50,8 +52,8 @@ class Series(base.IndexOpsMixin, generic.NDFrame):
     @overload
     def __getitem__(self, key: slice) -> DataFrame: ...
     def __setitem__(self, key: Label, value: Scalar) -> None: ...
-    DotOther = Union['Series', DataFrame, TypeArrayLike]
-    DotResult = Union[Scalar, 'Series', TypeArrayLike]
+    DotOther = Union['Series', DataFrame, ArrayLike]
+    DotResult = Union[Scalar, 'Series', ArrayLike]
     def __matmul__(self, other: DotOther) -> DotResult: ...
     def __rmatmul__(self, other: DotOther) -> DotResult: ...
     def __le__(self, other: Union[Scalar, Series]) -> Series: ...
@@ -118,9 +120,9 @@ class Series(base.IndexOpsMixin, generic.NDFrame):
     def append(self, to_append: Union[Series, Iterable[Series]], ignore_index: bool = ..., verify_integrity: bool = ...) -> Series: ...
     def combine(self, other: Union[Series, Scalar], func: Callable[[Scalar, Scalar], Scalar], fill_value: Optional[Scalar] = ...) -> Series: ...
     def combine_first(self, other: Series) -> Series: ...
-    def update(self, other: Series) -> None: ...
-    def sort_values(self, axis: OneDimensionalAxisOption = ..., ascending: bool = ..., inplace: bool = ..., kind: SortKind = ..., na_position: SortValuesNaPosition = ..., ignore_index: bool = ..., key: ValueKeyFunc = ...) -> Optional[Series]: ...  # type: ignore
-    def sort_index(self, axis: int = ..., level: int = ..., ascending: Union[bool, Iterable[bool]] = ..., inplace: bool = ..., kind: SortKind = ..., na_position: SortValuesNaPosition = ..., sort_remaining: bool = ..., ignore_index: bool = ..., key: IndexKeyFunc = ...) -> Series: ...   # type: ignore
+    def update(self, other: Union[Series, CoercibleIntoSeries]) -> None: ...
+    def sort_values(self, axis: OneDimensionalAxisOption = ..., ascending: bool = ..., inplace: bool = ..., kind: SortKind = ..., na_position: SortValuesNaPosition = ..., ignore_index: bool = ..., key: ValueKeyFunc = ...) -> Optional[Series]: ...  # type: ignore[override]
+    def sort_index(self, axis: int = ..., level: int = ..., ascending: Union[bool, Iterable[bool]] = ..., inplace: bool = ..., kind: SortKind = ..., na_position: SortValuesNaPosition = ..., sort_remaining: bool = ..., ignore_index: bool = ..., key: IndexKeyFunc = ...) -> Series: ...
     def argsort(self, axis: OneDimensionalAxisOption = ..., kind: SortKind = ..., order: Optional[Any] = ...) -> Series: ...
     def nlargest(self, n: int = ..., keep: KeepStrategy = ...) -> Series: ...
     def nsmallest(self, n: int = ..., keep: KeepStrategy = ...) -> Series: ...
