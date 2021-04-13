@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import sys
+
 import numpy as np
 
 from pandas import datetime
@@ -19,7 +21,12 @@ from pandas.io.formats import format as fmt
 from pandas.io.formats.format import formatters_type, VALID_JUSTIFY_PARAMETERS, FloatFormatType
 from pandas.io.formats.style import Styler
 from typing import Any, Hashable, IO, Iterable, List, Optional, Sequence, Tuple, Union, Dict, Mapping, Type, \
-    overload, Iterator, Callable, AnyStr, Literal
+    overload, Iterator, Callable, AnyStr
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 ExportOrientation = Literal['dict', 'list', 'series', 'split', 'records', 'index']
 CompressionType = Literal['snappy', 'gzip', 'brotli']

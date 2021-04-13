@@ -32,7 +32,9 @@ setup(
     license="MIT",
     author="Zbigniew Królikowski",
     author_email="zkrolikowski@virtuslab.com",
-    install_requires=[],
+    install_requires=[
+        'typing_extensions>=3.7.4.3;python_version<"3.8"'
+    ],
     classifiers=[
         "Programming Language :: Python :: 3 :: Only",
         "License :: OSI Approved :: MIT License",

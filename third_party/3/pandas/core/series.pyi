@@ -4,7 +4,12 @@ import collections
 import sys
 from io import StringIO
 from typing import Any, Callable, Hashable, IO, Optional, Iterable, Union, Mapping, Sequence, Type, TypeVar, Dict, Set, \
-    overload, Literal
+    overload
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 import numpy as np
 

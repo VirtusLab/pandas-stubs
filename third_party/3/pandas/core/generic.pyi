@@ -1,6 +1,12 @@
 from __future__ import annotations
 
-from typing import Any, Callable, Dict, Hashable, List, Mapping, Optional, Sequence, Tuple, Union, AnyStr, overload, Literal
+import sys
+from typing import Any, Callable, Dict, Hashable, List, Mapping, Optional, Sequence, Tuple, Union, AnyStr, overload
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 import numpy as np
 from pandas._libs.tslibs.timedeltas import Timedelta

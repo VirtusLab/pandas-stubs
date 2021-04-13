@@ -18,19 +18,18 @@ from pandas.io.common import stringify_path as stringify_path
 from pandas.io.formats.printing import adjoin as adjoin, justify as justify, pprint_thing as pprint_thing
 from typing import Any, Callable, Dict, IO, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
 
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
+
 formatters_type = Union[List[Callable[..., Any]], Tuple[Callable[..., Any], ...], Mapping[Union[str, int], Callable[..., Any]]]
 float_format_type: Any
 FloatFormatType = Union[str, Callable[..., Any]]
 common_docstring: str
 
-# Literals have only been introduced in version 3.8
-if sys.version_info >= (3, 8):
-    from typing import Literal
-    VALID_JUSTIFY_PARAMETERS = Literal[
-        "left", "right", "center", "justify", "justify-all", "start", "end", "inherit", "match-parent", "initial", "unset",
-    ]
-else:
-    VALID_JUSTIFY_PARAMETERS = str
+VALID_JUSTIFY_PARAMETERS = Literal["left", "right", "center", "justify", "justify-all",
+                                   "start", "end", "inherit", "match-parent", "initial", "unset"]
 
 return_docstring: str
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import datetime
+import sys
 from decimal import Decimal
 from fractions import Fraction
 from numbers import Number
@@ -9,7 +10,12 @@ from pathlib import Path
 from pandas.core.arrays.base import ExtensionArray as ExtensionArray
 from pandas.core.indexes.base import Index as Index
 from typing import Any, AnyStr, Callable, Collection, Dict, Hashable, IO, List, Mapping, Optional, TypeVar, Union, \
-    ByteString, Pattern, Literal
+    ByteString, Pattern
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 import numpy as np
 

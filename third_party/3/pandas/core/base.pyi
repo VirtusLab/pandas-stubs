@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import sys
+
 from pandas._typing import AggregationFunction, GeneralDuplicatesKeepStrategy
 from pandas.core import algorithms as algorithms
 from pandas.core.accessor import DirNamesMixin as DirNamesMixin
@@ -13,8 +15,12 @@ from pandas.core.dtypes.missing import isna as isna
 from pandas.errors import AbstractMethodError as AbstractMethodError
 from pandas.util._decorators import Appender as Appender, Substitution as Substitution, cache_readonly as cache_readonly
 from pandas.util._validators import validate_bool_kwarg as validate_bool_kwarg
-from typing import Any, Optional, Literal, overload
+from typing import Any, Optional, overload
 
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 class PandasObject(DirNamesMixin):
     def __sizeof__(self) -> Any: ...
