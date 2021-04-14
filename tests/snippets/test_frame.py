@@ -136,7 +136,7 @@ def test_types_dropna() -> None:
     df = pd.DataFrame(data={'col1': [np.nan, np.nan], 'col2': [3, np.nan]})
     res: pd.DataFrame = df.dropna()
     res2: pd.DataFrame = df.dropna(axis=1, thresh=1)
-    res3: pd.DataFrame = df.dropna(axis=0, how='all', subset=['col1'], inplace=True)
+    res3: None = df.dropna(axis=0, how='all', subset=['col1'], inplace=True)
 
 
 def test_types_fillna() -> None:
