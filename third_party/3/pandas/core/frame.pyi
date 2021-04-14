@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import sys
 
-import numpy as np
+import numpy.ma as np
 
 from pandas import datetime
 from pandas._typing import Axes, Axis, Dtype as Dtype, FilePathOrBuffer, Level, Renamer, Column, Label, FrameOrSeries, \
