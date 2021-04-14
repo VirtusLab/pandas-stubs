@@ -149,7 +149,7 @@ def test_types_sort_values() -> None:
     res2: pd.Series = s.sort_values(ascending=False)
     res3: None = s.sort_values(inplace=True, kind='quicksort')
     res4: pd.Series = s.sort_values(na_position='last')
-    res25: pd.Series  = s.sort_values(ignore_index=True)
+    res5: pd.Series  = s.sort_values(ignore_index=True)
 
 
 # This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
