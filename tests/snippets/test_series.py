@@ -100,62 +100,62 @@ def test_types_setting() -> None:
 
 def test_types_drop() -> None:
     s = pd.Series([0, 1, 2])
-    s.drop(0)
-    s.drop([0, 1])
-    s.drop(0, axis=0)
-    s.drop([0, 1], inplace=True, errors='raise')
-    s.drop([0, 1], inplace=True, errors='ignore')
+    res: pd.Series = s.drop(0)
+    res2: pd.Series = s.drop([0, 1])
+    res3: pd.Series = s.drop(0, axis=0)
+    res4: None = s.drop([0, 1], inplace=True, errors='raise')
+    res5: None = s.drop([0, 1], inplace=True, errors='ignore')
 
 
 def test_types_drop_multilevel() -> None:
     index = pd.MultiIndex(levels=[['top', 'bottom'], ['first', 'second', 'third']],
                           codes=[[0, 0, 0, 1, 1, 1], [0, 1, 2, 0, 1, 2]])
     s = pd.Series(data=[1, 2, 3, 4, 5, 6], index=index)
-    s.drop(labels='first', level=1)
+    res: pd.Series = s.drop(labels='first', level=1)
 
 
 def test_types_dropna() -> None:
     s = pd.Series([1, np.nan, np.nan])
-    s.dropna()
-    s.dropna(axis=0, inplace=True)
+    res: pd.Series = s.dropna()
+    res2: None = s.dropna(axis=0, inplace=True)
 
 
 def test_types_fillna() -> None:
     s = pd.Series([1, np.nan, np.nan, 3])
-    s.fillna(0)
-    s.fillna(0, axis='index')
-    s.fillna(method='backfill', axis=0)
-    s.fillna(method='bfill', inplace=True)
-    s.fillna(method='pad')
-    s.fillna(method='ffill', limit=1)
+    res: pd.Series = s.fillna(0)
+    res2: pd.Series = s.fillna(0, axis='index')
+    res3: pd.Series = s.fillna(method='backfill', axis=0)
+    res4: None = s.fillna(method='bfill', inplace=True)
+    res5: pd.Series = s.fillna(method='pad')
+    res6: pd.Series = s.fillna(method='ffill', limit=1)
 
 
 def test_types_sort_index() -> None:
     s = pd.Series([1, 2, 3], index=[2, 3, 1])
-    s.sort_index()
-    s.sort_index(ascending=False)
-    s.sort_index(kind="mergesort")
+    res: pd.Series = s.sort_index()
+    res2: None = s.sort_index(ascending=False, inplace=True)
+    res3: pd.Series = s.sort_index(kind="mergesort")
 
 
 # This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
 def test_types_sort_index_with_key() -> None:
     s = pd.Series([1, 2, 3], index=['a', 'B', 'c'])
-    s.sort_index(key=lambda k: k.str.lower())
+    res: pd.Series = s.sort_index(key=lambda k: k.str.lower())
 
 
 def test_types_sort_values() -> None:
     s = pd.Series([4, 2, 1, 3])
-    s.sort_values(0)
-    s.sort_values(ascending=False)
-    s.sort_values(inplace=False, kind='quicksort')
-    s.sort_values(na_position='last')
-    s.sort_values(ignore_index=True)
+    res: pd.Series = s.sort_values(0)
+    res2: pd.Series = s.sort_values(ascending=False)
+    res3: None = s.sort_values(inplace=True, kind='quicksort')
+    res4: pd.Series = s.sort_values(na_position='last')
+    res5: pd.Series  = s.sort_values(ignore_index=True)
 
 
 # This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
 def test_types_sort_values_with_key() -> None:
     s = pd.Series([1, 2, 3], index=[2, 3, 1])
-    s.sort_values(key=lambda k: -k)
+    res: pd.Series = s.sort_values(key=lambda k: -k)
 
 
 def test_types_shift() -> None:

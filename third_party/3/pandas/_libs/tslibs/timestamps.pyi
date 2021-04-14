@@ -1,5 +1,10 @@
 import sys
-from typing import Any, Optional, Union, Literal, overload
+from typing import Any, Optional, Union, overload
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 from dateutil.tz import tzfile
 from datetime import tzinfo, date
@@ -9,11 +14,7 @@ from pandas._typing import DatetimeLikeScalar
 
 OptInt = Optional[int]
 
-# Literals have only been introduced in version 3.8
-if sys.version_info >= (3, 8):
-    Fold = Literal[0, 1]
-else:
-    Fold = int
+Fold = Literal[0, 1]
 
 class Timestamp:
     @overload

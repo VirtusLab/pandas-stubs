@@ -127,62 +127,69 @@ def test_types_setting() -> None:
 
 def test_types_drop() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
-    df.drop('col1', axis=1)
-    df.drop(columns=['col1'])
-    df.drop([0, 0])
+    res: pd.DataFrame = df.drop('col1', axis=1)
+    res2: pd.DataFrame = df.drop(columns=['col1'])
+    res3: None = df.drop([0, 0], inplace=True)
 
 
 def test_types_dropna() -> None:
     df = pd.DataFrame(data={'col1': [np.nan, np.nan], 'col2': [3, np.nan]})
-    df.dropna()
-    df.dropna(axis=1, thresh=1)
-    df.dropna(axis=0, how='all', subset=['col1'])
+    res: pd.DataFrame = df.dropna()
+    res2: pd.DataFrame = df.dropna(axis=1, thresh=1)
+    res3: None = df.dropna(axis=0, how='all', subset=['col1'], inplace=True)
 
 
 def test_types_fillna() -> None:
     df = pd.DataFrame(data={'col1': [np.nan, np.nan], 'col2': [3, np.nan]})
-    df.fillna(0)
-    df.fillna(method='pad', axis=1, inplace=False)
+    res: pd.DataFrame = df.fillna(0)
+    res2: None = df.fillna(method='pad', axis=1, inplace=True)
 
 
 def test_types_sort_index() -> None:
     df = pd.DataFrame(data={'col1': [1, 2, 3, 4]}, index=[5, 1, 3, 2])
-    df.sort_index()
-    df.sort_index(ascending=False)
-    df.sort_index(kind="mergesort")
+    res: pd.DataFrame = df.sort_index()
+    res2: pd.DataFrame = df.sort_index(ascending=False)
+    res3: None = df.sort_index(kind="mergesort", inplace=True)
 
 
 # This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
 def test_types_sort_index_with_key() -> None:
     df = pd.DataFrame(data={'col1': [1, 2, 3, 4]}, index=['a', 'b', 'C', 'd'])
-    df.sort_index(key=lambda k: k.str.lower())
+    res: pd.DataFrame = df.sort_index(key=lambda k: k.str.lower())
 
 
 def test_types_set_index() -> None:
     df = pd.DataFrame(data={'col1': [1, 2, 3, 4], 'col2': ['a', 'b', 'c', 'd']}, index=[5, 1, 3, 2])
-    df.set_index('col1')
-    df.set_index('col1', drop=False)
-    df.set_index('col1', append=True)
-    df.set_index('col1', verify_integrity=True)
-    df.set_index(['col1', 'col2'])
-    df.set_index('col1', inplace=True)
+    res: pd.DataFrame = df.set_index('col1')
+    res2: pd.DataFrame = df.set_index('col1', drop=False)
+    res3: pd.DataFrame = df.set_index('col1', append=True)
+    res4: pd.DataFrame = df.set_index('col1', verify_integrity=True)
+    res5: pd.DataFrame = df.set_index(['col1', 'col2'])
+    res6: None = df.set_index('col1', inplace=True)
 
 
 def test_types_query() -> None:
     df = pd.DataFrame(data={'col1': [1, 2, 3, 4], 'col2': [3, 0, 1, 7]})
-    df.query("col1 > col2")
-    df.query("col1 % col2 == 0", inplace=True)
+    res: pd.DataFrame = df.query("col1 > col2")
+    res2: None = df.query("col1 % col2 == 0", inplace=True)
+
+
+def test_types_eval() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2, 3, 4], 'col2': [3, 0, 1, 7]})
+    df.eval("col1 > col2")
+    res: None = df.eval("C = col1 % col2 == 0", inplace=True)
 
 
 def test_types_sort_values() -> None:
     df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
-    df.sort_values('col1')
+    res: pd.DataFrame = df.sort_values('col1')
+    res2: None = df.sort_values('col1', ascending=False, inplace=True)
 
 
 # This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
 def test_types_sort_values_with_key() -> None:
     df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
-    df.sort_values(by='col1', key=lambda k: -k)
+    res: pd.DataFrame = df.sort_values(by='col1', key=lambda k: -k)
 
 
 def test_types_shift() -> None:

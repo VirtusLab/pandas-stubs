@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import datetime
 import sys
 from decimal import Decimal
@@ -9,6 +11,11 @@ from pandas.core.arrays.base import ExtensionArray as ExtensionArray
 from pandas.core.indexes.base import Index as Index
 from typing import Any, AnyStr, Callable, Collection, Dict, Hashable, IO, List, Mapping, Optional, TypeVar, Union, \
     ByteString, Pattern
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 import numpy as np
 
@@ -36,39 +43,22 @@ PandasScalar = Union[Period, Timestamp, Timedelta, Interval]
 Scalar = Union[PythonScalar, NumpyScalar, Decimal, ByteString, Fraction, DateOffset, Interval, Number, datetime.datetime, datetime.timedelta]
 
 
-# Literals have only been introduced in version 3.8
-if sys.version_info >= (3, 8):
-    from typing import Literal
-    Orientation = Literal["index", "columns"]
-    AxisOption = Union[Literal[0, 1], Orientation]
-    ReplaceMethod = Literal['linear', 'time', 'index', 'values', 'pad', 'nearest', 'zero', 'slinear', 'quadratic', 'cubic', 'spline',
-                  'barycentric', 'polynomial', 'krogh', 'piecewise_polynomial', 'spline', 'pchip', 'akima', 'from_derivatives']
-    SortKind = Literal['quicksort', 'mergesort', 'heapsort']
-    NoneNumpyCompatible = Literal[None] # this is sometimes used to ensure Numpy compatibility
-    GeneralDuplicatesKeepStrategy = Literal['first', 'last', False]
-    InterpolationMethod = Literal['linear', 'lower', 'higher', 'midpoint', 'nearest']
-    NamedCorrelationMethod = Literal['pearson', 'kendall', 'spearman']
-    SearchSide = Literal['left', 'right']
-    NaSortPosition = Literal['first', 'last']
-    JoinType = Literal['left', 'right', 'outer', 'inner']
-    FillMethod = Literal['backfill', 'bfill', 'pad', 'ffill']
-    ErrorsStrategy = Literal['ignore', 'raise']
-    TimestampMethod = Literal['s', 'e', 'start', 'end']
-else:
-    Orientation = str
-    AxisOption = Union[int, Orientation]
-    ReplaceMethod = str
-    SortKind = str
-    NoneNumpyCompatible = Any
-    GeneralDuplicatesKeepStrategy = Union[str, bool]
-    InterpolationMethod = str
-    NamedCorrelationMethod = str
-    SearchSide = str
-    NaSortPosition = str
-    JoinType = str
-    FillMethod = str
-    ErrorsStrategy = str
-    TimestampMethod = str
+Orientation = Literal['index', 'columns']
+AxisOption = Union[Literal[0, 1], Orientation]
+OneDimensionalAxisOption = Literal[0, 'index']
+ReplaceMethod = Literal['linear', 'time', 'index', 'values', 'pad', 'nearest', 'zero', 'slinear', 'quadratic', 'cubic', 'spline',
+              'barycentric', 'polynomial', 'krogh', 'piecewise_polynomial', 'spline', 'pchip', 'akima', 'from_derivatives']
+SortKind = Literal['quicksort', 'mergesort', 'heapsort']
+NoneNumpyCompatible = Literal[None] # this is sometimes used to ensure Numpy compatibility
+GeneralDuplicatesKeepStrategy = Literal['first', 'last', False]
+InterpolationMethod = Literal['linear', 'lower', 'higher', 'midpoint', 'nearest']
+NamedCorrelationMethod = Literal['pearson', 'kendall', 'spearman']
+SearchSide = Literal['left', 'right']
+NaSortPosition = Literal['first', 'last']
+JoinType = Literal['left', 'right', 'outer', 'inner']
+FillMethod = Literal['backfill', 'bfill', 'pad', 'ffill']
+ErrorsStrategy = Literal['ignore', 'raise']
+TimestampMethod = Literal['s', 'e', 'start', 'end']
 
 UserCorrelationMethod = Callable[[np.ndarray, np.ndarray], Scalar]
 CorrelationMethod = Union[NamedCorrelationMethod, UserCorrelationMethod]
