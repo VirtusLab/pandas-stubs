@@ -486,3 +486,10 @@ def test_types_resample() -> None:
     df.resample('M', on='date')
     # origin and offset params added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
     df.resample('20min', origin='epoch', offset=pd.Timedelta(2, 'minutes'), on='date')
+
+
+# set_flags() method added in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
+def test_types_set_flags() -> None:
+    pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B']).set_flags(allows_duplicate_labels=False)
+    pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'A']).set_flags(allows_duplicate_labels=True)
+    pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'A'])
