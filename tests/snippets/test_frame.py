@@ -310,6 +310,9 @@ def test_types_applymap() -> None:
     df.applymap(lambda x: x ** 2)
     df.applymap(np.exp)
     df.applymap(str)
+    # na_action parameter was added in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
+    df.applymap(np.exp, na_action='ignore')
+    df.applymap(str, na_action=None)
 
 
 def test_types_element_wise_arithmetic() -> None:
