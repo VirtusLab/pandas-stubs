@@ -493,3 +493,11 @@ def test_types_set_flags() -> None:
     pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B']).set_flags(allows_duplicate_labels=False)
     pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'A']).set_flags(allows_duplicate_labels=True)
     pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'A'])
+
+
+def test_types_to_parquet() -> None:
+    df = pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B']).set_flags(allows_duplicate_labels=False)
+    df.to_parquet("some_path")
+    # to_parquet() returns bytes when no path given since 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
+    b: bytes = df.to_parquet()
+    assert type(b) == bytes
