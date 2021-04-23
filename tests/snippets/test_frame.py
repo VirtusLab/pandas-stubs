@@ -504,3 +504,13 @@ def test_types_to_parquet() -> None:
     # to_parquet() returns bytes when no path given since 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
     b: bytes = df.to_parquet()
     assert type(b) == bytes
+
+
+def test_types_to_latex() -> None:
+    df = pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B'])
+    df.to_latex(columns=['A'], label='some_label', caption='some_caption', multirow=True)
+    df.to_latex(escape=False, decimal=',', column_format='r')
+    # position param was added in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
+    df.to_latex(position='some')
+    # caption param was extended to accept tuple in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
+    df.to_latex(caption=("cap1", "cap2"))
