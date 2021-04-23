@@ -1,5 +1,5 @@
 # flake8: noqa: F841
-
+import io
 import tempfile
 from pathlib import Path
 
@@ -30,6 +30,9 @@ def test_types_csv() -> None:
     with tempfile.NamedTemporaryFile() as file:
         df.to_csv(file.name, errors='replace')
         df4: pd.DataFrame = pd.read_csv(file.name)
+
+    # Testing support for binary file handles, added in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
+    df.to_csv(io.BytesIO(), encoding="utf-8", compression="gzip")
 
 
 def test_types_getitem() -> None:
