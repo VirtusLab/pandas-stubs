@@ -7,9 +7,10 @@ from pandas.io.excel._util import get_writer as get_writer
 from pandas.io.formats.printing import pprint_thing as pprint_thing
 from pandas.io.parsers import TextParser as TextParser
 from pandas.util._decorators import Appender as Appender
-from typing import Any, Optional
+from typing import Any, Optional, Sequence, Union
 
-def read_excel(io: Any, sheet_name: int = ..., header: int = ..., names: Optional[Any] = ..., index_col: Optional[Any] = ..., usecols: Optional[Any] = ..., squeeze: bool = ..., dtype: Optional[Any] = ..., engine: Optional[Any] = ..., converters: Optional[Any] = ..., true_values: Optional[Any] = ..., false_values: Optional[Any] = ..., skiprows: Optional[Any] = ..., nrows: Optional[Any] = ..., na_values: Optional[Any] = ..., keep_default_na: bool = ..., verbose: bool = ..., parse_dates: bool = ..., date_parser: Optional[Any] = ..., thousands: Optional[Any] = ..., comment: Optional[Any] = ..., skipfooter: int = ..., convert_float: bool = ..., mangle_dupe_cols: bool = ..., **kwds: Any) -> Any: ...
+
+def read_excel(io: Any, sheet_name: Optional[Union[str, int, Sequence[str, int]]] = ..., header: Union[int, Sequence[int]] = ..., names: Optional[Any] = ..., index_col: Optional[Any] = ..., usecols: Optional[Any] = ..., squeeze: bool = ..., dtype: Optional[Any] = ..., engine: Optional[Any] = ..., converters: Optional[Any] = ..., true_values: Optional[Any] = ..., false_values: Optional[Any] = ..., skiprows: Optional[Any] = ..., nrows: Optional[Any] = ..., na_values: Optional[Any] = ..., keep_default_na: bool = ..., verbose: bool = ..., parse_dates: bool = ..., date_parser: Optional[Any] = ..., thousands: Optional[Any] = ..., comment: Optional[Any] = ..., skipfooter: int = ..., convert_float: bool = ..., mangle_dupe_cols: bool = ..., **kwds: Any) -> Any: ...
 
 class _BaseExcelReader(metaclass=abc.ABCMeta):
     book: Any = ...
