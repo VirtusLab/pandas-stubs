@@ -1,7 +1,6 @@
 # flake8: noqa: F841
-import os
 import tempfile
-from pathlib import Path, PurePath
+from pathlib import Path
 
 import pandas as pd
 import numpy as np
