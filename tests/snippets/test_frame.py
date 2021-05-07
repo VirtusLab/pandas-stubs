@@ -1,7 +1,7 @@
 # flake8: noqa: F841
-
+import os
 import tempfile
-from pathlib import Path
+from pathlib import Path, PurePath
 
 import pandas as pd
 import numpy as np
@@ -30,6 +30,10 @@ def test_types_csv() -> None:
     with tempfile.NamedTemporaryFile() as file:
         df.to_csv(file.name, errors='replace')
         df4: pd.DataFrame = pd.read_csv(file.name)
+
+    path_like: os.PathLike[str] = PurePath("./dummy_path")
+    df.to_csv(path_like)
+    df5: pd.DataFrame = pd.read_csv(path_like)
 
 
 def test_types_getitem() -> None:
