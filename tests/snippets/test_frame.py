@@ -31,9 +31,17 @@ def test_types_csv() -> None:
         df.to_csv(file.name, errors='replace')
         df4: pd.DataFrame = pd.read_csv(file.name)
 
-    path_like: os.PathLike[str] = PurePath("./dummy_path")
-    df.to_csv(path_like)
-    df5: pd.DataFrame = pd.read_csv(path_like)
+
+def test_types_csv_when_path_passed() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+    path: Path = Path("./dummy_path.txt")
+    try:
+        assert not path.exists()
+        df.to_csv(path)
+        df5: pd.DataFrame = pd.read_csv(path)
+    finally:
+        print("a")
+        path.unlink()
 
 
 def test_types_getitem() -> None:
