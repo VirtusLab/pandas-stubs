@@ -40,7 +40,6 @@ def test_types_csv_when_path_passed() -> None:
         df.to_csv(path)
         df5: pd.DataFrame = pd.read_csv(path)
     finally:
-        print("a")
         path.unlink()
 
 
