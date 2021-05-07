@@ -7,10 +7,10 @@ else:
     from typing_extensions import Literal
 
 from dateutil.tz import tzfile
-from datetime import tzinfo, date
+from datetime import tzinfo
 
 from pandas._libs.tslibs.period import Period
-from pandas._typing import DatetimeLikeScalar
+from pandas._typing import TimestampConvertible
 
 OptInt = Optional[int]
 
@@ -18,7 +18,7 @@ Fold = Literal[0, 1]
 
 class Timestamp:
     @overload
-    def __init__(self, ts_input: Union[DatetimeLikeScalar, date, str, int, float], freq: Optional[str] = ..., tz: Optional[Union[str, tzinfo, tzfile]] = ..., unit: Optional[str] = ..., tzinfo: Optional[tzinfo] = ..., fold: Optional[Fold] = ...): ...
+    def __init__(self, ts_input: TimestampConvertible, freq: Optional[str] = ..., tz: Optional[Union[str, tzinfo, tzfile]] = ..., unit: Optional[str] = ..., tzinfo: Optional[tzinfo] = ..., fold: Optional[Fold] = ...): ...
     @overload
     def __init__(self, year: OptInt = ..., month: OptInt = ..., day: OptInt = ..., hour: OptInt = ..., minute: OptInt = ..., second: OptInt = ..., microsecond: OptInt = ..., nanosecond: OptInt = ..., tz: Optional[Union[str, tzinfo, tzfile]] = ..., tzinfo: Optional[tzinfo] = ..., fold: Optional[Fold] = ..., freq: Optional[str] = ...): ...
     def to_period(self, freq: Optional[str]) -> Period: ...
