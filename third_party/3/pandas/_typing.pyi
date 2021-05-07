@@ -31,7 +31,7 @@ AnyArrayLike = Union[ArrayLike, 'Index', 'Series']
 
 # scalar
 PythonScalar = Union[str, int, float, bool]
-DatetimeLikeScalar = TypeVar('DatetimeLikeScalar', 'Period', 'Timestamp', 'Timedelta')
+DatetimeLikeScalar = Union[Period, Timestamp, Timedelta]
 ExtraNumpyScalar = Union[np.object, np.object_, np.bytes, np.bytes_, np.unicode, np.unicode_, np.void]
 NumpyBooleans = Union[np.bool, np.bool_, np.bool8, np.ScalarType]
 NumpyIntegers = Union[np.byte, np.char, np.intc, np.int, np.int_, np.longlong, np.intp, np.int8, np.int16, np.int32, np.int64]
@@ -42,6 +42,7 @@ NumpyScalar = Union[NumpyBooleans, NumpyIntegers, NumpyUnsignedIntegers, NumpyFl
 PandasScalar = Union[Period, Timestamp, Timedelta, Interval]
 Scalar = Union[PythonScalar, NumpyScalar, Decimal, ByteString, Fraction, DateOffset, Interval, Number, datetime.datetime, datetime.timedelta]
 
+TimestampConvertible = Union[DatetimeLikeScalar, datetime.date, str, int, float]
 
 Orientation = Literal['index', 'columns']
 AxisOption = Union[Literal[0, 1], Orientation]
