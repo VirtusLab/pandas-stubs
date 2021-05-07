@@ -1,5 +1,4 @@
 # flake8: noqa: F841
-
 import tempfile
 from pathlib import Path
 
@@ -14,7 +13,7 @@ def test_types_init() -> None:
     pd.DataFrame(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), columns=['a', 'b', 'c'], dtype=np.int8, copy=True)
 
 
-def test_types_csv() -> None:
+def test_types_to_csv() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
     csv_df: str = df.to_csv()
 
@@ -30,6 +29,17 @@ def test_types_csv() -> None:
     with tempfile.NamedTemporaryFile() as file:
         df.to_csv(file.name, errors='replace')
         df4: pd.DataFrame = pd.read_csv(file.name)
+
+
+def test_types_to_csv_when_path_passed() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+    path: Path = Path("./dummy_path.txt")
+    try:
+        assert not path.exists()
+        df.to_csv(path)
+        df5: pd.DataFrame = pd.read_csv(path)
+    finally:
+        path.unlink()
 
 
 def test_types_getitem() -> None:

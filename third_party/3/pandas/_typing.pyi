@@ -4,8 +4,10 @@ import datetime
 import sys
 from decimal import Decimal
 from fractions import Fraction
+from io import RawIOBase, BufferedIOBase, TextIOBase, TextIOWrapper
+from mmap import mmap
+from os import PathLike
 from numbers import Number
-from pathlib import Path
 
 from pandas.core.arrays.base import ExtensionArray as ExtensionArray
 from pandas.core.indexes.base import Index as Index
@@ -65,7 +67,12 @@ UserCorrelationMethod = Callable[[np.ndarray, np.ndarray], Scalar]
 CorrelationMethod = Union[NamedCorrelationMethod, UserCorrelationMethod]
 
 Dtype: Any
-FilePathOrBuffer = Union[str, Path, IO[AnyStr]]
+T = TypeVar('T')
+
+Buffer = Union[IO[AnyStr], RawIOBase, BufferedIOBase, TextIOBase, TextIOWrapper, mmap]
+FileOrBuffer = Union[str, Buffer[T]]
+FilePathOrBuffer = Union["PathLike[str]", FileOrBuffer[T]]
+
 FrameOrSeriesUnion: Union[DataFrame, Series]
 FrameOrSeries = Union[DataFrame, Series]
 Axis = Union[str, int]
@@ -75,8 +82,6 @@ Ordered = Optional[bool]
 JSONSerializable = Union[PythonScalar, List, Dict]
 Axes = Collection
 Renamer = Union[Mapping[Label, Any], Callable[[Label], Label]]
-
-T = TypeVar('T')
 
 FillValue = Union[Scalar, Dict[Any, Any], FrameOrSeries]
 
