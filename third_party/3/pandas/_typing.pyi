@@ -42,6 +42,7 @@ NumpyScalar = Union[NumpyBooleans, NumpyIntegers, NumpyUnsignedIntegers, NumpyFl
 PandasScalar = Union[Period, Timestamp, Timedelta, Interval]
 Scalar = Union[PythonScalar, NumpyScalar, Decimal, ByteString, Fraction, DateOffset, Interval, Number, datetime.datetime, datetime.timedelta]
 
+TimestampConvertible = Union[DatetimeLikeScalar, datetime.date, str, int, float]
 
 Orientation = Literal['index', 'columns']
 AxisOption = Union[Literal[0, 1], Orientation]
