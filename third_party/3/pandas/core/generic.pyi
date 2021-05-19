@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import sys
-from typing import Any, Callable, Dict, Hashable, List, Mapping, Optional, Sequence, Tuple, Union, AnyStr, overload
+from typing import Any, Callable, Dict, Hashable, List, Mapping, Optional, Sequence, Tuple, TypeVar, Union, AnyStr, overload
 
 if sys.version_info >= (3, 8):
     from typing import Literal
@@ -22,6 +22,8 @@ from pandas.core.indexes.api import Index
 from pandas.core.internals import BlockManager
 
 bool_t = bool
+
+Self = TypeVar('Self', bound=NDFrame)
 
 class NDFrame(PandasObject, SelectionMixin, indexing.IndexingMixin):
     __array_priority__: int = ...
@@ -115,7 +117,7 @@ class NDFrame(PandasObject, SelectionMixin, indexing.IndexingMixin):
     @property
     def dtypes(self) -> Any: ...
     def astype(self, dtype: Any, copy: bool_t=..., errors: str=...) -> FrameOrSeries: ...
-    def copy(self, deep: bool_t=...) -> FrameOrSeries: ...
+    def copy(self: Self, deep: bool_t=...) -> Self: ...
     def infer_objects(self) -> FrameOrSeries: ...
     def convert_dtypes(self, infer_objects: bool_t=..., convert_string: bool_t=..., convert_integer: bool_t=..., convert_boolean: bool_t=...) -> FrameOrSeries: ...
     @overload

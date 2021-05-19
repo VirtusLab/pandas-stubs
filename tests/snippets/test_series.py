@@ -35,6 +35,11 @@ def test_types_csv() -> None:
         s4: pd.DataFrame = pd.read_csv(file.name)
 
 
+def test_types_copy() -> None:
+    s = pd.Series(data=[1, 2, 3, 4])
+    s2: pd.Series = s.copy()
+
+
 def test_types_select() -> None:
     s = pd.Series(data={'row1': 1, 'row2': 2})
     s[0]
