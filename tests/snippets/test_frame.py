@@ -42,6 +42,11 @@ def test_types_to_csv_when_path_passed() -> None:
         path.unlink()
 
 
+def test_types_copy() -> None:
+    df = pd.DataFrame([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    df2: pd.DataFrame = df.copy()
+
+
 def test_types_getitem() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4], 5: [6, 7]})
     i = pd.Index(['col1', 'col2'])
