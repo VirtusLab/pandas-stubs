@@ -388,8 +388,9 @@ def test_types_compare() -> None:
 def test_types_agg() -> None:
     s = pd.Series([1, 2, 3], index=['col1', 'col2', 'col3'])
     s.agg("min")
-    s.agg(x=max, y='min', z=np.mean)
+    _s1: pd.Series = s.agg(x=max, y='min', z=np.mean)
     s.agg("mean", axis=0)
+    _s2: pd.Series = s.agg(["min", "max"])
 
 
 def test_types_describe() -> None:

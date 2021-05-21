@@ -90,7 +90,12 @@ Function = Union[np.func, Callable[..., Any]]
 # Also including function names e.g. np.exp. 'sqrt'
 FunctionOrName = Union[Function, str]
 # Used in SelectionMixin and inheriting classes
-AggregationFunction = Union[FunctionOrName, List[FunctionOrName], Dict[Axis, Union[FunctionOrName, List[FunctionOrName]]]]
+MultipleAggregationFunctions = Union[
+    None,  # aggregation funcs are being specified via kwargs
+    List[FunctionOrName],
+    Dict[Axis, Union[FunctionOrName, List[FunctionOrName]]],
+]
+AggregationFunction = Union[FunctionOrName, MultipleAggregationFunctions]
 
 F = TypeVar("F", bound=Function)
 

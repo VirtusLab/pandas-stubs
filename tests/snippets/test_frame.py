@@ -460,9 +460,11 @@ def test_types_compare() -> None:
 
 def test_types_agg() -> None:
     df = pd.DataFrame([[1, 2, 3], [4, 5, 6], [7, 8, 9]], columns=['A', 'B', 'C'])
-    df.agg("min")
-    df.agg(x=('A', max), y=('B', 'min'), z=('C', np.mean))
-    df.agg("mean", axis=1)
+    _s1: pd.Series = df.agg("min")
+    _df1: pd.DataFrame = df.agg(x=('A', max), y=('B', 'min'), z=('C', np.mean))
+    _s2: pd.Series = df.agg("mean", axis=1)
+    _df2: pd.DataFrame = df.agg(["sum", "min"])
+    _df3: pd.DataFrame = df.agg({'A' : ['sum', 'min'], 'B' : ['min', 'max']})
 
 
 def test_types_describe() -> None:
