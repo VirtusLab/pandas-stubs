@@ -1,3 +1,4 @@
+# flake8: noqa: F841
 from typing import Union
 
 import pandas as pd
