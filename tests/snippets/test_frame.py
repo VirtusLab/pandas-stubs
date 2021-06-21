@@ -491,3 +491,12 @@ def test_types_resample() -> None:
     df.resample('M', on='date')
     # origin and offset params added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
     df.resample('20min', origin='epoch', offset=pd.Timedelta(2, 'minutes'), on='date')
+
+
+def test_types_from_dict() -> None:
+    pd.DataFrame.from_dict({'col_1': [3, 2, 1, 0], 'col_2': ['a', 'b', 'c', 'd']})
+    pd.DataFrame.from_dict({1: [3, 2, 1, 0], 2: ['a', 'b', 'c', 'd']})
+    pd.DataFrame.from_dict({'a': {1: 2}, 'b': {3: 4, 1: 4}}, orient="index")
+    pd.DataFrame.from_dict({'a': {'row1': 2}, 'b': {'row2': 4, 'row1': 4}})
+    pd.DataFrame.from_dict({'a': (1, 2, 3), 'b': (2, 4, 5)})
+    pd.DataFrame.from_dict(data={'col_1': {'a': 1}, 'col_2': {'a': 1, 'b': 2}}, orient="columns")

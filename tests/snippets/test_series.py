@@ -2,6 +2,7 @@
 
 import tempfile
 from pathlib import Path
+from typing import List
 
 import pandas as pd
 import numpy as np
@@ -406,3 +407,10 @@ def test_types_resample() -> None:
     s.resample('3T').sum()
     # origin and offset params added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
     s.resample('20min', origin='epoch', offset=pd.Timedelta(value=2, unit='minutes'))
+
+
+def test_types_getitem() -> None:
+    s = pd.Series({'key': [0, 1, 2, 3]})
+    key: List[int] = s['key']
+    s2 = pd.Series([0, 1, 2, 3])
+    value: int = s2[0]
