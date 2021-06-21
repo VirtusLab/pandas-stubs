@@ -361,16 +361,6 @@ def test_types_melt() -> None:
     pd.melt(df, id_vars=['col1'], value_vars=['col2'], var_name="someVariable", value_name="someValue")
 
 
-def test_types_concat() -> None:
-    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
-    df2 = pd.DataFrame(data={'col1': [10, 20], 'col2': [30, 40]})
-
-    pd.concat([df, df2])
-    pd.concat([df, df2], axis=1)
-    pd.concat([df, df2], keys=['first', 'second'], sort=True)
-    pd.concat([df, df2], keys=['first', 'second'], names=["source", "row"])
-
-
 def test_types_pivot() -> None:
     df = pd.DataFrame(data={'col1': ['first', 'second', 'third', 'fourth'],
                             'col2': [50, 70, 56, 111], 'col3': ['A', 'B', 'B', 'A'], 'col4': [100, 102, 500, 600]})
