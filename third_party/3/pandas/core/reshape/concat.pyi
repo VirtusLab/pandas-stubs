@@ -6,6 +6,7 @@ from pandas.core.indexes.api import all_indexes_same as all_indexes_same, ensure
 from pandas.core.internals import concatenate_block_managers as concatenate_block_managers
 from typing import Any, Iterable, Mapping, overload
 
+# For some reason mypy won't read this declaration correctly if we use 2 overloads with union
 @overload
 def concat(objs: Iterable[DataFrame], axis: Axis = ..., join: str=..., ignore_index: bool=..., keys: Any = ..., levels: Any = ..., names: Any = ..., verify_integrity: bool=..., sort: bool=..., copy: bool=...) -> DataFrame: ...
 @overload

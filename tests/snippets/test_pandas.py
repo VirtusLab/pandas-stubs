@@ -16,6 +16,14 @@ def test_types_to_datetime() -> None:
 
 
 def test_types_concat() -> None:
+    s = pd.Series([0, 1, -10])
+    s2 = pd.Series([7, -5, 10])
+
+    pd.concat([s, s2])
+    pd.concat([s, s2], axis=1)
+    pd.concat([s, s2], keys=['first', 'second'], sort=True)
+    pd.concat([s, s2], keys=['first', 'second'], names=["source", "row"])
+
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
     df2 = pd.DataFrame(data={'col1': [10, 20], 'col2': [30, 40]})
 

@@ -313,16 +313,6 @@ def test_types_element_wise_arithmetic() -> None:
     s.mod(s2, fill_value=0)
 
 
-def test_types_concat() -> None:
-    s = pd.Series([0, 1, -10])
-    s2 = pd.Series([7, -5, 10])
-
-    pd.concat([s, s2])
-    pd.concat([s, s2], axis=1)
-    pd.concat([s, s2], keys=['first', 'second'], sort=True)
-    pd.concat([s, s2], keys=['first', 'second'], names=["source", "row"])
-
-
 def test_types_groupby() -> None:
     s = pd.Series([4, 2, 1, 8], index=['a', 'b', 'a', 'b'])
     s.groupby(['a', 'b', 'a', 'b'])
