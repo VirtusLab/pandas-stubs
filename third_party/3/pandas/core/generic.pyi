@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import sys
 from typing import Any, Callable, Dict, Hashable, List, Mapping, Optional, Sequence, Tuple, TypeVar, Union, AnyStr, overload
-
 from pandas.core.resample import Resampler
 
 if sys.version_info >= (3, 8):
