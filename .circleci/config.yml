@@ -22,7 +22,7 @@ jobs:
       - checkout
       - run: pip3 install tox
       - run: tox
-      - run: pip3 install tests/requirements.txt
+      - run: pip3 install -r tests/requirements.txt
       - run: pytest tests
       - when:
           condition:
