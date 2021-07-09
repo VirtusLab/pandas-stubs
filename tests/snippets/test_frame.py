@@ -14,7 +14,7 @@ def test_types_init() -> None:
     pd.DataFrame(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), columns=['a', 'b', 'c'], dtype=np.int8, copy=True)
 
 
-def test_types_csv() -> None:
+def test_types_to_csv() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
     csv_df: str = df.to_csv()
 
@@ -33,6 +33,22 @@ def test_types_csv() -> None:
 
     # Testing support for binary file handles, added in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
     df.to_csv(io.BytesIO(), encoding="utf-8", compression="gzip")
+
+
+def test_types_to_csv_when_path_passed() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+    path: Path = Path("./dummy_path.txt")
+    try:
+        assert not path.exists()
+        df.to_csv(path)
+        df5: pd.DataFrame = pd.read_csv(path)
+    finally:
+        path.unlink()
+
+
+def test_types_copy() -> None:
+    df = pd.DataFrame([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    df2: pd.DataFrame = df.copy()
 
 
 def test_types_getitem() -> None:
@@ -352,16 +368,6 @@ def test_types_melt() -> None:
     pd.melt(df, id_vars=['col1'], value_vars=['col2'], var_name="someVariable", value_name="someValue")
 
 
-def test_types_concat() -> None:
-    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
-    df2 = pd.DataFrame(data={'col1': [10, 20], 'col2': [30, 40]})
-
-    pd.concat([df, df2])
-    pd.concat([df, df2], axis=1)
-    pd.concat([df, df2], keys=['first', 'second'], sort=True)
-    pd.concat([df, df2], keys=['first', 'second'], names=["source", "row"])
-
-
 def test_types_pivot() -> None:
     df = pd.DataFrame(data={'col1': ['first', 'second', 'third', 'fourth'],
                             'col2': [50, 70, 56, 111], 'col3': ['A', 'B', 'B', 'A'], 'col4': [100, 102, 500, 600]})
@@ -492,6 +498,33 @@ def test_types_resample() -> None:
     df.resample('M', on='date')
     # origin and offset params added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
     df.resample('20min', origin='epoch', offset=pd.Timedelta(2, 'minutes'), on='date')
+
+
+def test_types_from_dict() -> None:
+    pd.DataFrame.from_dict({'col_1': [3, 2, 1, 0], 'col_2': ['a', 'b', 'c', 'd']})
+    pd.DataFrame.from_dict({1: [3, 2, 1, 0], 2: ['a', 'b', 'c', 'd']})
+    pd.DataFrame.from_dict({'a': {1: 2}, 'b': {3: 4, 1: 4}}, orient="index")
+    pd.DataFrame.from_dict({'a': {'row1': 2}, 'b': {'row2': 4, 'row1': 4}})
+    pd.DataFrame.from_dict({'a': (1, 2, 3), 'b': (2, 4, 5)})
+    pd.DataFrame.from_dict(data={'col_1': {'a': 1}, 'col_2': {'a': 1, 'b': 2}}, orient="columns")
+
+
+def test_pipe() -> None:
+    def foo(df: pd.DataFrame) -> pd.DataFrame:
+        return df
+
+    df1: pd.DataFrame = pd.DataFrame({'a': [1]}).pipe(foo)
+
+    df2: pd.DataFrame = (
+        pd.DataFrame({'price': [10, 11, 9, 13, 14, 18, 17, 19], 'volume': [50, 60, 40, 100, 50, 100, 40, 50]})
+        .assign(week_starting=pd.date_range('01/01/2018', periods=8, freq='W'))
+        .resample('M', on='week_starting')
+        .pipe(foo)
+    )
+
+    df3: pd.DataFrame = pd.DataFrame({'a': [1], 'b': [1]}).groupby('a').pipe(foo)
+
+    df4: pd.DataFrame = pd.DataFrame({'a': [1], 'b': [1]}).style.pipe(foo)
 
 
 # set_flags() method added in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html

@@ -2,6 +2,7 @@
 
 import tempfile
 from pathlib import Path
+from typing import List
 
 import pandas as pd
 import numpy as np
@@ -33,6 +34,11 @@ def test_types_csv() -> None:
     with tempfile.NamedTemporaryFile() as file:
         s.to_csv(file.name, errors='replace')
         s4: pd.DataFrame = pd.read_csv(file.name)
+
+
+def test_types_copy() -> None:
+    s = pd.Series(data=[1, 2, 3, 4])
+    s2: pd.Series = s.copy()
 
 
 def test_types_select() -> None:
@@ -307,16 +313,6 @@ def test_types_element_wise_arithmetic() -> None:
     s.mod(s2, fill_value=0)
 
 
-def test_types_concat() -> None:
-    s = pd.Series([0, 1, -10])
-    s2 = pd.Series([7, -5, 10])
-
-    pd.concat([s, s2])
-    pd.concat([s, s2], axis=1)
-    pd.concat([s, s2], keys=['first', 'second'], sort=True)
-    pd.concat([s, s2], keys=['first', 'second'], names=["source", "row"])
-
-
 def test_types_groupby() -> None:
     s = pd.Series([4, 2, 1, 8], index=['a', 'b', 'a', 'b'])
     s.groupby(['a', 'b', 'a', 'b'])
@@ -408,3 +404,10 @@ def test_types_set_flags() -> None:
     pd.Series([1, 2], index=['a', 'b']).set_flags(allows_duplicate_labels=False)
     pd.Series([3, 4], index=['a', 'a']).set_flags(allows_duplicate_labels=True)
     pd.Series([5, 2], index=['a', 'a'])
+
+
+def test_types_getitem() -> None:
+    s = pd.Series({'key': [0, 1, 2, 3]})
+    key: List[int] = s['key']
+    s2 = pd.Series([0, 1, 2, 3])
+    value: int = s2[0]

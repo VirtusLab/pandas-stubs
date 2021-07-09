@@ -1,10 +1,11 @@
 from pandas._config import get_option as get_option
 from pandas.util._decorators import Appender as Appender
-from typing import Any, Optional
+from typing import Any, Optional, Callable, TypeVar, Tuple, Union, overload
 
 jinja2: Any
 has_mpl: bool
 no_mpl_message: str
+PipeReturn = TypeVar('PipeReturn')
 
 class Styler:
     loader: Any = ...
@@ -51,4 +52,7 @@ class Styler:
     def highlight_min(self, subset: Optional[Any] = ..., color: str = ..., axis: int = ...) -> Any: ...
     @classmethod
     def from_custom_template(cls, searchpath: Any, name: Any) -> Any: ...
-    def pipe(self, func: Any, *args: Any, **kwargs: Any) -> Any: ...
+    @overload
+    def pipe(self: Any, func: Union[Callable[..., PipeReturn], Tuple[Callable[..., PipeReturn], str]], *args: Any, **kwargs: Any) -> PipeReturn: ...
+    @overload
+    def pipe(self: Any, func: PipeReturn, *args: Any, **kwargs: Any) -> PipeReturn: ...
