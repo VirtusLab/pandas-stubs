@@ -356,6 +356,11 @@ def test_types_element_wise_arithmetic() -> None:
     df % df2
     df.mod(df2, fill_value=0)
 
+    # divmod operation was added in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
+    # noinspection PyTypeChecker
+    divmod(df, df2)
+    df.__divmod__(df2)
+
 
 def test_types_melt() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
