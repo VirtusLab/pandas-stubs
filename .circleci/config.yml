@@ -22,6 +22,7 @@ jobs:
       - checkout
       - run: pip3 install tox
       - run: tox
+      - run: pytest tests
       - when:
           condition:
             equal: [ "master", << pipeline.git.branch >> ]
