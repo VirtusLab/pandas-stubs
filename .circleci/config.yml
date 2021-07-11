@@ -41,6 +41,10 @@ jobs:
                 command: |
                   pip3 install bumpversion
             - deploy:
+                name: Bump version
+                command: |
+                  bumpversion release
+            - deploy:
                 name: Create packages
                 command: |
                   python3 setup.py sdist
