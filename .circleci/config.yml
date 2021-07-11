@@ -37,6 +37,10 @@ jobs:
                 command: |
                   pip3 install twine
             - deploy:
+                name: Install bumpversion
+                command: |
+                  pip3 install bumpversion
+            - deploy:
                 name: Create packages
                 command: |
                   python3 setup.py sdist
