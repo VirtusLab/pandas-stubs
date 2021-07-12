@@ -40,6 +40,7 @@ jobs:
                 name: Bump version
                 command: |
                   bumpversion release --commit
+                  git push origin master
             - deploy:
                 name: Install twine
                 command: |
