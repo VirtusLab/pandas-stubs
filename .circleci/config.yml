@@ -39,7 +39,7 @@ jobs:
             - deploy:
                 name: Bump version
                 command: |
-                  bumpversion release
+                  bumpversion release --commit
             - deploy:
                 name: Install twine
                 command: |
