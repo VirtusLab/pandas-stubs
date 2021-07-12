@@ -24,7 +24,7 @@ jobs:
       - run: tox
       - when:
           condition:
-            equal: [ "issue_16", << pipeline.git.branch >> ]
+            equal: [ "master", << pipeline.git.branch >> ]
           steps:
             - deploy:
                 name: init .pypirc
@@ -45,7 +45,7 @@ jobs:
                   git config --global user.email "pandas_stubs-cicd@virtuslab.com"
                   git config --global user.name "pandas_stubs-cicd"
                   bumpversion release --commit
-                  git push origin issue_16
+                  git push origin master
             - deploy:
                 name: Install twine
                 command: |
@@ -55,7 +55,7 @@ jobs:
                 command: |
                   python3 setup.py sdist
                   python3 setup.py bdist_wheel
-#            - deploy:
-#                name: Upload to pypi
-#                command: |
-#                  python3 -m twine upload --skip-existing dist/*
+            - deploy:
+                name: Upload to pypi
+                command: |
+                  python3 -m twine upload --skip-existing dist/*
