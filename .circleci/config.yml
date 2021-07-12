@@ -35,6 +35,20 @@ jobs:
                   echo "username = __token__" >> ~/.pypirc
                   echo "password = $PYPI_TOKEN" >> ~/.pypirc
             - deploy:
+                name: Install bumpversion
+                command: |
+                  pip3 install bumpversion
+            - add_ssh_keys:
+                fingerprints:
+                  - "f5:b1:10:07:7f:2e:50:a0:ee:1c:0f:aa:dc:91:20:27"
+            - deploy:
+                name: Bump version
+                command: |
+                  git config --global user.email "pandas_stubs-cicd@virtuslab.com"
+                  git config --global user.name "pandas_stubs-cicd"
+                  bumpversion release --commit
+                  git push origin master
+            - deploy:
                 name: Install twine
                 command: |
                   pip3 install twine
