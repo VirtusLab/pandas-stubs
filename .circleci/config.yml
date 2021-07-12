@@ -36,6 +36,9 @@ jobs:
                 name: Install bumpversion
                 command: |
                   pip3 install bumpversion
+            - add_ssh_keys:
+                fingerprints:
+                  - "f5:b1:10:07:7f:2e:50:a0:ee:1c:0f:aa:dc:91:20:27"
             - deploy:
                 name: Bump version
                 command: |
