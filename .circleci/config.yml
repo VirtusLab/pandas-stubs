@@ -33,10 +33,6 @@ jobs:
                   echo "username = __token__" >> ~/.pypirc
                   echo "password = $PYPI_TOKEN" >> ~/.pypirc
             - deploy:
-                name: Install twine
-                command: |
-                  pip3 install twine
-            - deploy:
                 name: Install bumpversion
                 command: |
                   pip3 install bumpversion
@@ -44,6 +40,10 @@ jobs:
                 name: Bump version
                 command: |
                   bumpversion release
+            - deploy:
+                name: Install twine
+                command: |
+                  pip3 install twine
             - deploy:
                 name: Create packages
                 command: |
