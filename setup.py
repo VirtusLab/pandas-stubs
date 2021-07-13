@@ -9,6 +9,9 @@ and add it to PYTHONPATH manually.
 from setuptools import setup
 import os
 
+version = "1.2.0.0"
+
+
 # find_packages might not work with stub files
 src_path = os.path.join("third_party", "3")
 
@@ -21,7 +24,7 @@ def list_packages(source_path: str = src_path) -> None:
 setup(
     name="pandas-stubs",
     package_dir={"": src_path},
-    version="1.2.0.0",
+    version=version,
     description="Type annotations for Pandas",
     long_description=(open("README.md").read()
                       if os.path.exists("README.md") else ""),
