@@ -360,6 +360,7 @@ def test_types_element_wise_arithmetic() -> None:
     # noinspection PyTypeChecker
     divmod(df, df2)
     df.__divmod__(df2)
+    df.__rdivmod__(df2)
 
 
 def test_types_melt() -> None:
@@ -541,10 +542,10 @@ def test_types_set_flags() -> None:
 
 def test_types_to_parquet() -> None:
     df = pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B']).set_flags(allows_duplicate_labels=False)
-    df.to_parquet("some_path")
+    with tempfile.NamedTemporaryFile() as file:
+        df.to_parquet(Path(file.name))
     # to_parquet() returns bytes when no path given since 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
     b: bytes = df.to_parquet()
-    assert type(b) == bytes
 
 
 def test_types_to_latex() -> None:
