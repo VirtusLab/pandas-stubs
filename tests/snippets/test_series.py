@@ -399,6 +399,13 @@ def test_types_resample() -> None:
     s.resample('20min', origin='epoch', offset=pd.Timedelta(value=2, unit='minutes'))
 
 
+# set_flags() method added in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
+def test_types_set_flags() -> None:
+    pd.Series([1, 2], index=['a', 'b']).set_flags(allows_duplicate_labels=False)
+    pd.Series([3, 4], index=['a', 'a']).set_flags(allows_duplicate_labels=True)
+    pd.Series([5, 2], index=['a', 'a'])
+
+
 def test_types_getitem() -> None:
     s = pd.Series({'key': [0, 1, 2, 3]})
     key: List[int] = s['key']

@@ -1,4 +1,5 @@
 # flake8: noqa: F841
+import io
 import tempfile
 from pathlib import Path
 
@@ -29,6 +30,9 @@ def test_types_to_csv() -> None:
     with tempfile.NamedTemporaryFile() as file:
         df.to_csv(file.name, errors='replace')
         df4: pd.DataFrame = pd.read_csv(file.name)
+
+    # Testing support for binary file handles, added in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
+    df.to_csv(io.BytesIO(), encoding="utf-8", compression="gzip")
 
 
 def test_types_to_csv_when_path_passed() -> None:
@@ -325,6 +329,9 @@ def test_types_applymap() -> None:
     df.applymap(lambda x: x ** 2)
     df.applymap(np.exp)
     df.applymap(str)
+    # na_action parameter was added in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
+    df.applymap(np.exp, na_action='ignore')
+    df.applymap(str, na_action=None)
 
 
 def test_types_element_wise_arithmetic() -> None:
@@ -348,6 +355,12 @@ def test_types_element_wise_arithmetic() -> None:
 
     df % df2
     df.mod(df2, fill_value=0)
+
+    # divmod operation was added in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
+    # noinspection PyTypeChecker
+    divmod(df, df2)
+    df.__divmod__(df2)
+    df.__rdivmod__(df2)
 
 
 def test_types_melt() -> None:
@@ -518,3 +531,28 @@ def test_pipe() -> None:
     df3: pd.DataFrame = pd.DataFrame({'a': [1], 'b': [1]}).groupby('a').pipe(foo)
 
     df4: pd.DataFrame = pd.DataFrame({'a': [1], 'b': [1]}).style.pipe(foo)
+
+
+# set_flags() method added in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
+def test_types_set_flags() -> None:
+    pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B']).set_flags(allows_duplicate_labels=False)
+    pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'A']).set_flags(allows_duplicate_labels=True)
+    pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'A'])
+
+
+def test_types_to_parquet() -> None:
+    df = pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B']).set_flags(allows_duplicate_labels=False)
+    with tempfile.NamedTemporaryFile() as file:
+        df.to_parquet(Path(file.name))
+    # to_parquet() returns bytes when no path given since 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
+    b: bytes = df.to_parquet()
+
+
+def test_types_to_latex() -> None:
+    df = pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B'])
+    df.to_latex(columns=['A'], label='some_label', caption='some_caption', multirow=True)
+    df.to_latex(escape=False, decimal=',', column_format='r')
+    # position param was added in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
+    df.to_latex(position='some')
+    # caption param was extended to accept tuple in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
+    df.to_latex(caption=("cap1", "cap2"))
