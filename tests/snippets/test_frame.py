@@ -558,7 +558,7 @@ def test_types_to_latex() -> None:
     df.to_latex(caption=("cap1", "cap2"))
 
 
-def test_explode() -> None:
+def test_types_explode() -> None:
     pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B']).explode('A')
     pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B']).explode('A', ignore_index=False)
     pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B']).explode('A', ignore_index=True)
