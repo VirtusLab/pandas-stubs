@@ -203,6 +203,7 @@ def test_types_sort_values() -> None:
     df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
     res: pd.DataFrame = df.sort_values('col1')
     res2: None = df.sort_values('col1', ascending=False, inplace=True)
+    res3: pd.DataFrame = df.sort_values(by=['col1', 'col2'], ascending=[True, False])
 
 
 # This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
