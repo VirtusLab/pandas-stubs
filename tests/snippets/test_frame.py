@@ -457,7 +457,7 @@ def test_types_to_feather() -> None:
     # See https://pandas.pydata.org/docs/whatsnew/v1.0.0.html
     # Docstring and type were updated in 1.2.0.
     # https://github.com/pandas-dev/pandas/pull/35408
-    with tempfile.NamedTemporaryFile() as f:
+    with tempfile.TemporaryFile() as f:
         df.to_feather(f)
 
 # compare() method added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
