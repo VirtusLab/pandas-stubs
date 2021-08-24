@@ -65,4 +65,4 @@ mypy --config-file mypy_env.ini tests/snippets
 # Disclaimer
 [pandas](https://pandas.pydata.org/docs/index.html) library and the pandas [logo](https://pandas.pydata.org/about/citing.html) are owned by AQR Capital Management, LLC, Lambda Foundry, Inc. and PyData Development Team. This project is not owned, endorsed, or sponsored by any of AQR Capital Management, LLC, Lambda Foundry, Inc. and PyData Development Team.
 
-This project provides additional functionality for pandas library and uses it under [license](https://github.com/pandas-dev/pandas/blob/master/LICENSE).
+This project provides additional functionality for pandas library which is available under [license](https://github.com/pandas-dev/pandas/blob/master/LICENSE).
