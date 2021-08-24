@@ -1,3 +1,9 @@
+<p align="center">
+<img src="logo.png"
+     alt="Logo"
+     width="60%"/>
+</p>  
+
 # Pandas Stubs
 
 Collection of pandas [stub files](https://www.python.org/dev/peps/pep-0484/#stub-files>) initially generated using [stubgen](https://github.com/python/mypy/blob/master/mypy/stubgen.py), fixed when necessary and then partially completed.
@@ -61,3 +67,8 @@ Test the **installed** stub files against actual code examples (this will use pa
 ```
 mypy --config-file mypy_env.ini tests/snippets
 ```
+
+# Disclaimer
+[pandas](https://pandas.pydata.org/docs/index.html) library and the pandas [logo](https://pandas.pydata.org/about/citing.html) are owned by AQR Capital Management, LLC, Lambda Foundry, Inc. and PyData Development Team. This project is not owned, endorsed, or sponsored by any of AQR Capital Management, LLC, Lambda Foundry, Inc. and PyData Development Team.
+
+This project provides additional functionality for pandas library. Pandas is available under it's own [license](https://github.com/pandas-dev/pandas/blob/master/LICENSE).
