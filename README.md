@@ -1,3 +1,9 @@
+<p align="center">
+<img src="logo.png"
+     alt="Logo"
+     width="60%"/>
+</p>  
+
 # Pandas Stubs
 
 Collection of pandas [stub files](https://www.python.org/dev/peps/pep-0484/#stub-files>) initially generated using [stubgen](https://github.com/python/mypy/blob/master/mypy/stubgen.py), fixed when necessary and then partially completed.
