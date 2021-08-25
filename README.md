@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/VirtusLab/pandas-stubs/blob/master/logo.png"
+<img src="https://raw.githubusercontent.com/VirtusLab/pandas-stubs/master/logo.png"
      alt="Logo"
      width="60%"/>
 </p>  
