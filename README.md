@@ -1,3 +1,9 @@
+<p align="center">
+<img src="https://raw.githubusercontent.com/VirtusLab/pandas-stubs/master/logo.png"
+     alt="Logo"
+     width="60%"/>
+</p>  
+
 # Pandas Stubs
 
 Collection of pandas [stub files](https://www.python.org/dev/peps/pep-0484/#stub-files>) initially generated using [stubgen](https://github.com/python/mypy/blob/master/mypy/stubgen.py), fixed when necessary and then partially completed.
@@ -32,7 +38,7 @@ and then configuring a type checker with the correct paths.
 
 ## Version Compatibility
 
-The aim of the current release is to cover the most common parts of the 1.1.0 API, however it can provide partial functionality for other version as well. Future versions will cover new Pandas releases.
+The aim of the current release is to cover the most common parts of the 1.2.0 API, however it can provide partial functionality for other version as well. Future versions will cover new Pandas releases.
 
 ### Versioning
 
@@ -61,3 +67,8 @@ Test the **installed** stub files against actual code examples (this will use pa
 ```
 mypy --config-file mypy_env.ini tests/snippets
 ```
+
+# Disclaimer
+This project provides additional functionality for [pandas](https://pandas.pydata.org/docs/index.html) library. Pandas is available under it's own [license](https://github.com/pandas-dev/pandas/blob/master/LICENSE).
+
+This project is not owned, endorsed, or sponsored by any of AQR Capital Management, NumFOCUS, LLC, Lambda Foundry, Inc. and PyData Development Team.
