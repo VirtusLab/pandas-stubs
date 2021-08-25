@@ -38,7 +38,7 @@ and then configuring a type checker with the correct paths.
 
 ## Version Compatibility
 
-The aim of the current release is to cover the most common parts of the 1.1.0 API, however it can provide partial functionality for other version as well. Future versions will cover new Pandas releases.
+The aim of the current release is to cover the most common parts of the 1.2.0 API, however it can provide partial functionality for other version as well. Future versions will cover new Pandas releases.
 
 ### Versioning
 
@@ -69,6 +69,6 @@ mypy --config-file mypy_env.ini tests/snippets
 ```
 
 # Disclaimer
-[pandas](https://pandas.pydata.org/docs/index.html) library and the pandas [logo](https://pandas.pydata.org/about/citing.html) are owned by AQR Capital Management, LLC, Lambda Foundry, Inc. and PyData Development Team. This project is not owned, endorsed, or sponsored by any of AQR Capital Management, LLC, Lambda Foundry, Inc. and PyData Development Team.
+This project provides additional functionality for [pandas](https://pandas.pydata.org/docs/index.html) library. Pandas is available under it's own [license](https://github.com/pandas-dev/pandas/blob/master/LICENSE).
 
-This project provides additional functionality for pandas library. Pandas is available under it's own [license](https://github.com/pandas-dev/pandas/blob/master/LICENSE).
+This project is not owned, endorsed, or sponsored by any of AQR Capital Management, NumFOCUS, LLC, Lambda Foundry, Inc. and PyData Development Team.
