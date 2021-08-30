@@ -567,9 +567,6 @@ def test_types_to_latex() -> None:
 
 
 def test_types_rename() -> None:
-    class AnyObject:
-        pass
-
     df = pd.DataFrame(columns=["a"])
     col_map = {"a": "b"}
     df.rename(columns=col_map)
@@ -577,5 +574,5 @@ def test_types_rename() -> None:
     df.rename(columns={1: "b"})
     # Apparently all of these calls are accepted by pandas
     df.rename(columns={None: "b"})
-    df.rename(columns={AnyObject(): "b"})
+    df.rename(columns={type("AnyObject")(): "b"})
     df.rename(columns={(2, 1): "b"})
