@@ -2,6 +2,7 @@
 import io
 import tempfile
 from pathlib import Path
+from typing import Dict
 
 import pandas as pd
 import numpy as np
@@ -563,3 +564,18 @@ def test_types_to_latex() -> None:
     df.to_latex(position='some')
     # caption param was extended to accept tuple in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
     df.to_latex(caption=("cap1", "cap2"))
+
+
+def test_types_rename() -> None:
+    class AnyObject:
+        pass
+
+    df = pd.DataFrame(columns=["a"])
+    col_map = {"a": "b"}
+    df.rename(columns=col_map)
+    df.rename(columns={"a": "b"})
+    df.rename(columns={1: "b"})
+    # Apparently all of these calls are accepted by pandas
+    df.rename(columns={None: "b"})
+    df.rename(columns={AnyObject(): "b"})
+    df.rename(columns={(2, 1): "b"})
