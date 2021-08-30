@@ -81,7 +81,7 @@ Level = Union[Label, int]
 Ordered = Optional[bool]
 JSONSerializable = Union[PythonScalar, List, Dict]
 Axes = Collection
-Renamer = Union[Mapping[Label, Any], Callable[[Label], Label]]
+Renamer = Union[Mapping[Label, Any], Callable[[Label], Label], Dict[Any, Any]]
 
 FillValue = Union[Scalar, Dict[Any, Any], FrameOrSeries]
 
