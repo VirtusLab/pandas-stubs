@@ -78,9 +78,32 @@ The versions follow a pattern `MAJOR.MINOR.PATCH.STUB_VERSION` where the first t
 
 ## Type checkers
 
-As of now Mypy is the only type checker the stubs were tested with. 
+As of now Mypy is the only type checker the stubs were tested with.
 
-## Testing
+## Development
+
+### Testing using tox
+
+Tox will automatically run all types of tests mentioned further.
+It will create temporary isolated environments for each version of Python and install `pandas-stubs`
+like it would normally be installed when using pip or conda.
+
+Using it is as simple as:
+
+```
+tox
+```
+
+Last few lines of the output should look like this (assuming all Python versions are available):
+```
+  pep8: commands succeeded
+  py36: commands succeeded
+  py37: commands succeeded
+  py38: commands succeeded
+  py39: commands succeeded
+```
+
+### Partial testing
 
 Test the stub files internal consistency:
 
@@ -94,10 +117,17 @@ Test the stub files against actual code examples (this will use the stubs from t
 mypy --config-file mypy.ini tests/snippets
 ```
 
-Test the **installed** stub files against actual code examples (this will use pandas .pyi files from your env):
+Test the **installed** stub files against actual code examples.
+You'll need to install the library beforehand - the .pyi files from your env will be used:
 
 ```
 mypy --config-file mypy_env.ini tests/snippets
+```
+
+Test the code examples themselves:
+
+```
+pytests tests/snippets
 ```
 
 # Disclaimer
