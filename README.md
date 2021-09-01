@@ -16,7 +16,7 @@ Provide rudimentary coverage of pandas code by static type checking, to alleviat
 
 Due to extensive pandas API, quality of the proposed annotations is, for the most part, not suitable for integration into original codebase, but they can be very useful as a way of achieving some type safety during development.
 
-## Installation and usage
+## Installation
 
 The easiest way is using PyPI. This will add `.pyi` files to `pandas` package location, which will be removed when uninstalling:
 ```
@@ -35,6 +35,38 @@ Alternatively, if you want a cleaner `PYTHONPATH` or wish to modify the annotati
 * including it as a submodule to your project repository,
 
 and then configuring a type checker with the correct paths.
+
+## Usage
+
+Let’s take this example piece of code in file `round.py`
+
+```
+import pandas as pd
+
+decimals = pd.DataFrame({'TSLA': 2, 'AMZN': 1})
+prices = pd.DataFrame(data={'date': ['2021-08-13', '2021-08-07', '2021-08-21'],
+                            'TSLA': [720.13, 716.22, 731.22], 'AMZN': [3316.50, 3200.50, 3100.23]})
+rounded_prices = prices.round(decimals=decimals)
+```
+
+mypy won't see any issues with that, but after installing pandas-stubs and running it again
+
+```
+mypy round.py
+```
+
+we get the following error message
+
+```
+round.py:6: error: Argument "decimals" to "round" of "DataFrame" has incompatible type "DataFrame"; expected "Union[int, Dict[Union[int, str], int], Series]"
+```
+
+And after confirming with the [docs](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.round.html)
+we can fix the code
+
+```
+decimals = pd.Series({'TSLA': 2, 'AMZN': 1})
+```
 
 ## Version Compatibility
 
