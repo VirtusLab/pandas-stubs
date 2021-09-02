@@ -49,13 +49,13 @@ prices = pd.DataFrame(data={'date': ['2021-08-13', '2021-08-07', '2021-08-21'],
 rounded_prices = prices.round(decimals=decimals)
 ```
 
-mypy won't see any issues with that, but after installing pandas-stubs and running it again:
+Mypy won't see any issues with that, but after installing pandas-stubs and running it again:
 
 ```
 mypy round.py
 ```
 
-we get the following error message
+we get the following error message:
 
 ```
 round.py:6: error: Argument "decimals" to "round" of "DataFrame" has incompatible type "DataFrame"; expected "Union[int, Dict[Union[int, str], int], Series]"
@@ -78,14 +78,14 @@ The versions follow a pattern `MAJOR.MINOR.PATCH.STUB_VERSION` where the first t
 
 ## Type checkers
 
-As of now Mypy is the only type checker the stubs were tested with.
+As of now mypy is the only type checker the stubs were tested with.
 
 ## Development
 
 ### Testing using tox
 
 Tox will automatically run all types of tests mentioned further.
-It will create isolated temporary environments for each version of Python and install `pandas-stubs`
+It will create isolated temporary environments for each declared version of Python and install `pandas-stubs`
 like it would normally be installed when using pip or conda.
 
 Usage is as simple as:
@@ -124,7 +124,7 @@ You'll need to install the library beforehand - the .pyi files from your env wil
 mypy --config-file mypy_env.ini tests/snippets
 ```
 
-Test the code examples themselves:
+Test if the code examples work, when actually ran with pandas:
 
 ```
 pytests tests/snippets
