@@ -49,7 +49,7 @@ prices = pd.DataFrame(data={'date': ['2021-08-13', '2021-08-07', '2021-08-21'],
 rounded_prices = prices.round(decimals=decimals)
 ```
 
-mypy won't see any issues with that, but after installing pandas-stubs and running it again
+mypy won't see any issues with that, but after installing pandas-stubs and running it again:
 
 ```
 mypy round.py
