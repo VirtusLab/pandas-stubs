@@ -62,7 +62,7 @@ round.py:6: error: Argument "decimals" to "round" of "DataFrame" has incompatibl
 ```
 
 And after confirming with the [docs](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.round.html)
-we can fix the code
+we can fix the code:
 
 ```
 decimals = pd.Series({'TSLA': 2, 'AMZN': 1})
