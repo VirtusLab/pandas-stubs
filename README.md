@@ -85,7 +85,7 @@ As of now Mypy is the only type checker the stubs were tested with.
 ### Testing using tox
 
 Tox will automatically run all types of tests mentioned further.
-It will create temporary isolated environments for each version of Python and install `pandas-stubs`
+It will create isolated temporary environments for each version of Python and install `pandas-stubs`
 like it would normally be installed when using pip or conda.
 
 Usage is as simple as:
