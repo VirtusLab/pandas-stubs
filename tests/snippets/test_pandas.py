@@ -1,5 +1,5 @@
 # flake8: noqa: F841
-from typing import Union
+from typing import Any, Dict, List, Union
 
 import pandas as pd
 
@@ -34,3 +34,14 @@ def test_types_concat() -> None:
 
     result: pd.DataFrame = pd.concat({"a": pd.DataFrame([1, 2, 3]), "b": pd.DataFrame([4, 5, 6])}, axis=1)
     result2: Union[pd.DataFrame, pd.Series] = pd.concat({"a": pd.Series([1, 2, 3]), "b": pd.Series([4, 5, 6])}, axis=1)
+
+
+def test_types_json_normalize() -> None:
+    data: List[Dict[str, Any]] = [{'id': 1, 'name': {'first': 'Coleen', 'last': 'Volk'}},
+                                  {'name': {'given': 'Mose', 'family': 'Regner'}},
+                                  {'id': 2, 'name': 'Faye Raker'}]
+    df1: pd.DataFrame = pd.json_normalize(data=data)
+    df2: pd.DataFrame = pd.json_normalize(data=data, max_level=0, sep=";")
+    df3: pd.DataFrame = pd.json_normalize(data=data, meta_prefix="id", record_prefix="name", errors='raise')
+    df4: pd.DataFrame = pd.json_normalize(data=data, record_path=None, meta='id')
+
