@@ -155,7 +155,7 @@ def test_types_sort_values() -> None:
     res2: pd.Series = s.sort_values(ascending=False)
     res3: None = s.sort_values(inplace=True, kind='quicksort')
     res4: pd.Series = s.sort_values(na_position='last')
-    res5: pd.Series  = s.sort_values(ignore_index=True)
+    res5: pd.Series = s.sort_values(ignore_index=True)
 
 
 # This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
@@ -411,3 +411,10 @@ def test_types_getitem() -> None:
     key: List[int] = s['key']
     s2 = pd.Series([0, 1, 2, 3])
     value: int = s2[0]
+
+
+def test_types_eq() -> None:
+    s1 = pd.Series([1, 2, 3])
+    res1: pd.Series = s1 == 1
+    s2 = pd.Series([1, 2, 4])
+    res2: pd.Series = s1 == s2
