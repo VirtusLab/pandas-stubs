@@ -576,3 +576,10 @@ def test_types_rename() -> None:
     df.rename(columns={None: "b"})
     df.rename(columns={type("AnyObject")(): "b"})
     df.rename(columns={(2, 1): "b"})
+
+
+def test_types_eq() -> None:
+    df1 = pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B'])
+    res1: pd.DataFrame = df1 == 1
+    df2 = pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B'])
+    res2: pd.DataFrame = df1 == df2
