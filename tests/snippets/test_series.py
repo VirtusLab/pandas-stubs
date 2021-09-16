@@ -418,3 +418,7 @@ def test_types_eq() -> None:
     res1: pd.Series = s1 == 1
     s2 = pd.Series([1, 2, 4])
     res2: pd.Series = s1 == s2
+
+
+def test_types_rename_axis() -> None:
+    s: pd.Series = pd.Series([1, 2, 3]).rename_axis("A")
