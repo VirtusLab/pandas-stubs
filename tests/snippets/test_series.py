@@ -432,4 +432,9 @@ def test_types_values() -> None:
 
 
 def test_types_rename() -> None:
-    s = pd.Series([1, 2, 3]).rename("A")
+    # Scalar
+    s1 = pd.Series([1, 2, 3]).rename("A")
+    # Hashable Sequence
+    s2 = pd.Series([1, 2, 3]).rename(("A", "B"))
+    # Optional
+    s3 = pd.Series([1, 2, 3]).rename(None)
