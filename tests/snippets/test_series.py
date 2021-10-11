@@ -429,3 +429,9 @@ def test_types_values() -> None:
     n2: np.ndarray = pd.Series(list('aabc')).values
     n3: np.ndarray = pd.Series(list('aabc')).astype('category').values
     n4: np.ndarray = pd.Series(pd.date_range('20130101', periods=3, tz='US/Eastern')).values
+
+
+def test_types_ne() -> None:
+    s1 = pd.Series([1, 2, 3])
+    s2 = pd.Series([1, 2, 4])
+    s3: pd.Series = s1 != s2
