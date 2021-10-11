@@ -449,3 +449,9 @@ def test_types_rename() -> None:
     s5 = pd.Series([1, 2, 3]).rename({1: 10})
     # inplace
     s6: None = pd.Series([1, 2, 3]).rename("A", inplace=True)
+
+
+def test_types_ne() -> None:
+    s1 = pd.Series([1, 2, 3])
+    s2 = pd.Series([1, 2, 4])
+    s3: pd.Series = s1 != s2
