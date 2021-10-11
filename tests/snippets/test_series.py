@@ -431,6 +431,26 @@ def test_types_values() -> None:
     n4: np.ndarray = pd.Series(pd.date_range('20130101', periods=3, tz='US/Eastern')).values
 
 
+def test_types_rename() -> None:
+    # Scalar
+    s1 = pd.Series([1, 2, 3]).rename("A")
+    # Hashable Sequence
+    s2 = pd.Series([1, 2, 3]).rename(("A", "B"))
+    # Optional
+    s3 = pd.Series([1, 2, 3]).rename(None)
+
+    # Functions
+    def add1(x: int) -> int:
+        return x + 1
+
+    s4 = pd.Series([1, 2, 3]).rename(add1)
+
+    # Dictionary
+    s5 = pd.Series([1, 2, 3]).rename({1: 10})
+    # inplace
+    s6: None = pd.Series([1, 2, 3]).rename("A", inplace=True)
+
+
 def test_types_ne() -> None:
     s1 = pd.Series([1, 2, 3])
     s2 = pd.Series([1, 2, 4])
