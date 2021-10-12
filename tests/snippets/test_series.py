@@ -411,6 +411,7 @@ def test_types_getitem() -> None:
     key: List[int] = s['key']
     s2 = pd.Series([0, 1, 2, 3])
     value: int = s2[0]
+    s3: pd.Series = s[:2]
 
 
 def test_types_eq() -> None:
