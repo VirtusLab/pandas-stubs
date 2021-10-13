@@ -2,7 +2,10 @@ from __future__ import annotations
 
 import sys
 from typing import Any, Callable, Dict, Hashable, List, Mapping, Optional, Sequence, Tuple, TypeVar, Union, AnyStr, overload
+
+from pandas import datetime
 from pandas.core.resample import Resampler
+from pandas.core.window import ExponentialMovingWindow
 
 if sys.version_info >= (3, 8):
     from typing import Literal
@@ -168,3 +171,4 @@ class NDFrame(PandasObject, SelectionMixin, indexing.IndexingMixin):
     def first_valid_index(self) -> Any: ...
     def last_valid_index(self) -> Any: ...
     def set_flags(self, *, copy: bool_t = ..., allows_duplicate_labels: Optional[bool_t] = ...) -> FrameOrSeries: ...
+    def ewm(self, com: Optional[float] = ..., span: Optional[float] = ..., halflife: Optional[Union[float, str, datetime.timedelta]] = ..., alpha: Optional[float] = ..., min_periods:int = ..., adjust: bool_t = ..., ignore_na: bool_t = ..., axis: Literal[0, 1] = ..., times: Optional[Union[str, np.ndarray, FrameOrSeries]] = ...) -> ExponentialMovingWindow: ...
