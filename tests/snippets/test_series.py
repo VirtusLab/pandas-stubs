@@ -462,3 +462,9 @@ def test_types_bfill() -> None:
     s1 = pd.Series([1, 2, 3])
     s2: pd.Series = s1.bfill(inplace=False)
     s3: None = s1.bfill(inplace=True)
+
+
+def test_types_ffill() -> None:
+    s1 = pd.Series([1, 2, 3])
+    s2: pd.Series = s1.ffill(inplace=False)
+    s3: None = s1.ffill(inplace=True)
