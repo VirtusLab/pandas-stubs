@@ -1,4 +1,6 @@
 # Removed some imports that were necessary only for implementation
+import numpy as np
+
 from pandas.core import algorithms as algorithms
 from pandas.core.accessor import PandasDelegate as PandasDelegate
 from pandas.core.arrays import DatetimeArray as DatetimeArray, ExtensionArray as ExtensionArray, TimedeltaArray as TimedeltaArray
@@ -19,6 +21,7 @@ class DatetimeIndexOpsMixin(ExtensionIndex):
     freq: Optional[DateOffset]
     freqstr: Optional[str]
     hasnans: Any = ...
+    date: np.ndarray
     @property
     def is_all_dates(self) -> bool: ...
     @property

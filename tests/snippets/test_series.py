@@ -473,3 +473,9 @@ def test_types_ewm() -> None:
     w2: ExponentialMovingWindow = s1.ewm(alpha=0.4)
     w3: ExponentialMovingWindow = s1.ewm(span=1.6)
     w4: ExponentialMovingWindow = s1.ewm(halflife=0.7)
+
+
+def test_types_ffill() -> None:
+    s1 = pd.Series([1, 2, 3])
+    s2: pd.Series = s1.ffill(inplace=False)
+    s3: None = s1.ffill(inplace=True)
