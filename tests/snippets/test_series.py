@@ -102,6 +102,7 @@ def test_types_setting() -> None:
     s = pd.Series([0, 1, 2])
     s[3] = 4
     s[s == 1] = 5
+    s[:] = 3
 
 
 def test_types_drop() -> None:
