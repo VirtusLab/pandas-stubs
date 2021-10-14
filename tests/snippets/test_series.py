@@ -7,6 +7,8 @@ from typing import List
 import pandas as pd
 import numpy as np
 
+from pandas.core.window import ExponentialMovingWindow
+
 
 def test_types_init() -> None:
     pd.Series(1)
@@ -463,3 +465,11 @@ def test_types_bfill() -> None:
     s1 = pd.Series([1, 2, 3])
     s2: pd.Series = s1.bfill(inplace=False)
     s3: None = s1.bfill(inplace=True)
+
+
+def test_types_ewm() -> None:
+    s1 = pd.Series([1, 2, 3])
+    w1: ExponentialMovingWindow = s1.ewm(com=0.3, min_periods=0, adjust=False, ignore_na=True, axis=0)
+    w2: ExponentialMovingWindow = s1.ewm(alpha=0.4)
+    w3: ExponentialMovingWindow = s1.ewm(span=1.6)
+    w4: ExponentialMovingWindow = s1.ewm(halflife=0.7)

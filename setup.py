@@ -9,7 +9,7 @@ and add it to PYTHONPATH manually.
 from setuptools import setup
 import os
 
-version = "1.2.0.23"
+version = "1.2.0.25"
 
 
 # find_packages might not work with stub files
