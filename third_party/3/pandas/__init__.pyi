@@ -6,6 +6,7 @@ from pandas.core.reshape.api import concat as concat, crosstab as crosstab, cut 
 from pandas.io.api import ExcelFile as ExcelFile, ExcelWriter as ExcelWriter, HDFStore as HDFStore, read_clipboard as read_clipboard, read_csv as read_csv, read_excel as read_excel, read_feather as read_feather, read_fwf as read_fwf, read_gbq as read_gbq, read_hdf as read_hdf, read_html as read_html, read_json as read_json, json_normalize as json_normalize, read_orc as read_orc, read_parquet as read_parquet, read_pickle as read_pickle, read_sas as read_sas, read_spss as read_spss, read_sql as read_sql, read_sql_query as read_sql_query, read_sql_table as read_sql_table, read_stata as read_stata, read_table as read_table, to_pickle as to_pickle
 from pandas.tseries import offsets as offsets
 from pandas.tseries.api import infer_freq as infer_freq
+from pandas import testing as testing
 from pandas.util._print_versions import show_versions as show_versions
 from pandas.util._tester import test as test
 from typing import Any
