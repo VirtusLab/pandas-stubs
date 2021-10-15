@@ -75,7 +75,6 @@ Buffer = Union[IO[AnyStr], RawIOBase, BufferedIOBase, TextIOBase, TextIOWrapper,
 FileOrBuffer = Union[str, Buffer[T]]
 FilePathOrBuffer = Union["PathLike[str]", FileOrBuffer[T]]
 
-FrameOrSeriesUnion: Union[DataFrame, Series]
 FrameOrSeries = Union[DataFrame, Series]
 Axis = Union[str, int]
 Label = Optional[Hashable]
