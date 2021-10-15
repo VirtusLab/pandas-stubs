@@ -4,6 +4,8 @@ import tempfile
 from pathlib import Path
 from typing import List
 
+from pandas._typing import Scalar
+
 import pandas as pd
 import numpy as np
 
@@ -185,18 +187,18 @@ def test_types_rank() -> None:
 
 def test_types_mean() -> None:
     s = pd.Series([1, 2, 3, np.nan])
-    s.mean()
-    s.mean(axis=0, level=0)
-    s.mean(skipna=False)
-    s.mean(numeric_only=False)
+    f1: float = s.mean()
+    s1: pd.Series = s.mean(axis=0, level=0)
+    f2: float = s.mean(skipna=False)
+    f3: float = s.mean(numeric_only=False)
 
 
 def test_types_median() -> None:
     s = pd.Series([1, 2, 3, np.nan])
-    s.median()
-    s.median(axis=0, level=0)
-    s.median(skipna=False)
-    s.median(numeric_only=False)
+    f1: float = s.median()
+    s1: pd.Series = s.median(axis=0, level=0)
+    f2: float = s.median(skipna=False)
+    f3: float = s.median(numeric_only=False)
 
 
 def test_types_sum() -> None:
