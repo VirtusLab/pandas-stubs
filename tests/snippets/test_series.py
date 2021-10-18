@@ -4,8 +4,12 @@ import tempfile
 from pathlib import Path
 from typing import List
 
+from pandas._typing import Scalar
+
 import pandas as pd
 import numpy as np
+
+from pandas.core.window import ExponentialMovingWindow
 
 
 def test_types_init() -> None:
@@ -102,6 +106,7 @@ def test_types_setting() -> None:
     s = pd.Series([0, 1, 2])
     s[3] = 4
     s[s == 1] = 5
+    s[:] = 3
 
 
 def test_types_drop() -> None:
@@ -155,7 +160,7 @@ def test_types_sort_values() -> None:
     res2: pd.Series = s.sort_values(ascending=False)
     res3: None = s.sort_values(inplace=True, kind='quicksort')
     res4: pd.Series = s.sort_values(na_position='last')
-    res5: pd.Series  = s.sort_values(ignore_index=True)
+    res5: pd.Series = s.sort_values(ignore_index=True)
 
 
 # This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
@@ -182,18 +187,18 @@ def test_types_rank() -> None:
 
 def test_types_mean() -> None:
     s = pd.Series([1, 2, 3, np.nan])
-    s.mean()
-    s.mean(axis=0, level=0)
-    s.mean(skipna=False)
-    s.mean(numeric_only=False)
+    f1: float = s.mean()
+    s1: pd.Series = s.mean(axis=0, level=0)
+    f2: float = s.mean(skipna=False)
+    f3: float = s.mean(numeric_only=False)
 
 
 def test_types_median() -> None:
     s = pd.Series([1, 2, 3, np.nan])
-    s.median()
-    s.median(axis=0, level=0)
-    s.median(skipna=False)
-    s.median(numeric_only=False)
+    f1: float = s.median()
+    s1: pd.Series = s.median(axis=0, level=0)
+    f2: float = s.median(skipna=False)
+    f3: float = s.median(numeric_only=False)
 
 
 def test_types_sum() -> None:
@@ -411,3 +416,68 @@ def test_types_getitem() -> None:
     key: List[int] = s['key']
     s2 = pd.Series([0, 1, 2, 3])
     value: int = s2[0]
+    s3: pd.Series = s[:2]
+
+
+def test_types_eq() -> None:
+    s1 = pd.Series([1, 2, 3])
+    res1: pd.Series = s1 == 1
+    s2 = pd.Series([1, 2, 4])
+    res2: pd.Series = s1 == s2
+
+
+def test_types_rename_axis() -> None:
+    s: pd.Series = pd.Series([1, 2, 3]).rename_axis("A")
+
+
+def test_types_values() -> None:
+    n1: np.ndarray = pd.Series([1, 2, 3]).values
+    n2: np.ndarray = pd.Series(list('aabc')).values
+    n3: np.ndarray = pd.Series(list('aabc')).astype('category').values
+    n4: np.ndarray = pd.Series(pd.date_range('20130101', periods=3, tz='US/Eastern')).values
+
+
+def test_types_rename() -> None:
+    # Scalar
+    s1 = pd.Series([1, 2, 3]).rename("A")
+    # Hashable Sequence
+    s2 = pd.Series([1, 2, 3]).rename(("A", "B"))
+    # Optional
+    s3 = pd.Series([1, 2, 3]).rename(None)
+
+    # Functions
+    def add1(x: int) -> int:
+        return x + 1
+
+    s4 = pd.Series([1, 2, 3]).rename(add1)
+
+    # Dictionary
+    s5 = pd.Series([1, 2, 3]).rename({1: 10})
+    # inplace
+    s6: None = pd.Series([1, 2, 3]).rename("A", inplace=True)
+
+
+def test_types_ne() -> None:
+    s1 = pd.Series([1, 2, 3])
+    s2 = pd.Series([1, 2, 4])
+    s3: pd.Series = s1 != s2
+
+
+def test_types_bfill() -> None:
+    s1 = pd.Series([1, 2, 3])
+    s2: pd.Series = s1.bfill(inplace=False)
+    s3: None = s1.bfill(inplace=True)
+
+
+def test_types_ewm() -> None:
+    s1 = pd.Series([1, 2, 3])
+    w1: ExponentialMovingWindow = s1.ewm(com=0.3, min_periods=0, adjust=False, ignore_na=True, axis=0)
+    w2: ExponentialMovingWindow = s1.ewm(alpha=0.4)
+    w3: ExponentialMovingWindow = s1.ewm(span=1.6)
+    w4: ExponentialMovingWindow = s1.ewm(halflife=0.7)
+
+
+def test_types_ffill() -> None:
+    s1 = pd.Series([1, 2, 3])
+    s2: pd.Series = s1.ffill(inplace=False)
+    s3: None = s1.ffill(inplace=True)

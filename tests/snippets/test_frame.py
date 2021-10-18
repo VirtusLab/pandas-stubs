@@ -2,6 +2,7 @@
 import io
 import tempfile
 from pathlib import Path
+from typing import Dict
 
 import pandas as pd
 import numpy as np
@@ -229,14 +230,22 @@ def test_types_rank() -> None:
 
 def test_types_mean() -> None:
     df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
-    df.mean()
-    df.mean(axis=0)
+    s1: pd.Series = df.mean()
+    s2: pd.Series = df.mean(axis=0)
+    df2: pd.DataFrame = df.mean(level=0)
+    df3: pd.DataFrame = df.mean(axis=1, level=0)
+    df4: pd.DataFrame = df.mean(1, True, level=0)
+    s3: pd.Series = df.mean(axis=1, skipna=True, numeric_only=False)
 
 
 def test_types_median() -> None:
     df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
-    df.median()
-    df.median(axis=0)
+    s1: pd.Series = df.median()
+    s2: pd.Series = df.median(axis=0)
+    df2: pd.DataFrame = df.median(level=0)
+    df3: pd.DataFrame = df.median(axis=1, level=0)
+    df4: pd.DataFrame = df.median(1, True, level=0)
+    s3: pd.Series = df.median(axis=1, skipna=True, numeric_only=False)
 
 
 def test_types_sum() -> None:
@@ -570,3 +579,21 @@ def test_types_explode() -> None:
     pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B']).explode('A', ignore_index=False)
     pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B']).explode('A', ignore_index=True)
 
+    
+def test_types_rename() -> None:
+    df = pd.DataFrame(columns=["a"])
+    col_map = {"a": "b"}
+    df.rename(columns=col_map)
+    df.rename(columns={"a": "b"})
+    df.rename(columns={1: "b"})
+    # Apparently all of these calls are accepted by pandas
+    df.rename(columns={None: "b"})
+    df.rename(columns={type("AnyObject")(): "b"})
+    df.rename(columns={(2, 1): "b"})
+
+
+def test_types_eq() -> None:
+    df1 = pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B'])
+    res1: pd.DataFrame = df1 == 1
+    df2 = pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B'])
+    res2: pd.DataFrame = df1 == df2

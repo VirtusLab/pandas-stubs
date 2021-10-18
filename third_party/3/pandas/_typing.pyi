@@ -47,6 +47,8 @@ Scalar = Union[PythonScalar, NumpyScalar, Decimal, ByteString, Fraction, DateOff
 TimestampConvertible = Union[DatetimeLikeScalar, datetime.date, str, int, float]
 
 Orientation = Literal['index', 'columns']
+AxisOptionHorizontal = Literal[0, 'index']
+AxisOptionVertical = Literal[1, 'columns']
 AxisOption = Union[Literal[0, 1], Orientation]
 OneDimensionalAxisOption = Literal[0, 'index']
 ReplaceMethod = Literal['linear', 'time', 'index', 'values', 'pad', 'nearest', 'zero', 'slinear', 'quadratic', 'cubic', 'spline',
@@ -73,7 +75,6 @@ Buffer = Union[IO[AnyStr], RawIOBase, BufferedIOBase, TextIOBase, TextIOWrapper,
 FileOrBuffer = Union[str, Buffer[T]]
 FilePathOrBuffer = Union["PathLike[str]", FileOrBuffer[T]]
 
-FrameOrSeriesUnion: Union[DataFrame, Series]
 FrameOrSeries = Union[DataFrame, Series]
 Axis = Union[str, int]
 Label = Optional[Hashable]
@@ -81,7 +82,7 @@ Level = Union[Label, int]
 Ordered = Optional[bool]
 JSONSerializable = Union[PythonScalar, List, Dict]
 Axes = Collection
-Renamer = Union[Mapping[Label, Any], Callable[[Label], Label]]
+Renamer = Union[Mapping[Label, Any], Callable[[Label], Label], Dict[Any, Any]]
 
 FillValue = Union[Scalar, Dict[Any, Any], FrameOrSeries]
 
