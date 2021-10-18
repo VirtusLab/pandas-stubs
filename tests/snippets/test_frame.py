@@ -574,6 +574,13 @@ def test_types_to_latex() -> None:
     df.to_latex(caption=("cap1", "cap2"))
 
 
+def test_types_explode() -> None:
+    df = pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B'])
+    res1: pd.DataFrame = df.explode('A')
+    res2: pd.DataFrame = df.explode('A', ignore_index=False)
+    res3: pd.DataFrame = df.explode('A', ignore_index=True)
+
+
 def test_types_rename() -> None:
     df = pd.DataFrame(columns=["a"])
     col_map = {"a": "b"}
