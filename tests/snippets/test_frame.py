@@ -473,7 +473,6 @@ def test_types_to_feather() -> None:
     with tempfile.TemporaryFile() as f:
         df.to_feather(f)
 
-
 # compare() method added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
 def test_types_compare() -> None:
     df1 = pd.DataFrame(data={'col1': [1, 1, 2, 1], 'col2': [2, None, 1, 2], 'col3': [3, 4, 3, 2]})
@@ -544,9 +543,9 @@ def test_pipe() -> None:
 
     df2: pd.DataFrame = (
         pd.DataFrame({'price': [10, 11, 9, 13, 14, 18, 17, 19], 'volume': [50, 60, 40, 100, 50, 100, 40, 50]})
-            .assign(week_starting=pd.date_range('01/01/2018', periods=8, freq='W'))
-            .resample('M', on='week_starting')
-            .pipe(foo)
+        .assign(week_starting=pd.date_range('01/01/2018', periods=8, freq='W'))
+        .resample('M', on='week_starting')
+        .pipe(foo)
     )
 
     df3: pd.DataFrame = pd.DataFrame({'a': [1], 'b': [1]}).groupby('a').pipe(foo)
