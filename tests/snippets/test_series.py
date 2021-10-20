@@ -4,8 +4,6 @@ import tempfile
 from pathlib import Path
 from typing import List
 
-from pandas._typing import Scalar
-
 import pandas as pd
 import numpy as np
 
@@ -481,3 +479,8 @@ def test_types_ffill() -> None:
     s1 = pd.Series([1, 2, 3])
     s2: pd.Series = s1.ffill(inplace=False)
     s3: None = s1.ffill(inplace=True)
+
+
+def test_types_as_type() -> None:
+    s1 = pd.Series([1, 2, 8, 9])
+    s2: pd.Series = s1.astype('int32')

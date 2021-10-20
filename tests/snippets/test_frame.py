@@ -461,13 +461,14 @@ def test_types_to_feather() -> None:
     df.to_feather("dummy_path")
     # kwargs for pyarrow.feather.write_feather added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
     df.to_feather("dummy_path", compression="zstd", compression_level=3, chunksize=2)
-    
+
     # to_feather has been able to accept a buffer since pandas 1.0.0
     # See https://pandas.pydata.org/docs/whatsnew/v1.0.0.html
     # Docstring and type were updated in 1.2.0.
     # https://github.com/pandas-dev/pandas/pull/35408
     with tempfile.TemporaryFile() as f:
         df.to_feather(f)
+
 
 # compare() method added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
 def test_types_compare() -> None:
@@ -539,9 +540,9 @@ def test_pipe() -> None:
 
     df2: pd.DataFrame = (
         pd.DataFrame({'price': [10, 11, 9, 13, 14, 18, 17, 19], 'volume': [50, 60, 40, 100, 50, 100, 40, 50]})
-        .assign(week_starting=pd.date_range('01/01/2018', periods=8, freq='W'))
-        .resample('M', on='week_starting')
-        .pipe(foo)
+            .assign(week_starting=pd.date_range('01/01/2018', periods=8, freq='W'))
+            .resample('M', on='week_starting')
+            .pipe(foo)
     )
 
     df3: pd.DataFrame = pd.DataFrame({'a': [1], 'b': [1]}).groupby('a').pipe(foo)
@@ -598,3 +599,8 @@ def test_types_eq() -> None:
     res1: pd.DataFrame = df1 == 1
     df2 = pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B'])
     res2: pd.DataFrame = df1 == df2
+
+
+def test_types_as_type() -> None:
+    df1 = pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B'])
+    df2: pd.DataFrame = df1.astype({'A': 'int32'})
