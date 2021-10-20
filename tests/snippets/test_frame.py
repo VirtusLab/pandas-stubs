@@ -2,7 +2,7 @@
 import io
 import tempfile
 from pathlib import Path
-from typing import Dict
+from typing import Dict, List
 
 import pandas as pd
 import numpy as np
@@ -415,6 +415,10 @@ def test_types_merge() -> None:
     df.merge(df2)
     df.merge(df2, on='col1')
     df.merge(df2, on='col1', how='left')
+    df.merge(df2, on=['col1', 'col2'], how='left')
+    df.merge(df2, on=('col1', 'col2'), how='left')
+    l: List[str] = ['col1', 'col2']
+    df.merge(df2, on=l)
 
 
 def test_types_plot() -> None:
