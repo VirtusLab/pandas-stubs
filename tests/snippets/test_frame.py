@@ -2,7 +2,7 @@
 import io
 import tempfile
 from pathlib import Path
-from typing import Dict
+from typing import Dict, List
 
 import pandas as pd
 import numpy as np
@@ -415,6 +415,10 @@ def test_types_merge() -> None:
     df.merge(df2)
     df.merge(df2, on='col1')
     df.merge(df2, on='col1', how='left')
+    df.merge(df2, on=['col1', 'col2'], how='left')
+    df.merge(df2, on=('col1', 'col2'), how='left')
+    l: List[str] = ['col1', 'col2']
+    df.merge(df2, on=l)
 
 
 def test_types_plot() -> None:
@@ -461,7 +465,7 @@ def test_types_to_feather() -> None:
     df.to_feather("dummy_path")
     # kwargs for pyarrow.feather.write_feather added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
     df.to_feather("dummy_path", compression="zstd", compression_level=3, chunksize=2)
-    
+
     # to_feather has been able to accept a buffer since pandas 1.0.0
     # See https://pandas.pydata.org/docs/whatsnew/v1.0.0.html
     # Docstring and type were updated in 1.2.0.
@@ -598,3 +602,8 @@ def test_types_eq() -> None:
     res1: pd.DataFrame = df1 == 1
     df2 = pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B'])
     res2: pd.DataFrame = df1 == df2
+
+
+def test_types_as_type() -> None:
+    df1 = pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B'])
+    df2: pd.DataFrame = df1.astype({'A': 'int32'})
