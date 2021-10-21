@@ -3,7 +3,7 @@ from pandas._testing import assert_series_equal
 import pandas as pd
 
 
-def test_types_assert_frame_equal() -> None:
+def test_types_assert_series_equal() -> None:
     s1 = pd.Series([0, 1, 1, 0])
     s2 = pd.Series([0, 1, 1, 0])
     assert_series_equal(left=s1, right=s2)
