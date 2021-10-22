@@ -38,3 +38,5 @@ def test_types_pydatetime() -> None:
     ts: pd.Timestamp = pd.Timestamp('2021-03-01T12')
 
     datet: dt.datetime = ts.to_pydatetime()
+    datet2: dt.datetime = ts.to_pydatetime(False)
+    datet3: dt.datetime = ts.to_pydatetime(warn=True)
