@@ -32,3 +32,9 @@ def test_types_comparison() -> None:
 
     tsr: bool = ts < ts2
     tsr2: bool = ts > ts2
+
+
+def test_types_pydatetime() -> None:
+    ts: pd.Timestamp = pd.Timestamp('2021-03-01T12')
+
+    datet: dt.datetime = ts.to_pydatetime()
