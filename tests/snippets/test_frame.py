@@ -2,7 +2,7 @@
 import io
 import tempfile
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 import pandas as pd
 import numpy as np
@@ -167,9 +167,14 @@ def test_types_fillna() -> None:
 
 def test_types_sort_index() -> None:
     df = pd.DataFrame(data={'col1': [1, 2, 3, 4]}, index=[5, 1, 3, 2])
+    df2 = pd.DataFrame(data={'col1': [1, 2, 3, 4]}, index=["a", "b", "c", "d"])
     res: pd.DataFrame = df.sort_index()
-    res2: pd.DataFrame = df.sort_index(ascending=False)
-    res3: None = df.sort_index(kind="mergesort", inplace=True)
+    level1 = (1, 2)
+    res2: pd.DataFrame = df.sort_index(ascending=False, level=level1)
+    level2: List[str] = ["a", "b", "c"]
+    res3: pd.DataFrame = df2.sort_index(level=level2)
+    res4: pd.DataFrame = df.sort_index(ascending=False, level=3)
+    res5: None = df.sort_index(kind="mergesort", inplace=True)
 
 
 # This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
