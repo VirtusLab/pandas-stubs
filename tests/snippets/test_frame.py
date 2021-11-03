@@ -405,6 +405,13 @@ def test_types_groupby() -> None:
     df.groupby(by='col1', sort=False, as_index=True)
     df.groupby(by=['col1', 'col2'])
 
+    df1: pd.DataFrame = df.groupby(by='col1').agg('sum')
+    df2: pd.DataFrame = df.groupby(level="ind").aggregate('sum')
+    df3: pd.DataFrame = df.groupby(by='col1', sort=False, as_index=True).transform(lambda x: x.max())
+    df4: pd.DataFrame = df.groupby(by=['col1', 'col2']).count()
+    df5: pd.DataFrame = df.groupby(by=['col1', 'col2']).filter(lambda x: x['col1'] > 0)
+    df6: pd.DataFrame = df.groupby(by=['col1', 'col2']).nunique()
+
 
 # This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
 def test_types_group_by_with_dropna_keyword() -> None:
