@@ -26,11 +26,11 @@ def test_types_csv() -> None:
 
     with tempfile.NamedTemporaryFile() as file:
         s.to_csv(file.name)
-        s2: pd.Series = pd.read_csv(file.name)
+        s2: pd.DataFrame = pd.read_csv(file.name)
 
     with tempfile.NamedTemporaryFile() as file:
         s.to_csv(Path(file.name))
-        s3: pd.Series = pd.read_csv(Path(file.name))
+        s3: pd.DataFrame = pd.read_csv(Path(file.name))
 
     # This keyword was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
     with tempfile.NamedTemporaryFile() as file:
