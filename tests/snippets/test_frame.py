@@ -2,7 +2,7 @@
 import io
 import tempfile
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Iterable, Any
 
 import pandas as pd
 import numpy as np
@@ -251,6 +251,13 @@ def test_types_median() -> None:
     df3: pd.DataFrame = df.median(axis=1, level=0)
     df4: pd.DataFrame = df.median(1, True, level=0)
     s3: pd.Series = df.median(axis=1, skipna=True, numeric_only=False)
+
+
+def test_types_itertuples() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+    res1: Iterable[Tuple[Any, ...]] = df.itertuples()
+    res2: Iterable[Tuple[Any, ...]] = df.itertuples(index=False, name="Foobar")
+    res3: Iterable[Tuple[Any, ...]] = df.itertuples(index=False, name=None)
 
 
 def test_types_sum() -> None:
