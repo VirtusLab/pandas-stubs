@@ -153,6 +153,8 @@ def test_types_drop() -> None:
     res4: pd.DataFrame = df.drop(set([0]))
     res5: pd.DataFrame = df.drop(index=set([0]))
     res6: pd.DataFrame = df.drop(columns=set(['col1']))
+    res7: pd.DataFrame = df.drop(index=1)
+    res8: pd.DataFrame = df.drop(labels=0)
 
 
 def test_types_dropna() -> None:
