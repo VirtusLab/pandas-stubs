@@ -149,12 +149,13 @@ def test_types_drop() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
     res: pd.DataFrame = df.drop('col1', axis=1)
     res2: pd.DataFrame = df.drop(columns=['col1'])
-    res3: None = df.drop([0, 0], inplace=True)
-    res4: pd.DataFrame = df.drop(set([0]))
-    res5: pd.DataFrame = df.drop(index=set([0]))
-    res6: pd.DataFrame = df.drop(columns=set(['col1']))
-    res7: pd.DataFrame = df.drop(index=1)
-    res8: pd.DataFrame = df.drop(labels=0)
+    res3: pd.DataFrame = df.drop(set([0]))
+    res4: pd.DataFrame = df.drop(index=set([0]))
+    res5: pd.DataFrame = df.drop(columns=set(['col1']))
+    res6: pd.DataFrame = df.drop(index=1)
+    res7: pd.DataFrame = df.drop(labels=0)
+    res8: None = df.drop([0, 0], inplace=True)
+
 
 
 def test_types_dropna() -> None:
