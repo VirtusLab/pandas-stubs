@@ -44,6 +44,7 @@ jobs:
                 command: |
                   git config --global user.email "pandas_stubs-cicd@virtuslab.com"
                   git config --global user.name "pandas_stubs-cicd"
+                  bumpversion release --commit --tag
                   git push origin master
                   git push origin --tags
             - deploy:
