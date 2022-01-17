@@ -632,3 +632,16 @@ def test_types_eq() -> None:
 def test_types_as_type() -> None:
     df1 = pd.DataFrame([[1, 2], [8, 9]], columns=['A', 'B'])
     df2: pd.DataFrame = df1.astype({'A': 'int32'})
+
+
+def test_types_dot() -> None:
+    df1 = pd.DataFrame([[0, 1, -2, -1], [1, 1, 1, 1]])
+    df2 = pd.DataFrame([[0, 1], [1, 2], [-1, -1], [2, 0]])
+    s1 = pd.Series([1, 1, 2, 1])
+    np_array = np.array([[0, 1], [1, 2], [-1, -1], [2, 0]])
+    df3: pd.DataFrame = df1 @ df2
+    df4: pd.DataFrame = df1.dot(df2)
+    df5: pd.DataFrame = df1 @ np_array
+    df6: pd.DataFrame = df1.dot(np_array)
+    df7: pd.Series = df1 @ s1
+    df8: pd.Series = df1.dot(s1)
