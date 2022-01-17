@@ -1,8 +1,8 @@
+import datetime
 import sys
 from typing import Any, Union, Tuple
 
 import numpy as np
-from pandas._typing import Scalar
 
 if sys.version_info >= (3, 8):
     from typing import Literal
@@ -10,8 +10,8 @@ else:
     from typing_extensions import Literal
 
 ClosedOption = Literal['left', 'right', 'both', 'neither']
-# This should be "orderable". Couldn't easily achieve that
-IntervalBound = Scalar
+# According to docs "ValueError: Only numeric, Timestamp and Timedelta endpoints are allowed when constructing an Interval."
+IntervalBound = Union[int, float, np.integer, np.complex_, datetime.datetime, datetime.timedelta]
 
 class IntervalMixin:
     @property
@@ -33,9 +33,9 @@ class Interval:
     @property
     def closed(self) -> str: ...
     @property
-    def left(self) -> object: ...
+    def left(self) -> IntervalBound: ...
     @property
-    def right(self) -> object: ...
+    def right(self) -> IntervalBound: ...
     def __init__(self, left: IntervalBound, right: IntervalBound, closed: ClosedOption = ...) -> None: ...
     def __hash__(self) -> int: ...
     def __contains__(self, key: Any) -> bool: ...
