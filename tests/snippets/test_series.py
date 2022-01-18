@@ -22,6 +22,18 @@ def test_types_init() -> None:
     pd.Series(data=[1, 2, 3, 4], index=[4, 3, 2, 1], copy=True)
 
 
+def test_types_any() -> None:
+    res1: bool = pd.Series([False, False]).any()
+    res2: bool = pd.Series([False, False]).any(bool_only=False)
+    res3: bool = pd.Series([np.nan]).any(skipna=False)
+
+
+def test_types_all() -> None:
+    res1: bool = pd.Series([False, False]).all()
+    res2: bool = pd.Series([False, False]).all(bool_only=False)
+    res3: bool = pd.Series([np.nan]).all(skipna=False)
+
+
 def test_types_csv() -> None:
     s = pd.Series(data=[1, 2, 3])
     csv_df: str = s.to_csv()
