@@ -4,7 +4,7 @@ import collections
 import sys
 from io import StringIO
 from typing import Any, Callable, Hashable, IO, Optional, Iterable, Union, Mapping, Sequence, Type, TypeVar, Dict, Set, \
-    overload
+    overload, List
 
 if sys.version_info >= (3, 8):
     from typing import Literal
@@ -13,7 +13,7 @@ else:
 
 import numpy as np
 
-from pandas._typing import ArrayLike as ArrayLike, OneDimensionalAxisOption
+from pandas._typing import ArrayLike as ArrayLike, OneDimensionalAxisOption, AnyArrayLike
 from pandas._typing import Renamer, FrameOrSeries, Function, AxisOption, Frequency, Scalar, Dtype, \
     NoneNumpyCompatible, Level, \
     GroupByObject, GeneralDuplicatesKeepStrategy, Label, InterpolationMethod, CorrelationMethod, SearchSide, \
@@ -138,7 +138,10 @@ class Series(base.IndexOpsMixin, generic.NDFrame):
     def idxmin(self, axis: int = ..., skipna: bool = ..., *args: Any, **kwargs: Any) -> Label: ...
     def idxmax(self, axis: int = ..., skipna: bool = ..., *args: Any, **kwargs: Any) -> Label: ...
     def round(self, decimals: int = ..., *args: Any, **kwargs: Any) -> Series: ...
-    def quantile(self, q: Union[float, ArrayLike] = ..., interpolation: InterpolationMethod = ...) -> Union[float, Series]: ...
+    @overload
+    def quantile(self, q: Union[List[float], AnyArrayLike] = ..., interpolation: InterpolationMethod = ...) -> Series: ...
+    @overload
+    def quantile(self, q: float = ..., interpolation: InterpolationMethod = ...) -> float: ...
     def corr(self, other: Series, method: CorrelationMethod = ..., min_periods: Optional[int] = ...) -> float: ...
     def cov(self, other: Series, min_periods: Optional[int] = ..., ddof: Optional[int] = ...) -> float: ...
     def diff(self, periods: int = ...) -> Series: ...

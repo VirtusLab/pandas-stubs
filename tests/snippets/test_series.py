@@ -247,10 +247,14 @@ def test_types_max() -> None:
 
 def test_types_quantile() -> None:
     s = pd.Series([1, 2, 3, 10])
-    s.quantile([0.25, 0.5])
-    s.quantile(0.75)
-    s.quantile()
-    s.quantile(interpolation='nearest')
+    r1: pd.Series = s.quantile([0.25, 0.5])
+    r2: pd.Series = s.quantile(pd.Series([0.2, 0.5, 0.7]))
+    r3: pd.Series = s.quantile(pd.Index([0.1, 0.2, 0.3]))
+    r4: float = s.quantile(0.75)
+    r41: float = s.quantile(0)
+    r42: float = s.quantile(1)
+    r5: pd.Series = s.quantile()
+    r6: pd.Series = s.quantile(interpolation='nearest')
 
 
 def test_types_clip() -> None:
