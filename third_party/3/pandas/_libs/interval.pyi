@@ -29,7 +29,7 @@ class IntervalMixin:
     @property
     def is_empty(self) -> bool: ...
 
-class Interval:
+class Interval(IntervalMixin):
     @property
     def closed(self) -> str: ...
     @property
