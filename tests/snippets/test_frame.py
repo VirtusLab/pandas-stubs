@@ -78,15 +78,19 @@ def test_types_setitem() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4], 5: [6, 7]})
     i = pd.Index(['col1', 'col2'])
     s = pd.Series(['col1', 'col2'])
-    select_df = pd.DataFrame({'col1': [True, True], 'col2': [False, True]})
     a = np.array(['col1', 'col2'])
     df['col1'] = [1, 2]
     df[5] = [5, 6]
     df[['col1', 'col2']] = [[1, 2], [3, 4]]
     df[s] = [5, 6]
     df[a] = [[1, 2], [3, 4]]
-    df[select_df] = [1, 2, 3]
     df[i] = [8, 9]
+
+
+def test_types_setitem_mask() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4], 5: [6, 7]})
+    select_df = pd.DataFrame({'col1': [True, True], 'col2': [False, True]})
+    df[select_df] = [1, 2, 3]
 
 
 def test_types_iloc_iat() -> None:
@@ -106,6 +110,16 @@ def test_types_boolean_indexing() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
     df[df > 1]
     df[~(df > 1.0)]
+
+
+def test_types_df_to_df_comparison() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2]})
+    df2 = pd.DataFrame(data={'col1': [3, 2]})
+    res_gt: pd.DataFrame = df > df2
+    res_ge: pd.DataFrame = df >= df2
+    res_lt: pd.DataFrame = df < df2
+    res_le: pd.DataFrame = df <= df2
+    res_e: pd.DataFrame = df == df2
 
 
 def test_types_head_tail() -> None:
@@ -366,29 +380,59 @@ def test_types_element_wise_arithmetic() -> None:
     df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
     df2 = pd.DataFrame(data={'col1': [10, 20], 'col3': [3, 4]})
 
-    df + df2
-    df.add(df2, fill_value=0)
+    res_add1: pd.DataFrame = df + df2
+    res_add2: pd.DataFrame = df.add(df2, fill_value=0)
 
-    df - df2
-    df.sub(df2, fill_value=0)
+    res_sub: pd.DataFrame = df - df2
+    res_sub2: pd.DataFrame = df.sub(df2, fill_value=0)
 
-    df * df2
-    df.mul(df2, fill_value=0)
+    res_mul: pd.DataFrame = df * df2
+    res_mul2: pd.DataFrame = df.mul(df2, fill_value=0)
 
-    df / df2
-    df.div(df2, fill_value=0)
+    res_div: pd. DataFrame = df / df2
+    res_div2: pd. DataFrame = df.div(df2, fill_value=0)
 
-    df // df2
-    df.floordiv(df2, fill_value=0)
+    res_floordiv: pd.DataFrame = df // df2
+    res_floordiv2: pd.DataFrame = df.floordiv(df2, fill_value=0)
 
-    df % df2
-    df.mod(df2, fill_value=0)
+    res_mod: pd.DataFrame = df % df2
+    res_mod2: pd.DataFrame = df.mod(df2, fill_value=0)
+
+    res_pow: pd.DataFrame = df2 ** df
+    res_pow2: pd.DataFrame = df2.pow(df, fill_value=0)
 
     # divmod operation was added in 1.2.0 https://pandas.pydata.org/docs/whatsnew/v1.2.0.html
     # noinspection PyTypeChecker
-    divmod(df, df2)
-    df.__divmod__(df2)
-    df.__rdivmod__(df2)
+    res_divmod: Tuple[pd.DataFrame, pd.DataFrame] = divmod(df, df2)
+    res_divmod2: Tuple[pd.DataFrame, pd.DataFrame] = df.__divmod__(df2)
+    res_rdivmod: Tuple[pd.DataFrame, pd.DataFrame] = df.__rdivmod__(df2)
+
+
+def test_types_scalar_arithmetic() -> None:
+    df = pd.DataFrame(data={'col1': [2, 1], 'col2': [3, 4]})
+
+    res_add1: pd.DataFrame = df + 1
+    res_add2: pd.DataFrame = df.add(1, fill_value=0)
+
+    res_sub: pd.DataFrame = df - 1
+    res_sub2: pd.DataFrame = df.sub(1, fill_value=0)
+
+    res_mul: pd.DataFrame = df * 2
+    res_mul2: pd.DataFrame = df.mul(2, fill_value=0)
+
+    res_div: pd. DataFrame = df / 2
+    res_div2: pd. DataFrame = df.div(2, fill_value=0)
+
+    res_floordiv: pd.DataFrame = df // 2
+    res_floordiv2: pd.DataFrame = df.floordiv(2, fill_value=0)
+
+    res_mod: pd.DataFrame = df % 2
+    res_mod2: pd.DataFrame = df.mod(2, fill_value=0)
+
+    res_pow: pd.DataFrame = df ** 2
+    res_pow1: pd.DataFrame = df ** 0
+    res_pow2: pd.DataFrame = df ** 0.213
+    res_pow3: pd.DataFrame = df.pow(0.5)
 
 
 def test_types_melt() -> None:
