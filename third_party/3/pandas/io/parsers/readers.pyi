@@ -1,15 +1,24 @@
+import sys
 from collections import abc
 from pandas._typing import ArrayLike, FilePathOrBuffer as FilePathOrBuffer, Scalar
 from pandas.core.frame import DataFrame as DataFrame
-from typing import Any, Callable, Dict, List, Literal, Optional, AnyStr, overload, Sequence, Union
+from typing import Any, Callable, Dict, List, Optional, AnyStr, overload, Sequence, Union
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
+
 
 # not checking types in Callable params for read_csv, the documentation is too ambiguous
 AnyCallable = Callable[[Any], Any]
+CompressionFormat = Literal["infer", "gzip", "bz2", "zip", "xz"]
+BadLineOption = Literal["error", "warn", "skip"]
 
 @overload
 def read_csv(filepath_or_buffer: Any, sep: str = ..., delimiter: Optional[str] = ..., header: Optional[Union[int, List[int], str]] = ...,
-             names: Optional[ArrayLike] = ..., index_col: Optional[Union[int, str, Sequence[int], Sequence[str], bool]] = None,
-             usecols: Optional[Union[ArrayLike, AnyCallable]] = ..., squeeze: bool = ..., prefix: str = ..., mangle_dupe_cols: bool = ...,
+             names: Optional[Union[ArrayLike, Sequence[str]]] = ..., index_col: Optional[Union[int, str, Sequence[int], Sequence[str], bool]] = None,
+             usecols: Optional[Union[int, str, List[str], List[int], ArrayLike, AnyCallable]] = ..., squeeze: bool = ..., prefix: str = ..., mangle_dupe_cols: bool = ...,
              dtype: Any = ..., engine: Optional[Literal['c', 'python']] = ..., converters: Optional[Dict[Any, Any]] = ...,
              true_values: Optional[List[Any]] = ..., false_values: Optional[List[Any]] = ..., skipinitialspace: bool = ...,
              skiprows: Optional[Union[ArrayLike, int, AnyCallable]] = ..., skipfooter: int = ..., nrows: Optional[int] = ...,
@@ -17,12 +26,18 @@ def read_csv(filepath_or_buffer: Any, sep: str = ..., delimiter: Optional[str] =
              na_filter: bool = ..., verbose: bool = ..., skip_blank_lines: bool = ...,
              parse_dates: Union[bool, List[int], List[str], List[List[Any]], Dict[Any, Any]] = ..., infer_datetime_format: bool = ...,
              keep_date_col: bool = ..., date_parser: Optional[AnyCallable] = ..., dayfirst: bool = ..., cache_dates: bool = ...,
-             *, iterator: Literal[True], chunksize: Optional[int] = ..., **kwargs: Any) -> TextFileReader: ...
+             *, iterator: Literal[True], chunksize: Optional[int] = ..., compression: Optional[Union[str, CompressionFormat]] = ...,
+             thousands: Optional[str] = ..., decimal: Optional[str] = ..., lineterminator: Optional[str] = ..., quotechar: str = ...,
+             quoting: int = ..., doublequote: bool = ..., escapechar: Optional[str] = ..., comment: Optional[str] = ...,
+             encoding: Optional[str] = ..., dialect: Optional[str] = ..., error_bad_lines: bool = ..., warn_bad_lines: bool = ...,
+             on_bad_lines: BadLineOption = ..., delim_whitespace: bool = ..., low_memory: bool = ...,
+             memory_map: bool = ..., float_precision: Optional[str] = ..., storage_options: Optional[Dict[str, Any]] = ..., ) -> TextFileReader: ...
+
 
 @overload
 def read_csv(filepath_or_buffer: Any, sep: str = ..., delimiter: Optional[str] = ..., header: Optional[Union[int, List[int], str]] = ...,
-             names: Optional[ArrayLike] = ..., index_col: Optional[Union[int, str, Sequence[int], Sequence[str], bool]] = None,
-             usecols: Optional[Union[ArrayLike, AnyCallable]] = ..., squeeze: bool = ..., prefix: str = ..., mangle_dupe_cols: bool = ...,
+             names: Optional[Union[ArrayLike, Sequence[str]]] = ..., index_col: Optional[Union[int, str, Sequence[int], Sequence[str], bool]] = None,
+             usecols: Optional[Union[int, str, List[str], List[int], ArrayLike, AnyCallable]] = ..., squeeze: bool = ..., prefix: str = ..., mangle_dupe_cols: bool = ...,
              dtype: Any = ..., engine: Optional[Literal['c', 'python']] = ..., converters: Optional[Dict[Any, Any]] = ...,
              true_values: Optional[List[Any]] = ..., false_values: Optional[List[Any]] = ..., skipinitialspace: bool = ...,
              skiprows: Optional[Union[ArrayLike, int, AnyCallable]] = ..., skipfooter: int = ..., nrows: Optional[int] = ...,
@@ -30,12 +45,17 @@ def read_csv(filepath_or_buffer: Any, sep: str = ..., delimiter: Optional[str] =
              na_filter: bool = ..., verbose: bool = ..., skip_blank_lines: bool = ...,
              parse_dates: Union[bool, List[int], List[str], List[List[Any]], Dict[Any, Any]] = ..., infer_datetime_format: bool = ...,
              keep_date_col: bool = ..., date_parser: Optional[AnyCallable] = ..., dayfirst: bool = ..., cache_dates: bool = ...,
-             *, iterator: Literal[False] = ..., chunksize: int, **kwargs: Any) -> TextFileReader: ...
+             *, iterator: Literal[False] = ..., chunksize: int, compression: Optional[Union[str, CompressionFormat]] = ...,
+             thousands: Optional[str] = ..., decimal: Optional[str] = ..., lineterminator: Optional[str] = ..., quotechar: str = ...,
+             quoting: int = ..., doublequote: bool = ..., escapechar: Optional[str] = ..., comment: Optional[str] = ...,
+             encoding: Optional[str] = ..., dialect: Optional[str] = ..., error_bad_lines: bool = ..., warn_bad_lines: bool = ...,
+             on_bad_lines: BadLineOption = ..., delim_whitespace: bool = ..., low_memory: bool = ...,
+             memory_map: bool = ..., float_precision: Optional[str] = ..., storage_options: Optional[Dict[str, Any]] = ..., ) -> TextFileReader: ...
 
 @overload
 def read_csv(filepath_or_buffer: Any, sep: str = ..., delimiter: Optional[str] = ..., header: Optional[Union[int, List[int], str]] = ...,
-             names: Optional[ArrayLike] = ..., index_col: Optional[Union[int, str, Sequence[int], Sequence[str], bool]] = None,
-             usecols: Optional[Union[ArrayLike, AnyCallable]] = ..., squeeze: bool = ..., prefix: str = ..., mangle_dupe_cols: bool = ...,
+             names: Optional[Union[ArrayLike, Sequence[str]]] = ..., index_col: Optional[Union[int, str, Sequence[int], Sequence[str], bool]] = None,
+             usecols: Optional[Union[int, str, List[str], List[int]]] = ..., squeeze: bool = ..., prefix: str = ..., mangle_dupe_cols: bool = ...,
              dtype: Any = ..., engine: Optional[Literal['c', 'python']] = ..., converters: Optional[Dict[Any, Any]] = ...,
              true_values: Optional[List[Any]] = ..., false_values: Optional[List[Any]] = ..., skipinitialspace: bool = ...,
              skiprows: Optional[Union[ArrayLike, int, AnyCallable]] = ..., skipfooter: int = ..., nrows: Optional[int] = ...,
@@ -43,7 +63,13 @@ def read_csv(filepath_or_buffer: Any, sep: str = ..., delimiter: Optional[str] =
              na_filter: bool = ..., verbose: bool = ..., skip_blank_lines: bool = ...,
              parse_dates: Union[bool, List[int], List[str], List[List[Any]], Dict[Any, Any]] = ..., infer_datetime_format: bool = ...,
              keep_date_col: bool = ..., date_parser: Optional[AnyCallable] = ..., dayfirst: bool = ..., cache_dates: bool = ...,
-             *, iterator: Literal[False] = ..., chunksize: None = ..., **kwargs: Any) -> DataFrame: ...
+             *, iterator: Literal[False] = ..., chunksize: None = ..., compression: Optional[Union[str, CompressionFormat]] = ...,
+             thousands: Optional[str] = ..., decimal: Optional[str] = ..., lineterminator: Optional[str] = ..., quotechar: str = ...,
+             quoting: int = ..., doublequote: bool = ..., escapechar: Optional[str] = ..., comment: Optional[str] = ...,
+             encoding: Optional[str] = ..., dialect: Optional[str] = ..., error_bad_lines: bool = ..., warn_bad_lines: bool = ...,
+             on_bad_lines: BadLineOption = ..., delim_whitespace: bool = ..., low_memory: bool = ...,
+             memory_map: bool = ..., float_precision: Optional[str] = ..., storage_options: Optional[Dict[str, Any]] = ..., ) -> DataFrame: ...
+
 
 read_table: Any
 
