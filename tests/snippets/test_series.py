@@ -86,6 +86,15 @@ def test_types_boolean_indexing() -> None:
     s[s > 1]
     s[s]
 
+def test_types_df_to_df_comparison() -> None:
+    s = pd.Series(data={'col1': [1, 2]})
+    s2 = pd.Series(data={'col1': [3, 2]})
+    res_gt: pd.Series = s > s2
+    res_ge: pd.Series = s >= s2
+    res_lt: pd.Series = s < s2
+    res_le: pd.Series = s <= s2
+    res_e: pd.Series = s == s2
+
 
 def test_types_head_tail() -> None:
     s = pd.Series([0, 1, 2])
@@ -311,23 +320,53 @@ def test_types_element_wise_arithmetic() -> None:
     s = pd.Series([0, 1, -10])
     s2 = pd.Series([7, -5, 10])
 
-    s + s2
-    s.add(s2, fill_value=0)
+    res_add1: pd.Series = s + s2
+    res_add2: pd.Series = s.add(s2, fill_value=0)
 
-    s - s2
-    s.sub(s2, fill_value=0)
+    res_sub: pd.Series = s - s2
+    res_sub2: pd.Series = s.sub(s2, fill_value=0)
 
-    s * s2
-    s.mul(s2, fill_value=0)
+    res_mul: pd.Series = s * s2
+    res_mul2: pd.Series = s.mul(s2, fill_value=0)
 
-    s / s2
-    s.div(s2, fill_value=0)
+    res_div: pd. Series = s / s2
+    res_div2: pd. Series = s.div(s2, fill_value=0)
 
-    s // s2
-    s.floordiv(s2, fill_value=0)
+    res_floordiv: pd.Series = s // s2
+    res_floordiv2: pd.Series = s.floordiv(s2, fill_value=0)
 
-    s % s2
-    s.mod(s2, fill_value=0)
+    res_mod: pd.Series = s % s2
+    res_mod2: pd.Series = s.mod(s2, fill_value=0)
+
+    res_pow: pd.Series = s ** abs(s2)
+    res_pow2: pd.Series = s.pow(abs(s2), fill_value=0)
+
+
+def test_types_scalar_arithmetic() -> None:
+    s = pd.Series([0,1,-10])
+
+    res_add1: pd.Series = s + 1
+    res_add2: pd.Series = s.add(1, fill_value=0)
+
+    res_sub: pd.Series = s - 1
+    res_sub2: pd.Series = s.sub(1, fill_value=0)
+
+    res_mul: pd.Series = s * 2
+    res_mul2: pd.Series = s.mul(2, fill_value=0)
+
+    res_div: pd. Series = s / 2
+    res_div2: pd. Series = s.div(2, fill_value=0)
+
+    res_floordiv: pd.Series = s // 2
+    res_floordiv2: pd.Series = s.floordiv(2, fill_value=0)
+
+    res_mod: pd.Series = s % 2
+    res_mod2: pd.Series = s.mod(2, fill_value=0)
+
+    res_pow: pd.Series = s ** 2
+    res_pow1: pd.Series = s ** 0
+    res_pow2: pd.Series = s ** 0.213
+    res_pow3: pd.Series = s.pow(0.5)
 
 
 def test_types_groupby() -> None:
