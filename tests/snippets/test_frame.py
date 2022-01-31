@@ -15,6 +15,20 @@ def test_types_init() -> None:
     pd.DataFrame(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), columns=['a', 'b', 'c'], dtype=np.int8, copy=True)
 
 
+def test_types_append() -> None:
+    df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
+    df2 = pd.DataFrame({'col1': [10, 20], 'col2': [30, 40]})
+
+    res1: pd.DataFrame = df.append(df2)
+    res2: pd.DataFrame = df.append([1, 2, 3])
+    res3: pd.DataFrame = df.append([[1, 2, 3]])
+    res4: pd.DataFrame = df.append({('a', 1): [1, 2, 3], 'b': df2}, ignore_index=True)
+    res5: pd.DataFrame = df.append({1: [1, 2, 3]}, ignore_index=True)
+    res6: pd.DataFrame = df.append({1: [1, 2, 3], 'col2': [1, 2, 3]}, ignore_index=True)
+    res7: pd.DataFrame = df.append(pd.Series([5, 6]), ignore_index=True)
+    res8: pd.DataFrame = df.append(pd.Series([5, 6], index=['col1', 'col2']), ignore_index=True)
+
+
 def test_types_to_csv() -> None:
     df = pd.DataFrame(data={'col1': [1, 2], 'col2': [3, 4]})
     csv_df: str = df.to_csv()
