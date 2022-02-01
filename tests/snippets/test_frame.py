@@ -500,6 +500,9 @@ def test_types_merge() -> None:
     df.merge(df2, on='col1', how='left')
     df.merge(df2, on=['col1', 'col2'], how='left')
     df.merge(df2, on=('col1', 'col2'), how='left')
+    df.merge(df2, on=('col1', 'col2'), how='left', suffixes=(None, "s"))
+    df.merge(df2, on=('col1', 'col2'), how='left', suffixes=("t", "s"))
+    df.merge(df2, on=('col1', 'col2'), how='left', suffixes=("a", None))
     l: List[str] = ['col1', 'col2']
     df.merge(df2, on=l)
 
