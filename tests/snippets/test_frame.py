@@ -470,6 +470,7 @@ def test_types_pivot() -> None:
 
 def test_types_groupby() -> None:
     df = pd.DataFrame(data={'col1': [1, 1, 2], 'col2': [3, 4, 5], 'col3': [0, 1, 0]})
+    df_single_col = pd.DataFrame(data={"A": [1, 2, 3, 4]}, index=[0,1,0,1])
     df.index.name = "ind"
     df.groupby(by='col1')
     df.groupby(level="ind")
@@ -482,6 +483,7 @@ def test_types_groupby() -> None:
     df4: pd.DataFrame = df.groupby(by=['col1', 'col2']).count()
     df5: pd.DataFrame = df.groupby(by=['col1', 'col2']).filter(lambda x: x['col1'] > 0)
     df6: pd.DataFrame = df.groupby(by=['col1', 'col2']).nunique()
+    df7: pd.DataFrame = df_single_col.groupby(level=0).mean()
 
 
 # This was added in 1.1.0 https://pandas.pydata.org/docs/whatsnew/v1.1.0.html
