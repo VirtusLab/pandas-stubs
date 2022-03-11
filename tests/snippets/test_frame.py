@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Dict, List, Tuple, Iterable, Any, Mapping
 
 import pandas as pd
+from pandas._typing import Column
 import numpy as np
 
 
@@ -716,14 +717,14 @@ def test_to_df() -> None:
     df = pd.DataFrame([[0, 1]], columns=["A", "B"])
 
     # If just records, it should return a list
-    records: List[Mapping[Any, Any]] = df.to_dict(orient="records")
+    records: List[Mapping[Column, Any]] = df.to_dict(orient="records")
 
     # If a mapping is specified it should still return a list
-    records_into: List[Mapping[Any, Any]] = df.to_dict(orient="records", into=dict)
+    records_into: List[Mapping[Column, Any]] = df.to_dict(orient="records", into=dict)
 
     # Any other type should return a mapping
-    record_mapping_1: Mapping[Any, Any] = df.to_dict(orient="dict")
-    record_mapping_2: Mapping[Any, Any] = df.to_dict(orient="list")
-    record_mapping_3: Mapping[Any, Any] = df.to_dict(orient="series")
-    record_mapping_4: Mapping[Any, Any] = df.to_dict(orient="split")
-    record_mapping_5: Mapping[Any, Any] = df.to_dict(orient="index")
+    record_mapping_1: Mapping[Column, Any] = df.to_dict(orient="dict")
+    record_mapping_2: Mapping[Column, Any] = df.to_dict(orient="list")
+    record_mapping_3: Mapping[Column, Any] = df.to_dict(orient="series")
+    record_mapping_4: Mapping[Column, Any] = df.to_dict(orient="split")
+    record_mapping_5: Mapping[Column, Any] = df.to_dict(orient="index")
