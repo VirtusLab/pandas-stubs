@@ -2,11 +2,13 @@
 import io
 import tempfile
 from pathlib import Path
-from typing import Dict, List, Tuple, Iterable, Any, Mapping
+from typing import Dict, List, Tuple, Iterable, Any, Mapping, Union
 
 import pandas as pd
-from pandas._typing import Column
 import numpy as np
+
+
+Column = Union[str, int]  # Can't import non-native Pandas types, so redefine here
 
 
 def test_types_init() -> None:
