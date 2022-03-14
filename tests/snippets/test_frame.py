@@ -2,10 +2,13 @@
 import io
 import tempfile
 from pathlib import Path
-from typing import Dict, List, Tuple, Iterable, Any
+from typing import Dict, List, Tuple, Iterable, Any, Mapping, Union
 
 import pandas as pd
 import numpy as np
+
+
+Column = Union[str, int]  # Can't import non-native Pandas types, so redefine here
 
 
 def test_types_init() -> None:
@@ -708,3 +711,22 @@ def test_types_dot() -> None:
     df6: pd.DataFrame = df1.dot(np_array)
     df7: pd.Series = df1 @ s1
     df8: pd.Series = df1.dot(s1)
+
+
+def test_to_df() -> None:
+    # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_dict.html
+
+    df = pd.DataFrame([[0, 1]], columns=["A", "B"])
+
+    # If just records, it should return a list
+    records: List[Mapping[Column, Any]] = df.to_dict(orient="records")
+
+    # If a mapping is specified it should still return a list
+    records_into: List[Mapping[Column, Any]] = df.to_dict(orient="records", into=dict)
+
+    # Any other type should return a mapping
+    record_mapping_1: Mapping[Column, Any] = df.to_dict(orient="dict")
+    record_mapping_2: Mapping[Column, Any] = df.to_dict(orient="list")
+    record_mapping_3: Mapping[Column, Any] = df.to_dict(orient="series")
+    record_mapping_4: Mapping[Column, Any] = df.to_dict(orient="split")
+    record_mapping_5: Mapping[Column, Any] = df.to_dict(orient="index")
