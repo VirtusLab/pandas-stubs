@@ -4,7 +4,7 @@ import collections
 import sys
 from io import StringIO
 from typing import Any, Callable, Hashable, IO, Optional, Iterable, Union, Mapping, Sequence, Type, TypeVar, Dict, Set, \
-    overload
+    overload, DefaultDict
 
 if sys.version_info >= (3, 8):
     from typing import Literal
@@ -13,7 +13,7 @@ else:
 
 import numpy as np
 
-from pandas._typing import ArrayLike as ArrayLike, OneDimensionalAxisOption
+from pandas._typing import ArrayLike as ArrayLike, OneDimensionalAxisOption, Column
 from pandas._typing import Renamer, FrameOrSeries, Function, AxisOption, Frequency, Scalar, Dtype, \
     NoneNumpyCompatible, Level, \
     GroupByObject, GeneralDuplicatesKeepStrategy, Label, InterpolationMethod, CorrelationMethod, SearchSide, \
@@ -30,8 +30,9 @@ from pandas.core.indexes.base import Index
 SortValuesNaPosition = Literal['first', 'last']
 MapNaNAction = Literal['ignore']
 
-K = TypeVar('K')
-V = TypeVar('V')
+# Only requirement for index is that it's hashable
+ColumnMappingT = TypeVar("ColumnMappingT", bound=Mapping[Hashable, Any])
+
 
 CoercibleIntoSeries = Union[Scalar, Dict[str, Scalar], Iterable[Scalar], ArrayLike]
 
@@ -125,7 +126,14 @@ class Series(base.IndexOpsMixin, generic.NDFrame):
     def items(self) -> Iterable[Any]: ...
     def iteritems(self) -> Iterable[Any]: ...
     def keys(self) -> Index: ...
-    def to_dict(self, into: Type[Mapping[K,V]] = ...) -> Type[Mapping[K,V]]: ...
+    # Dict is the default type if not specified - haven't used default argument because Type didn't work with generic
+    @overload
+    def to_dict(self) -> Dict[Hashable, Any]: ...
+    @overload
+    def to_dict(self, into: Type[ColumnMappingT]) -> ColumnMappingT: ...
+    # collections.defaultdict is a special case - it's passed as initialized
+    @overload
+    def to_dict(self, into: DefaultDict[Hashable, Any]) -> DefaultDict[Hashable, Any]: ...
     def to_frame(self, name: Optional[Any] = ...) -> DataFrame: ...
     def groupby(self, by: Optional[GroupByObject] = ..., axis: AxisOption = ..., level: Optional[Union[Level, Iterable[Level]]] = ..., as_index: bool=..., sort: bool=..., group_keys: bool=..., squeeze: bool=..., observed: bool=..., dropna: bool=...) -> groupby_generic.SeriesGroupBy: ...
     def count(self, level: Optional[Level] = ...) -> Union[int, Series]: ...
