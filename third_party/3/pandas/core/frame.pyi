@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import collections
 import sys
 
 import numpy.ma as np
@@ -21,7 +22,7 @@ from pandas.io.formats import format as fmt
 from pandas.io.formats.format import formatters_type, VALID_JUSTIFY_PARAMETERS, FloatFormatType
 from pandas.io.formats.style import Styler
 from typing import Any, Hashable, IO, Iterable, List, Optional, Sequence, Tuple, Union, Dict, Mapping, Type, \
-    overload, Iterator, Callable, AnyStr
+    overload, Iterator, Callable, AnyStr, TypeVar, DefaultDict
 
 if sys.version_info >= (3, 8):
     from typing import Literal
@@ -51,6 +52,8 @@ TransformFunction = AggregationFunction
 
 IndexLabel = Union[Hashable, Sequence[Hashable]]
 Suffixes = Union[Tuple[str, str], Tuple[str, None], Tuple[None, str]]
+
+ColumnMappingT = TypeVar("ColumnMappingT", bound=Mapping[Column, Any])
 
 class DataFrame(NDFrame):
     plot: CachedAccessor = ...
@@ -128,10 +131,25 @@ class DataFrame(NDFrame):
     @classmethod
     def from_dict(cls: Any, data: Dict[Union[Label, Column], Union[Union[AnyArrayLike, Iterable[Any]], Dict[Union[Label, Column], Any]]], orient: Orientation = ..., dtype: Optional[Dtype] = ..., columns: Optional[Sequence[str]] = ...) -> DataFrame: ...
     def to_numpy(self, dtype: Union[str, np.dtype] = ..., copy: bool = ..., na_value: Optional[Any] = ...) -> np.ndarray: ...
+    # Dict is the default type if not specified - haven't used default argument because Type didn't work with generic
     @overload
-    def to_dict(self, orient: ExportOrientationList, into: Type[Mapping[Column, Any]] = ...) -> List[Mapping[Column, Any]]: ...
+    def to_dict(self, orient: ExportOrientationMapping = ...) -> Dict[Column, Any]: ...
     @overload
-    def to_dict(self, orient: ExportOrientationMapping = ..., into: Type[Mapping[Column, Any]] = ...) -> Mapping[Column, Any]: ...
+    def to_dict(self, orient: ExportOrientationList) -> List[Dict[Column, Any]]: ...
+    # General cases. 3 overload variants because of the overlap
+    @overload
+    def to_dict(self, into: Type[ColumnMappingT]) -> ColumnMappingT: ...
+    @overload
+    def to_dict(self, orient: ExportOrientationMapping, into: Type[ColumnMappingT]) -> ColumnMappingT: ...
+    @overload
+    def to_dict(self, orient: ExportOrientationList, into: Type[ColumnMappingT]) -> List[ColumnMappingT]: ...
+    # collections.defaultdict is a special case - it's passed as initialized. 3 overload variants because of the overlap
+    @overload
+    def to_dict(self, orient: ExportOrientationList, into: DefaultDict[Column, Any]) -> List[DefaultDict[Column, Any]]: ...
+    @overload
+    def to_dict(self, orient: ExportOrientationMapping, into: DefaultDict[Column, Any]) -> DefaultDict[Column, Any]: ...
+    @overload
+    def to_dict(self, into: DefaultDict[Column, Any]) -> DefaultDict[Column, Any]: ...
     def to_gbq(self, destination_table: str, project_id: Optional[str] = ..., chunksize: Optional[int] = ..., reauth: bool = ..., if_exists: IfExistStrategy = ..., auth_local_webserver: bool = ..., table_schema: Optional[List[Dict[str, Any]]] = ..., location: Optional[str] = ..., progress_bar: bool = ..., credentials: Optional[GoogleCredentials] = ...) -> None: ...
     @classmethod
     def from_records(cls: Any, data: Union[np.ndarray, List[Tuple[Any, ...]], Dict[Any, Any], DataFrame], index: Union[Sequence[str], ArrayLike] = ..., exclude: Sequence[Column] = ..., columns: Sequence[Column] = ..., coerce_float: bool = ..., nrows: Optional[int] = ...) -> DataFrame: ...

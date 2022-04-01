@@ -1,8 +1,8 @@
 # flake8: noqa: F841
-
+import collections
 import tempfile
 from pathlib import Path
-from typing import List
+from typing import List, Mapping, Any, Hashable, DefaultDict
 
 from pandas._typing import Scalar, ArrayLike
 
@@ -550,3 +550,16 @@ def test_types_dot() -> None:
     s4: pd.Series = s1 @ df1
     n2: np.ndarray = s1.dot(n1)
     n3: np.ndarray = s1 @ n1
+
+
+def test_to_dict() -> None:
+    s = pd.Series([[0, 1]])
+
+    # Complete default
+    no_params: Mapping[Hashable, Any] = s.to_dict()
+
+    # Other types
+    ordered_dict: collections.OrderedDict[Hashable, Any] = s.to_dict(into=collections.OrderedDict)
+
+    # collections.defaultdict is a special case
+    default_dict: DefaultDict[Hashable, Any] = s.to_dict(into=collections.defaultdict(list))
