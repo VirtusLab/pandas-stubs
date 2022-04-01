@@ -1,8 +1,9 @@
 # flake8: noqa: F841
+import collections
 import io
 import tempfile
 from pathlib import Path
-from typing import Dict, List, Tuple, Iterable, Any, Mapping, Union
+from typing import List, Tuple, Iterable, Any, Mapping, Union, DefaultDict, Sequence
 
 import pandas as pd
 import numpy as np
@@ -713,13 +714,16 @@ def test_types_dot() -> None:
     df8: pd.Series = df1.dot(s1)
 
 
-def test_to_df() -> None:
+def test_to_dict() -> None:
     # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_dict.html
 
     df = pd.DataFrame([[0, 1]], columns=["A", "B"])
 
-    # If just records, it should return a list
-    records: List[Mapping[Column, Any]] = df.to_dict(orient="records")
+    # Complete default
+    no_params: Mapping[Column, Any] = df.to_dict()
+
+    # If just records, it should return a list, sequence because of variance
+    records: Sequence[Mapping[Column, Any]] = df.to_dict(orient="records")
 
     # If a mapping is specified it should still return a list
     records_into: List[Mapping[Column, Any]] = df.to_dict(orient="records", into=dict)
@@ -730,3 +734,17 @@ def test_to_df() -> None:
     record_mapping_3: Mapping[Column, Any] = df.to_dict(orient="series")
     record_mapping_4: Mapping[Column, Any] = df.to_dict(orient="split")
     record_mapping_5: Mapping[Column, Any] = df.to_dict(orient="index")
+
+    # Other types
+    ordered_dict: collections.OrderedDict[Column, Any] = df.to_dict(orient="dict", into=collections.OrderedDict)
+    ordered_dict2: collections.OrderedDict[Column, Any] = df.to_dict(orient="list", into=collections.OrderedDict)
+    ordered_dict3: collections.OrderedDict[Column, Any] = df.to_dict(orient="series", into=collections.OrderedDict)
+    ordered_dict4: collections.OrderedDict[Column, Any] = df.to_dict(orient="split", into=collections.OrderedDict)
+    ordered_dict5: collections.OrderedDict[Column, Any] = df.to_dict(orient="index", into=collections.OrderedDict)
+
+    ordered_dict_records: List[collections.OrderedDict[Column, Any]] = df.to_dict(orient="records", into=collections.OrderedDict)
+
+    # collections.defaultdict is a special case
+
+    default_dict: DefaultDict[Column, Any] = df.to_dict(into=collections.defaultdict(list))
+    default_dict2: List[DefaultDict[Column, Any]] = df.to_dict(orient="records", into=collections.defaultdict(list))
