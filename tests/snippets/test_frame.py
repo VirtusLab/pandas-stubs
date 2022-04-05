@@ -748,3 +748,8 @@ def test_to_dict() -> None:
 
     default_dict: DefaultDict[Column, Any] = df.to_dict(into=collections.defaultdict(list))
     default_dict2: List[DefaultDict[Column, Any]] = df.to_dict(orient="records", into=collections.defaultdict(list))
+
+
+def test_index_assignment() -> None:
+    df = pd.DataFrame([0, 1], columns=['values'])
+    df.index = pd.Index(['a', 'b'])

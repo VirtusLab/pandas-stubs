@@ -563,3 +563,8 @@ def test_to_dict() -> None:
 
     # collections.defaultdict is a special case
     default_dict: DefaultDict[Hashable, Any] = s.to_dict(into=collections.defaultdict(list))
+
+
+def test_index_assignment() -> None:
+    s = pd.Series([[0, 1]])
+    s.index = pd.Index(['a'])
