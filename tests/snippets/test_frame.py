@@ -753,3 +753,18 @@ def test_to_dict() -> None:
 def test_index_assignment() -> None:
     df = pd.DataFrame([0, 1], columns=['values'])
     df.index = pd.Index(['a', 'b'])
+
+
+def test_select_dtypes() -> None:
+    df = pd.DataFrame([[1, "2", 3, True]], ["A"], ["a", "b", "c", "d"])
+
+    res: pd.DataFrame = df.select_dtypes(include=np.number)
+    res2: pd.DataFrame = df.select_dtypes(include="int")
+    res3: pd.DataFrame = df.select_dtypes(include="int32")
+    res4: pd.DataFrame = df.select_dtypes(include=bool)
+    res5: pd.DataFrame = df.select_dtypes(include="bool")
+
+    res_seq: pd.DataFrame = df.select_dtypes(include=[bool, "int"])
+    res_seq2: pd.DataFrame = df.select_dtypes(include=[bool, int])
+    res_seq3: pd.DataFrame = df.select_dtypes(include=["bool", "int"])
+
