@@ -108,6 +108,8 @@ def test_types_read_csv() -> None:
         df5: pd.DataFrame = pd.read_csv(file.name, engine='python', true_values=[0, 1, 3], na_filter=False)
         df6: pd.DataFrame = pd.read_csv(file.name, skiprows=lambda x: x in [0, 2], skip_blank_lines=True, dayfirst=False)
         df7: pd.DataFrame = pd.read_csv(file.name, nrows=2)
+        df8: pd.DataFrame = pd.read_csv(file.name, names=['col1', 'col2'])
+        df9: pd.DataFrame = pd.read_csv(file.name, names=('col1', 'col2'))
         tfr1: TextFileReader = pd.read_csv(file.name, nrows=2, iterator=True, chunksize=3)
         tfr2: TextFileReader = pd.read_csv(file.name, nrows=2, chunksize=1)
         tfr3: TextFileReader = pd.read_csv(file.name, nrows=2, iterator=False, chunksize=1)

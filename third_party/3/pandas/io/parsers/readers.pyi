@@ -6,9 +6,11 @@ from typing import Any, Callable, Dict, List, Literal, Optional, AnyStr, overloa
 # not checking types in Callable params for read_csv, the documentation is too ambiguous
 AnyCallable = Callable[[Any], Any]
 
+Names = Optional[Union[ArrayLike, Sequence[str]]]
+
 @overload
 def read_csv(filepath_or_buffer: Any, sep: str = ..., delimiter: Optional[str] = ..., header: Optional[Union[int, List[int], str]] = ...,
-             names: Optional[ArrayLike] = ..., index_col: Optional[Union[int, str, Sequence[int], Sequence[str], bool]] = None,
+             names: Names = ..., index_col: Optional[Union[int, str, Sequence[int], Sequence[str], bool]] = None,
              usecols: Optional[Union[ArrayLike, AnyCallable]] = ..., squeeze: bool = ..., prefix: str = ..., mangle_dupe_cols: bool = ...,
              dtype: Any = ..., engine: Optional[Literal['c', 'python']] = ..., converters: Optional[Dict[Any, Any]] = ...,
              true_values: Optional[List[Any]] = ..., false_values: Optional[List[Any]] = ..., skipinitialspace: bool = ...,
@@ -21,7 +23,7 @@ def read_csv(filepath_or_buffer: Any, sep: str = ..., delimiter: Optional[str] =
 
 @overload
 def read_csv(filepath_or_buffer: Any, sep: str = ..., delimiter: Optional[str] = ..., header: Optional[Union[int, List[int], str]] = ...,
-             names: Optional[ArrayLike] = ..., index_col: Optional[Union[int, str, Sequence[int], Sequence[str], bool]] = None,
+             names: Names = ..., index_col: Optional[Union[int, str, Sequence[int], Sequence[str], bool]] = None,
              usecols: Optional[Union[ArrayLike, AnyCallable]] = ..., squeeze: bool = ..., prefix: str = ..., mangle_dupe_cols: bool = ...,
              dtype: Any = ..., engine: Optional[Literal['c', 'python']] = ..., converters: Optional[Dict[Any, Any]] = ...,
              true_values: Optional[List[Any]] = ..., false_values: Optional[List[Any]] = ..., skipinitialspace: bool = ...,
@@ -34,7 +36,7 @@ def read_csv(filepath_or_buffer: Any, sep: str = ..., delimiter: Optional[str] =
 
 @overload
 def read_csv(filepath_or_buffer: Any, sep: str = ..., delimiter: Optional[str] = ..., header: Optional[Union[int, List[int], str]] = ...,
-             names: Optional[ArrayLike] = ..., index_col: Optional[Union[int, str, Sequence[int], Sequence[str], bool]] = None,
+             names: Names = ..., index_col: Optional[Union[int, str, Sequence[int], Sequence[str], bool]] = None,
              usecols: Optional[Union[ArrayLike, AnyCallable]] = ..., squeeze: bool = ..., prefix: str = ..., mangle_dupe_cols: bool = ...,
              dtype: Any = ..., engine: Optional[Literal['c', 'python']] = ..., converters: Optional[Dict[Any, Any]] = ...,
              true_values: Optional[List[Any]] = ..., false_values: Optional[List[Any]] = ..., skipinitialspace: bool = ...,
