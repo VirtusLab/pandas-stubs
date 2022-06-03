@@ -14,7 +14,7 @@ Collection of pandas [stub files](https://www.python.org/dev/peps/pep-0484/#stub
 
 # Announcement - pandas_stubs is moving! 
 
-**In the following months `pandas_stubs` package will no longer be sourced from here
+**Starting from July 2022 `pandas_stubs` package will no longer be sourced from here
 but instead from a repository owner by the core pandas team:**
 https://github.com/pandas-dev/pandas-stubs
 
