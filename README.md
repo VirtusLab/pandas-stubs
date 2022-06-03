@@ -11,6 +11,26 @@ Collection of pandas [stub files](https://www.python.org/dev/peps/pep-0484/#stub
 |CI|PyPi version | PyPI Downloads | Conda Downloads | Python support | License
 |--|--|--|--|--|--|
 | [![VirtusLab](https://circleci.com/gh/VirtusLab/pandas-stubs.svg?style=svg)]() | [![PyPI package](https://img.shields.io/pypi/v/pandas-stubs.svg)](https://pypi.org/project/pandas-stubs) | [![PyPI download month](https://img.shields.io/pypi/dm/pandas-stubs.svg)](https://pypi.python.org/pypi/pandas-stubs/) | [![PyPI download month](https://anaconda.org/conda-forge/pandas-stubs/badges/downloads.svg)](https://anaconda.org/conda-forge/pandas-stubs)  | [![PyPI pyversions](https://img.shields.io/pypi/pyversions/pandas-stubs.svg)](https://pypi.python.org/pypi/pandas-stubs/)|[![GitHub license](https://img.shields.io/github/license/VirtusLab/pandas-stubs.svg)](https://github.com/VirtusLab/pandas-stubs/blob/master/LICENSE)
+
+# Announcement - pandas_stubs is moving! 
+
+**In the following months `pandas_stubs` package will no longer be sourced from here
+but instead from a repository owner by the core pandas team:**
+https://github.com/pandas-dev/pandas-stubs
+
+This is result of an strategic effort lead by the core pandas team to integrate [Microsoft type stub repository](https://github.com/microsoft/python-type-stubs)
+together with the [current pandas_stubs repository](https://github.com/VirtusLab/pandas-stubs).
+
+All future development will take place in the new repository and both the PyPI and CondaForge distributions will be sourced from there.
+
+If you're having any problems with the current package please try switching over, and report any issues on the new Github page. Direct pip install and conda are still unsupported but try the following command:
+```
+pip install git+https://github.com/pandas-dev/pandas-stubs
+```
+or just clone the repository manually and specify it in `mypy.ini`.
+
+Related issue: [172](https://github.com/VirtusLab/pandas-stubs/issues/172)
+
 ## Motivation
 Provide rudimentary coverage of pandas code by static type checking, to alleviate problems mentioned in the following issues [14468](https://github.com/pandas-dev/pandas/issues/14468), [26766](https://github.com/pandas-dev/pandas/issues/26766). This approach was taken to achieve accelerated development - compared to refactoring existing Pandas codebase creating stub files is relatively uninhibited. 
 
