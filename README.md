@@ -15,10 +15,10 @@ Collection of pandas [stub files](https://www.python.org/dev/peps/pep-0484/#stub
 # Announcement - pandas_stubs is moving! 
 
 **Starting from July 2022 `pandas_stubs` package will no longer be sourced from here
-but instead from a repository owner by the core pandas team:**
+but instead from a repository owned and maintained by the core pandas team:**
 https://github.com/pandas-dev/pandas-stubs
 
-This is result of an strategic effort lead by the core pandas team to integrate [Microsoft type stub repository](https://github.com/microsoft/python-type-stubs)
+This is result of a strategic effort lead by the core pandas team to integrate [Microsoft type stub repository](https://github.com/microsoft/python-type-stubs)
 together with the [current pandas_stubs repository](https://github.com/VirtusLab/pandas-stubs).
 
 All future development will take place in the new repository and both the PyPI and CondaForge distributions will be sourced from there.
