@@ -8,13 +8,9 @@
 
 Collection of pandas [stub files](https://www.python.org/dev/peps/pep-0484/#stub-files>) initially generated using [stubgen](https://github.com/python/mypy/blob/master/mypy/stubgen.py), fixed when necessary and then partially completed.
 
-|CI|PyPi version | PyPI Downloads | Conda Downloads | Python support | License
-|--|--|--|--|--|--|
-| [![VirtusLab](https://circleci.com/gh/VirtusLab/pandas-stubs.svg?style=svg)]() | [![PyPI package](https://img.shields.io/pypi/v/pandas-stubs.svg)](https://pypi.org/project/pandas-stubs) | [![PyPI download month](https://img.shields.io/pypi/dm/pandas-stubs.svg)](https://pypi.python.org/pypi/pandas-stubs/) | [![PyPI download month](https://anaconda.org/conda-forge/pandas-stubs/badges/downloads.svg)](https://anaconda.org/conda-forge/pandas-stubs)  | [![PyPI pyversions](https://img.shields.io/pypi/pyversions/pandas-stubs.svg)](https://pypi.python.org/pypi/pandas-stubs/)|[![GitHub license](https://img.shields.io/github/license/VirtusLab/pandas-stubs.svg)](https://github.com/VirtusLab/pandas-stubs/blob/master/LICENSE)
+# Announcement - pandas_stubs moved! This repository is now deprecated!
 
-# Announcement - pandas_stubs is moving! 
-
-**Starting from July 2022 `pandas_stubs` package will no longer be sourced from here
+**As of July 2022 `pandas_stubs` package is no longer sourced from here
 but instead from a repository owned and maintained by the core pandas team:**
 https://github.com/pandas-dev/pandas-stubs
 
@@ -23,11 +19,7 @@ together with the [current pandas_stubs repository](https://github.com/VirtusLab
 
 All future development will take place in the new repository and both the PyPI and CondaForge distributions will be sourced from there.
 
-If you're having any problems with the current package please try switching over, and report any issues on the new Github page. Direct pip install and conda are still unsupported but try the following command:
-```
-pip install git+https://github.com/pandas-dev/pandas-stubs
-```
-or just clone the repository manually and specify it in `mypy.ini`.
+If you're having any problems with the current package please try switching over, and report any issues on the new Github page. It's available both on PyPI and conda-forge.
 
 Related issue: [172](https://github.com/VirtusLab/pandas-stubs/issues/172)
 
@@ -38,15 +30,17 @@ Due to extensive pandas API, quality of the proposed annotations is, for the mos
 
 ## Installation
 
+**This works only for legacy versions. Any version higher than shown here will install a version from the new repository.**
+
 The easiest way is using PyPI. This will add `.pyi` files to `pandas` package location, which will be removed when uninstalling:
 ```
-pip install pandas-stubs
+pip install pandas-stubs==1.2.0.62
 ```
 
 Another way to install is using Conda:
 
 ```
-conda install -c conda-forge pandas-stubs 
+conda install -c conda-forge pandas-stubs=1.2.0.62
 ```
 
 Alternatively, if you want a cleaner `PYTHONPATH` or wish to modify the annotations, manual options are:
@@ -151,6 +145,6 @@ pytests tests/snippets
 ```
 
 # Disclaimer
-This project provides additional functionality for [pandas](https://pandas.pydata.org/docs/index.html) library. Pandas is available under it's own [license](https://github.com/pandas-dev/pandas/blob/master/LICENSE).
+This project provides additional functionality for [pandas](https://pandas.pydata.org/docs/index.html) library. Pandas is available under its own [license](https://github.com/pandas-dev/pandas/blob/master/LICENSE).
 
 This project is not owned, endorsed, or sponsored by any of AQR Capital Management, NumFOCUS, LLC, Lambda Foundry, Inc. and PyData Development Team.
